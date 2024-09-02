@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import {Logo} from '../../components'
 
 function Header() {
+  const [navItems,setNavItems]=useState([]);
+
+  useEffect(()=>{},[]);
+  
   return (
-    <div>Header</div>
+    <div className='w-full flex flex-row justify-between items-center'>
+      <Logo/>
+
+    </div>
   )
 }
 
