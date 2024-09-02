@@ -1,6 +1,6 @@
-import Cart from "./cart.models";
-import Order from "./order.models";
-import Product from "./product.models";
-import User from "./user.models";
+import Cart from "./cart.models.js";
+import Order from "./order.models.js";
+import Product from "./product.models.js";
+import User from "./user.models.js";
 
 export { Cart, Order, Product, User };

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import config from "../config/config";
 
 // Create userSchema
 const userSchema = new mongoose.Schema(
@@ -29,7 +30,7 @@ const userSchema = new mongoose.Schema(
       required: false,
     },
   },
-  { timestamps:true, validateBeforeSave: true }
+  { timestamps: true, validateBeforeSave: true }
 );
 // NOTE: "validateBeforeSave: true" ensures that the mongoose built-in validation checks are enabled (it checks and enforces required values, enum values, min/max values etc. and throws errors)
 
@@ -60,9 +61,9 @@ userSchema.methods.createRefreshToken = function () {
       email: this.email,
       name: this.name,
     },
-    process.env.REFRESH_TOKEN_PRIVATE_KEY,
+    config.token.refreshToken.privateKey,
     {
-      expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
+      expiresIn: config.token.refreshToken.expiry,
     }
   );
 };
@@ -79,8 +80,8 @@ userSchema.methods.createAccessToken = function () {
       email: this.email,
       name: this.name,
     },
-    process.env.ACCESS_TOKEN_PRIVATE_KEY,
-    { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
+    config.token.accessToken.privateKey,
+    { expiresIn: config.token.accessToken.expiry }
   );
 };
 
