@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    adminPermission: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true, validateBeforeSave: true }
 );
