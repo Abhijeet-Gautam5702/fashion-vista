@@ -37,13 +37,10 @@ app.use(
   })
 ); // gives access to (only) specified domains to hit the server endpoints
 
+// Router imports
+import { API_VERSION } from "./constants.js";
+import { userRouter } from "./routes/index.js";
 
-// ONLY FOR TESTING 
-app.get("/", (req, res) => {
-  console.log(`Request Body : ${req.body}`);
-  res.json({
-    message: "Hello world!",
-  });
-});
+app.use(`/api/${API_VERSION}/users`, userRouter);
 
 export default app;
