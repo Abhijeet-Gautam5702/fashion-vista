@@ -10,7 +10,7 @@ class CustomApiResponse {
   statusCode;
 
   // constructor
-  constructor(message, statusCode, data) {
+  constructor(statusCode, message, data) {
     this.success = true;
     this.data = data;
     this.message = message;

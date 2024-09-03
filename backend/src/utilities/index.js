@@ -1,4 +1,4 @@
-import asyncController from "./asyncHandler.utils.js";
+import asyncController from "./asyncController.utils.js";
 import CustomApiError from "./customApiError.utils.js";
 import CustomApiResponse from "./customApiResponse.utils.js";
 
