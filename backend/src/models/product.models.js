@@ -51,7 +51,7 @@ const productSchema = new mongoose.Schema(
       enum: ["topwear", "bottomwear", "footwear", "formals", "ethnic"],
       required: true,
     },
-    collection: [
+    collectionType: [
       {
         type: String,
       },
