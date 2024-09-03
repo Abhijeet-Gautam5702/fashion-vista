@@ -10,13 +10,13 @@ class CustomApiError extends Error {
   success;
   statusCode;
   data;
-  error;
+  errors = [];
 
   // constructor
-  constructor(statusCode, message, error) {
+  constructor(statusCode, message, errors) {
     super(message);
     this.statusCode = statusCode;
-    this.error = error;
+    this.errors = errors; // There is a possibility of getting an array of errors (e.g. Zod validation failure)
     this.success = false;
     this.data = null;
   }
