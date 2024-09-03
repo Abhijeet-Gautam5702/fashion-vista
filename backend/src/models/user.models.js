@@ -57,6 +57,7 @@ userSchema.pre("save", async function () {
 /*
     REFRESH TOKEN USE?
     Refresh token is stored in the cookie and sent to the backend by the client for generating a new access token. Backend will match the refresh token sent by the client with the refresh token stored in the user-document.
+    - Refresh tokens are long-lived.
 */
 userSchema.methods.createRefreshToken = function () {
   return jwt.sign(
@@ -76,6 +77,7 @@ userSchema.methods.createRefreshToken = function () {
 /*
     ACCESS TOKEN USE?
     Access token is stored in the cookie and fetched by the backend whenever the client hits a protected route, without the need to provide login credentials again.
+    - Access tokens are short lived.
 */
 userSchema.methods.createAccessToken = function () {
   return jwt.sign(

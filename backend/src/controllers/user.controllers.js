@@ -11,6 +11,7 @@ import {
   ZodPasswordSchema,
 } from "../schema/zod.schema.js";
 
+// Unauthenticated Route
 const createAccount = asyncController(async (req, res, next) => {
   // Get the user account details from req.body
   const { name, email, password } = req.body;
@@ -73,11 +74,140 @@ const createAccount = asyncController(async (req, res, next) => {
     .json(new CustomApiResponse(200, `ACCOUNT CREATION SUCCESSFUL`, userData));
 });
 
-const createLoginSession = asyncController((req, res, next) => {});
+// Unauthenticated Route
+const createLoginSession = asyncController(async (req, res, next) => {
+  // Get user credentials from req.body
+  const { email, password } = req.body;
 
-const removeLoginSession = asyncController((req, res, next) => {});
+  // Validate the data
+  const isEmailValid = ZodEmailSchema.safeParse(email);
+  const isPasswordValid = ZodPasswordSchema.safeParse(password);
 
-const getLoggedInUser = asyncController((req, res, next) => {});
+  if (!isEmailValid.success) {
+    throw new CustomApiError(
+      400,
+      "Email is not valid",
+      isEmailValid.error.issues
+    );
+  }
+  if (!isPasswordValid.success) {
+    throw new CustomApiError(
+      400,
+      "Password is not valid",
+      isPasswordValid.error.issues
+    );
+  }
+
+  // Check if the user is present in the database
+  const userFromDB = await User.findOne({ email });
+  if (!userFromDB) {
+    throw new CustomApiError(404, `USER NOT FOUND IN THE DATABASE`);
+  }
+
+  // Match the password
+  const isPasswordMatched = await userFromDB.matchPassword(password);
+  if (!isPasswordMatched) {
+    throw new CustomApiError(401, `INCORRECT PASSWORD`);
+  }
+
+  // Generate tokens
+  const accessToken = userFromDB.createAccessToken();
+  const refreshToken = userFromDB.createRefreshToken();
+
+  // Set refresh token to the user document in database
+  const updatedUserFromDB = await User.findOneAndUpdate(
+    { email },
+    { refreshToken },
+    { new: true } // return the updated document
+  );
+
+  // Exclude sensitive information from the updated user document
+  /*
+    MINIMIZE THE NUMBER OF DATABASE CALLS
+    - If the user document would have been successfully created => "newUser" will have all the data. So simply create a new object and include only those fields that are required to be sent to the client.
+    - If the user document was not created successfully => it will throw an error and will automatically be handled by asyncController catch-block
+  */
+  const selectedFields = ["name", "email", "adminPermission", "refreshToken"];
+  let userData = {};
+  selectedFields.forEach((field) => {
+    userData[field] = updatedUserFromDB[field];
+  });
+
+  // Send response to the client and set cookies
+  res
+    .status(200)
+    .cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: true,
+    })
+    .cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: true,
+    })
+    .json({
+      data: new CustomApiResponse(
+        200,
+        `LOGIN SESSION CREATED SUCCESSFULLY`,
+        userData
+      ).data,
+      accessToken,
+    });
+});
+
+// Authenticated route (User can remove a login session only if they have created one, i.e. they are logged-in)
+const removeLoginSession = asyncController(async (req, res, next) => {
+  // Auth Middleware: Check if the user is logged in (i.e. authenticated)
+
+  // Get the userId of the logged-in user & remove the refresh token from the user-document in the database
+  const userId = req.userData._id;
+  const updatedUserFromDB = await User.findByIdAndUpdate(
+    userId,
+    { refreshToken: "" },
+    { new: true } // return the updated document
+  );
+
+  // Exclude sensitive information from the updated user document
+  /*
+    MINIMIZE THE NUMBER OF DATABASE CALLS
+    - If the user document would have been successfully created => "newUser" will have all the data. So simply create a new object and include only those fields that are required to be sent to the client.
+    - If the user document was not created successfully => it will throw an error and will automatically be handled by asyncController catch-block
+  */
+  const selectedFields = ["name", "email", "adminPermission"];
+  let userData = {};
+  selectedFields.forEach((field) => {
+    userData[field] = updatedUserFromDB[field];
+  });
+
+  // Clear all the tokens from the cookie and send response to the user
+  res
+    .status(200)
+    .clearCookie("accessToken", {
+      httpOnly: true,
+      secure: true,
+    })
+    .clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: true,
+    })
+    .json(
+      new CustomApiResponse(200, `LOGIN SESSION REMOVED SUCCESSFULLY`, userData)
+    );
+});
+
+// Authenticated route (User details can be fetched only if the user is logged-in)
+const getLoggedInUser = asyncController(async (req, res, next) => {
+  // Auth Middleware: Check if the user is logged in (i.e. authenticated)
+
+  // Get the user details of the logged-in user from the database (using the userId)
+  const user = req.userData;
+
+  // Send response to the client
+  res
+    .status(200)
+    .json(
+      new CustomApiResponse(200, `USER DETAILS FETCHED SUCCESSFULLY`, user)
+    );
+});
 
 export {
   createAccount,
