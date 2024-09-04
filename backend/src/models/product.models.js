@@ -54,8 +54,13 @@ const productSchema = new mongoose.Schema(
     collectionType: [
       {
         type: String,
+        enum:["winter","summer","sports"]
       },
     ],
+    addedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Admin",
+    },
   },
   { timestamps: true, validateBeforeSave: true }
 );

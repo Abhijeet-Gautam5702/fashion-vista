@@ -30,7 +30,7 @@ const orderSchema = new mongoose.Schema(
       type: String, // We will concatenate all the address lines (parts) from the frontend and send a single string to the backend
       required: true,
     },
-    orderItems: [
+    orderedItems: [
       {
         product: {
           type: mongoose.Schema.Types.ObjectId,

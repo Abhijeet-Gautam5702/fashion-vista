@@ -4,8 +4,8 @@ import {
   createLoginSession,
   getLoggedInUser,
   removeLoginSession,
-} from "../controllers/user.controllers.js";
-import authenticateUser from "../middlewares/auth.middlewares.js";
+} from "../controllers/index.js";
+import {authenticateUser} from "../middlewares/index.js";
 
 const userRouter = Router();
 
@@ -14,8 +14,9 @@ userRouter.route("/create-account").post(createAccount);
 userRouter.route("/create-login-session").post(createLoginSession);
 
 // Secured routes (Access Token authentication needed)
-userRouter.route("/get-current-user").get(authenticateUser,getLoggedInUser);
-userRouter.route("/remove-login-session").post(authenticateUser, removeLoginSession);
-
+userRouter.route("/get-current-user").get(authenticateUser, getLoggedInUser);
+userRouter
+  .route("/remove-login-session")
+  .post(authenticateUser, removeLoginSession);
 
 export default userRouter;

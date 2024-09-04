@@ -209,6 +209,10 @@ const getLoggedInUser = asyncController(async (req, res, next) => {
     );
 });
 
+// Authenticated route : Place an order
+
+// Authenticated route : Cancel an order
+
 export {
   createAccount,
   createLoginSession,
