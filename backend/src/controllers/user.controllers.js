@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { User } from "../models/index.js";
 import {
   asyncController,
@@ -208,10 +207,6 @@ const getLoggedInUser = asyncController(async (req, res, next) => {
       new CustomApiResponse(200, `USER DETAILS FETCHED SUCCESSFULLY`, user)
     );
 });
-
-// Authenticated route : Place an order
-
-// Authenticated route : Cancel an order
 
 export {
   createAccount,

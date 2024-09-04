@@ -37,6 +37,8 @@ app.use(
   })
 ); // gives access to (only) specified domains to hit the server endpoints
 
+//  ---------------------------------------------------------------------------------------
+
 // Router imports
 import { API_VERSION } from "./constants.js";
 import {
@@ -44,11 +46,13 @@ import {
   productRouter,
   userRouter,
   cartRouter,
+  orderRouter,
 } from "./routes/index.js";
 
 app.use(`/api/${API_VERSION}/users`, userRouter);
 app.use(`/api/${API_VERSION}/products`, productRouter);
 app.use(`/api/${API_VERSION}/cart`, cartRouter);
+app.use(`/api/${API_VERSION}/orders`, orderRouter);
 app.use(`/api/${API_VERSION}/admin`, adminRouter);
 
 export default app;

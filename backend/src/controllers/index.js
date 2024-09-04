@@ -12,6 +12,11 @@ import {
   updateProductQtInCart,
 } from "./products.controllers.js";
 import { getCart, clearCart } from "./cart.controllers.js";
+import {
+  placeOrder,
+  cancelOrder,
+  getOrderHistory,
+} from "./order.controllers.js";
 import { addProductToInventory } from "./admin.controllers.js";
 
 export {
@@ -27,4 +32,7 @@ export {
   updateProductQtInCart,
   clearCart,
   getCart,
+  placeOrder,
+  cancelOrder,
+  getOrderHistory,
 };

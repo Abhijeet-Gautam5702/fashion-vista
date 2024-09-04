@@ -28,6 +28,7 @@ const getCart = asyncController(async (req, res, next) => {
 // Authenticated route : Clear entire cart of the user
 const clearCart = asyncController(async (req, res, next) => {
   // Authenticate the user
+  console.log("here")
 
   // Get the userId from req.userData
   const userId = req.userData._id;

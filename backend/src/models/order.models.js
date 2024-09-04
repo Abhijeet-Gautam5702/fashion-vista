@@ -6,7 +6,7 @@ const orderSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ["placed", "packed", "shipped", "out for delivery", "delivered"],
-      required: true,
+      default: "placed",
     },
     orderDate: {
       type: Date,
@@ -19,12 +19,12 @@ const orderSchema = new mongoose.Schema(
     },
     paymentMode: {
       type: String,
-      enum: ["COD", "razorpay"],
-      required: true,
+      enum: ["COD", "razorpay", "stripe"],
+      default: "COD",
     },
     paymentStatus: {
       type: Boolean,
-      required: true,
+      default:false,
     },
     deliveryAddress: {
       type: String, // We will concatenate all the address lines (parts) from the frontend and send a single string to the backend
@@ -55,7 +55,7 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true,validateBeforeSave:true }
+  { timestamps: true, validateBeforeSave: true }
 );
 // NOTE: "validateBeforeSave: true" ensures that the mongoose built-in validation checks are enabled (it checks and enforces required values, enum values, min/max values etc. and throws errors)
 
