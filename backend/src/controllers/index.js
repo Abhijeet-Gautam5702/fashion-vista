@@ -9,7 +9,9 @@ import {
   getCurrentProduct,
   addProductToCart,
   removeProductFromCart,
+  updateProductQtInCart,
 } from "./products.controllers.js";
+import { getCart, clearCart } from "./cart.controllers.js";
 import { addProductToInventory } from "./admin.controllers.js";
 
 export {
@@ -22,4 +24,7 @@ export {
   addProductToCart,
   removeProductFromCart,
   addProductToInventory,
+  updateProductQtInCart,
+  clearCart,
+  getCart,
 };

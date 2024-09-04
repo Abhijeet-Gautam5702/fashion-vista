@@ -1,11 +1,13 @@
 import { Router } from "express";
+import { authenticateUser } from "../middlewares/index.js";
 import {
   addProductToCart,
+  clearCart,
   getAllProducts,
   getCurrentProduct,
   removeProductFromCart,
+  updateProductQtInCart,
 } from "../controllers/index.js";
-import { authenticateUser } from "../middlewares/index.js";
 
 const productRouter = Router();
 
@@ -14,11 +16,14 @@ productRouter.route("/").get(getAllProducts);
 productRouter.route("/:productId").get(getCurrentProduct);
 
 // Secured routes (Authentication via token required)
+productRouter.route("/add-to-cart").post(authenticateUser, addProductToCart);
 productRouter
-  .route("/add-to-cart")
-  .post(authenticateUser, addProductToCart);
+  .route("/remove-from-cart")
+  .put(authenticateUser, removeProductFromCart);
 productRouter
-  .route("/remove-from-cart?productId")
-  .delete(authenticateUser, removeProductFromCart);
+  .route("/update-product-qt-in-cart")
+  .put(authenticateUser, updateProductQtInCart);
+
+productRouter.route("/cart/clear-cart").delete(clearCart);
 
 export default productRouter;

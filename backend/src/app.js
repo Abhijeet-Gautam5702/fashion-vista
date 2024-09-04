@@ -39,10 +39,16 @@ app.use(
 
 // Router imports
 import { API_VERSION } from "./constants.js";
-import { adminRouter, productRouter, userRouter } from "./routes/index.js";
+import {
+  adminRouter,
+  productRouter,
+  userRouter,
+  cartRouter,
+} from "./routes/index.js";
 
 app.use(`/api/${API_VERSION}/users`, userRouter);
 app.use(`/api/${API_VERSION}/products`, productRouter);
+app.use(`/api/${API_VERSION}/cart`, cartRouter);
 app.use(`/api/${API_VERSION}/admin`, adminRouter);
 
 export default app;
