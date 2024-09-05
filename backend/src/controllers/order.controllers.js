@@ -8,7 +8,6 @@ import {
   ZodAddressSchema,
   ZodPhoneNumberSchema,
 } from "../schema/zod.schema.js";
-import mongoose from "mongoose";
 
 // Authenticated route : Get order history
 const getOrderHistory = asyncController(async (req, res, next) => {

@@ -4,6 +4,7 @@ import {
   removeLoginSession,
   getLoggedInUser,
 } from "./user.controllers.js";
+
 import {
   getAllProducts,
   getCurrentProduct,
@@ -11,13 +12,24 @@ import {
   removeProductFromCart,
   updateProductQtInCart,
 } from "./products.controllers.js";
+
 import { getCart, clearCart } from "./cart.controllers.js";
+
 import {
   placeOrder,
   cancelOrder,
   getOrderHistory,
 } from "./order.controllers.js";
-import { addProductToInventory } from "./admin.controllers.js";
+
+import {
+  addProductToInventory,
+  createAdminLoginSession,
+  removeAdminLoginSession,
+  getCurrentAdmin,
+  addNewProductToInventory,
+  deleteProductFromInventory,
+  updateDeliveryStatusOfOrder,
+} from "./admin.controllers.js";
 
 export {
   createAccount,
@@ -28,11 +40,17 @@ export {
   getCurrentProduct,
   addProductToCart,
   removeProductFromCart,
-  addProductToInventory,
   updateProductQtInCart,
   clearCart,
   getCart,
   placeOrder,
   cancelOrder,
   getOrderHistory,
+  addProductToInventory,
+  createAdminLoginSession,
+  removeAdminLoginSession,
+  getCurrentAdmin,
+  addNewProductToInventory,
+  deleteProductFromInventory,
+  updateDeliveryStatusOfOrder,
 };

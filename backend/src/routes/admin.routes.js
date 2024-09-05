@@ -1,20 +1,36 @@
 import { Router } from "express";
 import { authenticateAdmin } from "../middlewares/index.js";
-import { addProductToInventory } from "../controllers/index.js";
+import {
+  addProductToInventory, // FOR TESTING
+  createAdminLoginSession,
+  removeAdminLoginSession,
+  getCurrentAdmin,
+  addNewProductToInventory,
+  deleteProductFromInventory,
+  updateDeliveryStatusOfOrder,
+} from "../controllers/index.js";
 
 const adminRouter = Router();
 
-// THIS IS JUST FOR TESTING (FOR THE TIME BEING)
-// ADMIN CONTROLLERS AND ROUTERS NEED CHANGE
-// POTENTIAL CHANGE: A SEPARATE LOGIN PAGE FOR ADMIN IN THE FRONTEND AND SEPARATE ADMIN-TOKENS WILL BE STORED IN THE COOKIES
+// Unsecured route
+adminRouter.route("/create-admin-login-session").post(createAdminLoginSession);
 
+// Secured routes
+adminRouter
+  .route("/remove-admin-login-session")
+  .delete(authenticateAdmin, removeAdminLoginSession);
+adminRouter.route("/get-current-admin").get(authenticateAdmin, getCurrentAdmin);
+adminRouter
+  .route("/add-new-product-to-inventory")
+  .post(authenticateAdmin, addNewProductToInventory);
+adminRouter
+  .route("/delete-product-from-inventory")
+  .delete(authenticateAdmin, deleteProductFromInventory);
+adminRouter
+  .route("/update-order-status")
+  .put(authenticateAdmin, updateDeliveryStatusOfOrder);
 
-// "/admin/inventory"
-
-// "/admin/orders"
-
-// "/admin/add-product"
-// Secured route (Admin authentication required)
+// FOR TESTING
 adminRouter
   .route("/add-product")
   .post(authenticateAdmin, addProductToInventory);
