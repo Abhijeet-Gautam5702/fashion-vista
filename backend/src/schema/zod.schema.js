@@ -1,9 +1,11 @@
 import { z } from "zod";
 
 const ZodNameSchema = z.string();
+
 const ZodEmailSchema = z
   .string()
   .email({ stripWhitespace: true, strict: true });
+
 const ZodPasswordSchema = z
   .string()
   .min(8, "Password must be atleast 8 characters long")
@@ -11,11 +13,13 @@ const ZodPasswordSchema = z
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
     "Password must contain at least one uppercase letter, lowercase letter, number, and special character"
   );
+
 const ZodAddressSchema = z
   .string()
   .min(1, "Address cannot be empty")
   .min(10, "Address too short")
   .min(25, "Address too long");
+
 const ZodPhoneNumberSchema = z
   .string()
   .min(1, "Mobile number cannot be empty")
@@ -31,10 +35,55 @@ const ZodPhoneNumberSchema = z
     message: "Mobile number must be between 10 and 20 digits long",
   });
 
+const ZodProductNameSchema = z
+  .string()
+  .min(1, "Name cannot be empty")
+  .min(10, "Product name too short")
+  .max(30, "Product name too long");
+
+const ZodProductDescriptionSchema = z
+  .string()
+  .min(1, "Description cannot be empty")
+  .min(10, "Product description name too short")
+  .max(100, "Product description name too long");
+
+const ZodProductPriceSchema = z.number().min(0);
+
+const ZodProductSizesSchema = z.array(z.enum(["XS", "S", "M", "L", "XL"]));
+
+const ZodProductCategorySchema = z.enum(["men", "women", "kids"]);
+
+const ZodProductFashionTypeSchema = z.enum([
+  "topwear",
+  "bottomwear",
+  "footwear",
+  "formals",
+  "ethnic",
+]);
+
+const ZodProductCollectionTypeSchema = z.array(
+  z.enum(["winter", "summer", "sports"])
+);
+
+const ZodOrderStatusSchema = z.enum([
+  "placed",
+  "packed",
+  "shipped",
+  "out for delivery",
+  "delivered",
+]);
+
 export {
   ZodPasswordSchema,
   ZodNameSchema,
   ZodEmailSchema,
   ZodAddressSchema,
   ZodPhoneNumberSchema,
+  ZodProductCollectionTypeSchema,
+  ZodProductFashionTypeSchema,
+  ZodProductCategorySchema,
+  ZodProductSizesSchema,
+  ZodProductPriceSchema,
+  ZodProductDescriptionSchema,
+  ZodProductNameSchema,ZodOrderStatusSchema
 };
