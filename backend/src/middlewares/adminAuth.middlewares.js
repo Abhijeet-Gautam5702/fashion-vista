@@ -9,7 +9,7 @@ import config from "../config/config.js";
 const authenticateAdmin = asyncController(async (req, res, next) => {
   // Get the access token from the cookies
   const cookies = req.cookies;
-  const { accessToken } = cookies;
+  const { adminAccessToken } = cookies;
   
   /*
     NOTE: Tokens are sent to cookies only in the cases of websites. In case of working with a mobile application, tokens are sent to the backend via the `Authorization` Header of the HTTP request.
@@ -18,13 +18,13 @@ const authenticateAdmin = asyncController(async (req, res, next) => {
     const accessToken = req.headers.authorization?.replace("Bearer ","");
   */
 
-  if (!accessToken) {
-    throw new CustomApiError(401, `AUTHENTICATION FAILED || NO COOKIES FOUND`);
+  if (!adminAccessToken) {
+    throw new CustomApiError(401, `AUTHENTICATION FAILED || NO ADMIN-COOKIES FOUND`);
   }
 
   // Decode the accessToken to get user information
   const decodedToken = jwt.verify(
-    accessToken,
+    adminAccessToken,
     config.token.accessToken.privateKey
   );
 
