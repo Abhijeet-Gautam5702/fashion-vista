@@ -3,6 +3,7 @@ import {
   asyncController,
   CustomApiError,
   CustomApiResponse,
+  uploadImageToCloudinary,
 } from "../utilities/index.js";
 import {
   ZodEmailSchema,
@@ -316,6 +317,79 @@ const addNewProductToInventory = asyncController(async (req, res, next) => {
     );
 });
 
+// Authenticated route : Add images of a product in the inventory
+const addImagesOfProductInInventory = asyncController(
+  async (req, res, next) => {
+    // Authenticate the admin
+
+    // Get the productId from req.query
+    let productId = req.query.productId;
+    if (!productId) {
+      throw new CustomApiError(
+        404,
+        `PRODUCT IMAGES UPLOAD FAILED || PRODUCT-ID NOT PROVIDED`
+      );
+    }
+    productId = new mongoose.Types.ObjectId(String(productId)); // Convert to mongoose ObjectId
+    if (!mongoose.isValidObjectId(productId)) {
+      throw new CustomApiError(
+        400,
+        `PRODUCT IMAGES UPLOAD FAILED || INVALID PRODUCT-ID PROVIDED`
+      );
+    }
+
+    // Check if the product exists in the database
+    const productFromDB = await Product.findById(productId);
+    if (!productFromDB) {
+      throw new CustomApiError(
+        404,
+        `PRODUCT IMAGES UPLOAD FAILED || PRODUCT-DOCUMENT NOT FOUND IN THE DATABASE`
+      );
+    }
+
+    // Get the files from req.files
+    if (!req.files["product_images"]) {
+      throw new CustomApiError(
+        404,
+        `PRODUCT IMAGES UPLOAD FAILED || NO FILES STORED IN THE SERVER || SOMETHING WRONG WITH THE FORM-DATA`
+      );
+    }
+    const localFiles = req.files["product_images"];
+
+    // Upload the files to Cloudinary
+    /*
+      NOTE: 
+      We cannot directly map the array and push the urls (returned from cloudinary-uploader function) to an array. This is because array.map/filter/forEach are synchronous methods and do not wait for the async operations to complete.
+
+      So we do the following:-
+      - Store the promises into an array (named `promises`)
+      - Resolve all promises at once (using `Promise.all()`)
+      - Destructure the array of resolved promises and store them in an array (`imageURLs`)
+    */
+    const promises = await localFiles.map(async (file) => {
+      const res = await uploadImageToCloudinary(file.path);
+      return res.secure_url;
+    }); // Store the promises into an array (named `promises`)
+    const resolvedPromises = await Promise.all(promises); //Resolve all promises at once (using `Promise.all()`)
+    const imageURLs = [...resolvedPromises]; //Destructure the array of resolved promises and store them in an array (`imageURLs`)
+
+    // Store the Cloudinary image-URLs to the product-document in the database
+    productFromDB.images = imageURLs;
+    await productFromDB.save();
+
+    // Send response to the client
+    res
+      .status(200)
+      .json(
+        new CustomApiResponse(
+          200,
+          `PRODUCT IMAGES SUCCESSFULLY UPLOADED`,
+          productFromDB
+        )
+      );
+  }
+);
+
 // Authenticated route : Delete a product from the inventory
 const deleteProductFromInventory = asyncController(async (req, res, next) => {
   // Authenticate the admin
@@ -423,4 +497,5 @@ export {
   addNewProductToInventory,
   deleteProductFromInventory,
   updateDeliveryStatusOfOrder,
+  addImagesOfProductInInventory,
 };

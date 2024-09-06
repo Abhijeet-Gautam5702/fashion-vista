@@ -29,6 +29,7 @@ import {
   addNewProductToInventory,
   deleteProductFromInventory,
   updateDeliveryStatusOfOrder,
+  addImagesOfProductInInventory,
 } from "./admin.controllers.js";
 
 export {
@@ -53,4 +54,5 @@ export {
   addNewProductToInventory,
   deleteProductFromInventory,
   updateDeliveryStatusOfOrder,
+  addImagesOfProductInInventory,
 };
