@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { authenticateAdmin } from "../middlewares/index.js";
+import { authenticateAdmin, multerUpload } from "../middlewares/index.js";
 import {
   addProductToInventory, // FOR TESTING
   createAdminLoginSession,
@@ -8,7 +8,9 @@ import {
   addNewProductToInventory,
   deleteProductFromInventory,
   updateDeliveryStatusOfOrder,
+  addImagesOfProductInInventory,
 } from "../controllers/index.js";
+// import { multerUploader } from "../utilities/index.js";
 
 const adminRouter = Router();
 
@@ -23,6 +25,11 @@ adminRouter.route("/get-current-admin").get(authenticateAdmin, getCurrentAdmin);
 adminRouter
   .route("/add-new-product-to-inventory")
   .post(authenticateAdmin, addNewProductToInventory);
+adminRouter.route("/add-images-of-product-in-inventory").put(
+  authenticateAdmin,
+  multerUpload, // Multer Uploader middleware (Refactor the middleware function)
+  addImagesOfProductInInventory
+);
 adminRouter
   .route("/delete-product-from-inventory")
   .delete(authenticateAdmin, deleteProductFromInventory);
