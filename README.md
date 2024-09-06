@@ -12,9 +12,7 @@ This is a full stack e-commerce platform built using the MERN stack.
 
 4. **Product search & filtering** functionality for the users to assist them choose products of their choice.
 
-5. **Payment integration (at order checkout):** The customers have a choice to either order the product on COD (Cash on Delivery) or make an online payment using Razorpay Payment Gateway.
-
-6.
+5.
 
 ## Why does this project stand out?
 
@@ -39,7 +37,6 @@ This is a full stack e-commerce platform built using the MERN stack.
 - **FRONTEND LIBRARY:** React-JS
 - **STYLING:** Tailwind CSS
 - **BACKEND:** Node-JS
-- **PAYMENT INTEGRATION:** Razorpay
 - **FORM HANDLING:** React hook form
 - **STATE MANAGEMENT:** Redux Toolkit
 - **ROUTING:** React router DOM
