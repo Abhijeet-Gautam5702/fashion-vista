@@ -56,7 +56,7 @@ const getCurrentProduct = asyncController(async (req, res, next) => {
     );
 });
 
-// (AGGREGATION PIPELINE) Authenticated route : Add a product to cart
+// Authenticated route : Add a product to cart
 const addProductToCart = asyncController(async (req, res, next) => {
   // Authenticate the user
 
