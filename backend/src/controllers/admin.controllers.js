@@ -19,10 +19,6 @@ import {
 } from "../schema/zod.schema.js";
 import mongoose from "mongoose";
 
-// THIS IS JUST FOR TESTING (FOR THE TIME BEING)
-// ADMIN CONTROLLERS AND ROUTERS NEED CHANGE
-// POTENTIAL CHANGE: A SEPARATE LOGIN PAGE FOR ADMIN IN THE FRONTEND AND SEPARATE ADMIN-TOKENS WILL BE STORED IN THE COOKIES
-
 // TESTING ONLY!! ===> Authenticated route : Add a new product to the inventory
 const addProductToInventory = asyncController(async (req, res, next) => {
   // Authenticate the admin

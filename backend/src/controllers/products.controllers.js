@@ -7,11 +7,10 @@ import {
 } from "../utilities/index.js";
 
 // Unauthenticated route : Get all products (which are in stock) of the inventory
+// FEATURE ADD: Take a filter from the client and filter accordingly
 const getAllProducts = asyncController(async (req, res, next) => {
   // Get all products from the database
-  const productsFromDB = await Product.find({ stock: true }).select(
-    "-description -sizes"
-  );
+  const productsFromDB = await Product.find({ stock: true });
   if (!productsFromDB.length) {
     throw new CustomApiError(404, `NO PRODUCTS IN THE STOCK`);
   }
@@ -57,7 +56,7 @@ const getCurrentProduct = asyncController(async (req, res, next) => {
     );
 });
 
-// Authenticated route : Add a product to cart
+// (AGGREGATION PIPELINE) Authenticated route : Add a product to cart
 const addProductToCart = asyncController(async (req, res, next) => {
   // Authenticate the user
 
@@ -109,6 +108,7 @@ const addProductToCart = asyncController(async (req, res, next) => {
 
   // Update the cart if it already exists
   if (userCartFromDB) {
+
     let isProductAlreadyPresentInCart = false;
     updatedCartFromDB.cartItems = userCartFromDB.cartItems.map((item) => {
       if (
@@ -121,7 +121,6 @@ const addProductToCart = asyncController(async (req, res, next) => {
       return item;
     });
     if (!isProductAlreadyPresentInCart) {
-      // console.log(updatedCartFromDB)
       updatedCartFromDB.cartItems.push({ product: productId, size, quantity });
     }
     await updatedCartFromDB.save();
