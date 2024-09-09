@@ -31,7 +31,7 @@ function Header() {
   }, [loginStatus]);
 
   return (
-    <div className="w-full flex flex-row justify-between items-center py-4">
+    <div className="flex-grow-0 w-full flex flex-row justify-between items-center py-4">
       {/* Logo */}
       <Link to="/">
         <Logo className={"text-size-30 text-black-2"} />

@@ -33,15 +33,15 @@ function App() {
 
   // A completely different JSX will be returned if "/admin" is visited
   return (
-    <>
-      <div className="px-32">
+    <div className="min-h-screen flex flex-col justify-between items-center w-full">
+      <div className="flex-grow w-full px-32 flex flex-col justify-start items-center">
         <Header />
         <Container>
           <Outlet />
         </Container>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

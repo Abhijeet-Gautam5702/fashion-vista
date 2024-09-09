@@ -12,6 +12,9 @@ import person from "./person.svg";
 import trash from "./trash.svg";
 import logo1 from "./logo1.png";
 import logo2 from "./logo2.png";
+import banner from "./banner.jpg";
+import banner_2 from "./banner_2.jpg"
+import banner_3 from "./banner_3.jpg"
 
 export {
   add,
@@ -28,4 +31,7 @@ export {
   trash,
   logo1,
   logo2,
+  banner,
+  banner_2,
+  banner_3,
 };

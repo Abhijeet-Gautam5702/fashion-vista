@@ -32,7 +32,7 @@ function Subscription({ ...props }, ref) {
         />
         <Button
           btnText="SUBSCRIBE"
-          className="w-[150px] text-size-12 border-[2px] border-black"
+          className="w-[150px] text-size-12 border-[2px] border-black p-2"
         />
       </div>
     </div>
