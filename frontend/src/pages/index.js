@@ -7,6 +7,8 @@ import Orders from "./Orders";
 import Product from "./Product";
 import ProductCheckout from "./ProductCheckout";
 import Error from "./Error";
+import Login from "./Login";
+import Signup from "./Signup";
 
 export {
   About,
@@ -18,4 +20,6 @@ export {
   Product,
   ProductCheckout,
   Error,
+  Login,
+  Signup,
 };

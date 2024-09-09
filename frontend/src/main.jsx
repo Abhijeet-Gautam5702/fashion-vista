@@ -14,7 +14,13 @@ import {
   Product,
   Error,
   Orders,
+  Login,
+  Signup,
 } from "./pages";
+import { Protected } from "./layouts";
+
+import { Provider } from "react-redux";
+import store from "./store/store.js";
 
 const router = createBrowserRouter([
   {
@@ -38,20 +44,40 @@ const router = createBrowserRouter([
         element: <Contact />,
       },
       {
+        path: "/product/:productId",
+        element: <Product />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
+      {
         path: "/cart",
-        element: <Cart />,
+        element: (
+          <Protected authentication>
+            <Cart />
+          </Protected>
+        ),
       },
       {
         path: "/orders",
-        element: <Orders />,
+        element: (
+          <Protected authentication>
+            <Orders />
+          </Protected>
+        ),
       },
       {
         path: "/checkout",
-        element: <ProductCheckout />,
-      },
-      {
-        path: "/product/:productId",
-        element: <Product />,
+        element: (
+          <Protected authentication>
+            <ProductCheckout />
+          </Protected>
+        ),
       },
     ],
     errorElement: <Error />,
@@ -60,6 +86,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>
 );
