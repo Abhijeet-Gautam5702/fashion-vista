@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { authenticateAdmin, multerUpload } from "../middlewares/index.js";
 import {
-  addProductToInventory, // FOR TESTING
   createAdminLoginSession,
   removeAdminLoginSession,
   getCurrentAdmin,
@@ -37,9 +36,5 @@ adminRouter
   .route("/update-order-status")
   .put(authenticateAdmin, updateDeliveryStatusOfOrder);
 
-// FOR TESTING
-adminRouter
-  .route("/add-product")
-  .post(authenticateAdmin, addProductToInventory);
 
 export default adminRouter;

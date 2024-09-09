@@ -22,7 +22,6 @@ import {
 } from "./order.controllers.js";
 
 import {
-  addProductToInventory,
   createAdminLoginSession,
   removeAdminLoginSession,
   getCurrentAdmin,
@@ -47,7 +46,6 @@ export {
   placeOrder,
   cancelOrder,
   getOrderHistory,
-  addProductToInventory,
   createAdminLoginSession,
   removeAdminLoginSession,
   getCurrentAdmin,

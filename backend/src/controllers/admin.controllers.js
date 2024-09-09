@@ -19,33 +19,6 @@ import {
 } from "../schema/zod.schema.js";
 import mongoose from "mongoose";
 
-// TESTING ONLY!! ===> Authenticated route : Add a new product to the inventory
-const addProductToInventory = asyncController(async (req, res, next) => {
-  // Authenticate the admin
-  // Get adminId from the req.admin object
-  const adminId = req.adminData._id;
-  console.log(adminId);
-
-  const createdProduct = await Product.create({
-    name: "test product",
-    description: "test description",
-    price: 20.5,
-    stock: true,
-    latestArrival: true,
-    sizes: ["XS", "L", "M"],
-    category: "men",
-    fashionType: "topwear",
-    collectionType: ["winter", "sports"],
-    addedBy: adminId,
-  });
-
-  res
-    .status(200)
-    .json(
-      new CustomApiResponse(200, `PRODUCT ADDED TO INVENTORY`, createdProduct)
-    );
-});
-
 // Unauthenticated route : Create a new login session for the admin
 const createAdminLoginSession = asyncController(async (req, res, next) => {
   // Get user credentials from req.body
@@ -209,7 +182,7 @@ const addNewProductToInventory = asyncController(async (req, res, next) => {
   }
 
   // Get the product details from req.body
-  const { name, description, category, fashionType } = req.body;
+  const { name, description, category, fashionType,bestSeller,latestArrival } = req.body;
   const price = JSON.parse(req.body.price);
   const sizes = JSON.parse(req.body.sizes); // Parse to convert into JS-array
   const collectionType = JSON.parse(req.body.collectionType); // Parse to convert into JS-array
@@ -287,7 +260,8 @@ const addNewProductToInventory = asyncController(async (req, res, next) => {
     price: price,
     images: [], // Populate this with Cloudinary links later
     stock: true,
-    latestArrival: true,
+    latestArrival: latestArrival || false,
+    bestSeller:bestSeller || false,
     sizes,
     category,
     fashionType,
@@ -486,7 +460,6 @@ const updateDeliveryStatusOfOrder = asyncController(async (req, res, next) => {
 });
 
 export {
-  addProductToInventory,
   createAdminLoginSession,
   removeAdminLoginSession,
   getCurrentAdmin,
