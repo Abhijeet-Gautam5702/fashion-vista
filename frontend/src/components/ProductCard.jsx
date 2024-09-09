@@ -6,8 +6,8 @@ function ProductCard({ image, name, price, path }) {
     <Link to={path}>
       <div className="w-[220px] flex flex-col justify-start items-center">
         {/* Image */}
-        <div className="w-[220px] h-fit border-[1px] object-cover border-black-1 mb-2">
-          <img className="w-full h-[250px]" src={image} alt="product-image" />
+        <div className="w-[220px] h-fit border-[1px] border-black-1 mb-2">
+          <img className="w-full h-[250px] object-cover object-center" src={image} alt="product-image" />
         </div>
         {/* Name */}
         <p className="w-full text-left font-main font-400 text-size-14 text-text-col-2 text-ellipsis">

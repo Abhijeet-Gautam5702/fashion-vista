@@ -39,7 +39,7 @@ function Footer() {
         <a
           href="https://github.com/Abhijeet-Gautam5702"
           target="_blank"
-          className="text-size-12 text-accent-2 font-500"
+          className="text-size-12 text-accent-2 font-500 hover:underline"
         >
           {" "}
           ABHIJEET GAUTAM

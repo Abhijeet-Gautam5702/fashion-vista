@@ -68,7 +68,7 @@ function Header() {
         <div
           className="cursor-pointer relative"
           onClick={() => {
-            if (!loginStatus) {
+            if (loginStatus) {
               setShowProfileMenu((prev) => !prev);
               return;
             }
