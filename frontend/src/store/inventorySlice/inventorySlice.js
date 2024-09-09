@@ -1,13 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {};
+const initialState = {
+  inventory: [],
+};
 
 const inventorySlice = createSlice({
-  name: "inventory", // to be used when registering in the store
+  name: "inventory",
   initialState,
   reducers: {
-    storePopulateInventory: (state, action) => {},
-    storeDeleteItemFromInventory: (state, action) => {},
+    storePopulateInventory: (state, action) => {
+      state.inventory = action.payload.inventory;
+    },
+    storeDeleteItemFromInventory: (state, action) => {
+      const productId = action.payload.productId;
+      state.inventory = state.inventory.filter(
+        (item) => item._id !== productId
+      );
+    },
   },
 });
 // export inventorySlice reducers individually

@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {};
+const initialState = {
+  order:[]
+};
 
 const orderSlice = createSlice({
   name: "order", // to be used when registering in the store

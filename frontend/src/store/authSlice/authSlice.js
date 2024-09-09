@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const authSlice = createSlice({
-  name: "auth", // to be used when registering in the store
+  name: "auth",
   initialState,
   reducers: {
     storeLogin: (state, action) => {
