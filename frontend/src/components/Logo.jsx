@@ -1,8 +1,8 @@
 import React from "react";
 
-function Logo() {
+function Logo({className}) {
   return (
-    <div className="w-full font-logo text-size-30 text-black-2">
+    <div className={`${className} w-full font-logo`}>
       Fashion Vista
     </div>
   );

@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
 
-function Button() {
+function Button({
+  type = "button",
+  btnText = "SUBMIT",
+  className = "",
+  ...props
+}) {
   return (
-    <div>Button</div>
-  )
+    <button type={type} className={`${className}  bg-black text-white p-2 font-main font-400`} {...props}>
+      {btnText}
+    </button>
+  );
 }
 
-export default Button
+export default Button;

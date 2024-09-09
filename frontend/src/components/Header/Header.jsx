@@ -31,10 +31,10 @@ function Header() {
   }, [loginStatus]);
 
   return (
-    <div className="w-full flex flex-row justify-between items-center py-3">
+    <div className="w-full flex flex-row justify-between items-center py-4">
       {/* Logo */}
       <Link to="/">
-        <Logo />
+        <Logo className={"text-size-30 text-black-2"} />
       </Link>
       {/* Nav items */}
       <div className="flex flex-row justify-center items-center gap-5 text-text-col-2 font-500 font-main text-size-14">
@@ -84,11 +84,15 @@ function Header() {
             <Link to="/orders">
               <p>Orders</p>
             </Link>
-            <p onClick={() => {
-              // log the user out from the database 
-              // navigate to homepage
-              // modify store accordingly (should happen automatically ideally!)
-            }}>Logout</p>
+            <p
+              onClick={() => {
+                // log the user out from the database
+                // navigate to homepage
+                // modify store accordingly (should happen automatically ideally!)
+              }}
+            >
+              Logout
+            </p>
           </div>
         </div>
         <Link to={"/cart"}>

@@ -7,13 +7,15 @@ function App() {
 
   // A completely different JSX will be returned if "/admin" is visited
   return (
-    <div className="px-32">
-      <Header />
-      <Container>
-        <Outlet />
-      </Container>
+    <>
+      <div className="px-32">
+        <Header />
+        <Container>
+          <Outlet />
+        </Container>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 
