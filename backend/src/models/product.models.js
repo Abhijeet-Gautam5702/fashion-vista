@@ -54,7 +54,12 @@ const productSchema = new mongoose.Schema(
     collectionType: [
       {
         type: String,
-        enum:["winter","summer","sports"]
+        enum: ["winter", "summer", "sports"],
+      },
+    ],
+    tags: [
+      {
+        type: String,
       },
     ],
     addedBy: {

@@ -182,7 +182,14 @@ const addNewProductToInventory = asyncController(async (req, res, next) => {
   }
 
   // Get the product details from req.body
-  const { name, description, category, fashionType,bestSeller,latestArrival } = req.body;
+  const {
+    name,
+    description,
+    category,
+    fashionType,
+    bestSeller,
+    latestArrival,
+  } = req.body;
   const price = JSON.parse(req.body.price);
   const sizes = JSON.parse(req.body.sizes); // Parse to convert into JS-array
   const collectionType = JSON.parse(req.body.collectionType); // Parse to convert into JS-array
@@ -249,10 +256,6 @@ const addNewProductToInventory = asyncController(async (req, res, next) => {
     );
   }
 
-  // Get the images uploaded by the client
-  // Upload the images on Cloudinary and delete images from the server
-  // Get the Cloudinary links of the uploaded images
-
   // Create a new product in the database
   const createdProduct = await Product.create({
     name,
@@ -261,11 +264,12 @@ const addNewProductToInventory = asyncController(async (req, res, next) => {
     images: [], // Populate this with Cloudinary links later
     stock: true,
     latestArrival: latestArrival || false,
-    bestSeller:bestSeller || false,
+    bestSeller: bestSeller || false,
     sizes,
     category,
     fashionType,
     collectionType,
+    tags: [category, fashionType, ...collectionType],
     addedBy: adminId,
   });
   if (!createdProduct) {
