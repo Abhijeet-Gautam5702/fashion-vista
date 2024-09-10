@@ -15,10 +15,21 @@ class AuthService {
           },
         }
       );
+      /*
+        AXIOS RESPONSE HANDLING
+        The response sent by the backend server is stored inside the `AxiosResponse.data` object
+
+        NOTE: We will send the exact same response object (sent by the backend service) to the client. Therefore, we return `response.data` instead of `response` simply.
+      */
       return response.data;
     } catch (error) {
-      console.log(`User Login Failed | Error = ${error.message}`);
-      throw error;
+      /*
+        AXIOS ERROR HANDLING
+        The error sent by the backend server is stored inside the `AxiosError.response.data` object
+
+        NOTE: We will send the exact same error object (sent by the backend service) to the client. Therefore, we throw `error.response.data` instead of `error` simply.
+      */
+      throw error.response.data;
     }
   }
 
@@ -30,8 +41,7 @@ class AuthService {
       );
       return response.data;
     } catch (error) {
-      console.log(`User Logout Failed | Error = ${error.message}`);
-      throw error;
+      throw error.response.data;
     }
   }
 
@@ -43,10 +53,7 @@ class AuthService {
       );
       return response.data;
     } catch (error) {
-      console.log(
-        `Could not fetch current user details | Error = ${error.message}`
-      );
-      throw error;
+      throw error.response.data;
     }
   }
 
@@ -63,10 +70,7 @@ class AuthService {
       );
       return response.data;
     } catch (error) {
-      console.log(
-        `Could not fetch current user details | Error = ${error.message}`
-      );
-      throw error;
+      throw error.response.data;
     }
   }
 }
