@@ -13,7 +13,6 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Implement React-hook-form
   const {
     register,
     handleSubmit,

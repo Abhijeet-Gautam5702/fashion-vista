@@ -76,14 +76,14 @@ function Header() {
               return;
             } else {
               // display a toast saying "Please login"
-              toast("Please Login to continue", {
+              toast(`PLEASE LOGIN TO CONTINUE`, {
                 duration: 1500,
                 position: "top-center",
                 icon: "🔒",
                 style: {
                   fontFamily: "Outfit",
-                  fontSize: "16px",
-                  boxShadow: "0px 2px 10px #6A7281",
+                  fontWeight: "500",
+                  fontSize: "14px",
                 },
               });
 
