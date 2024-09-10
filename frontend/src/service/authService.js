@@ -47,7 +47,7 @@ class AuthService {
 
   async getCurrentUser() {
     try {
-      const response = axios.get(
+      const response = await axios.get(
         "http://localhost:8000/api/v1/users/get-current-user",
         {}
       );
@@ -57,11 +57,11 @@ class AuthService {
     }
   }
 
-  async signup({ email, password }) {
+  async signup({ fullname, email, password }) {
     try {
-      const response = axios.post(
+      const response = await axios.post(
         "http://localhost:8000/api/v1/users/create-account",
-        { email, password },
+        { name: fullname, email, password },
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
