@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useId } from "react";
 
-function FilterCheckbox() {
+function FilterCheckbox({ label, ...props }) {
+  const id = useId();
   return (
-    <div className="text-size-14 font-300 text-text-col-2">Filter checkbox</div>
+    <div className="flex flex-row justify-start items-center gap-3">
+      <input type="checkbox" id={id} {...props} />
+      <label className="text-size-14 font-main font-300" htmlFor={id}>
+        {label}
+      </label>
+    </div>
   );
 }
 
