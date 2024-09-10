@@ -17,6 +17,7 @@ import ProductSizeBox from "./ProductSizeBox";
 import Subscription from "./Subscription";
 import OrderedProductCard from "./OrderedProductCard";
 import HomeCollections from "./HomeCollections";
+import Loader from "./Loader";
 
 export {
   Header,
@@ -38,4 +39,5 @@ export {
   Input,
   OrderedProductCard,
   HomeCollections,
+  Loader
 };

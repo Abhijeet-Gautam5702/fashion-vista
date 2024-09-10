@@ -16,19 +16,19 @@ function App() {
 
   useEffect(() => {
     // Remove this later (This is a functionality which would be invoked only when login is being done)
-    (async () => {
-      const userDataFromDB = await authService.login({
-        email: "two@two.com",
-        password: "Test123456@",
-      });
-      // console.log(userDataFromDB);
-      dispatch(storeLogin({ userData: userDataFromDB.data }));
-    })();
+    // (async () => {
+    //   const userDataFromDB = await authService.login({
+    //     email: "two@two.com",
+    //     password: "Test123456@",
+    //   });
+    //   // console.log(userDataFromDB);
+    //   dispatch(storeLogin({ userData: userDataFromDB.data }));
+    // })();
   }, []);
 
   useEffect(() => {
     // Remove this later (This is a functionality which would be invoked only when login is being done)
-    setUser(userData);
+    // setUser(userData);
   }, [userData]);
 
   // A completely different JSX will be returned if "/admin" is visited

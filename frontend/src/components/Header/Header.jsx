@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Icon, Logo } from "../../components";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { search, person, bag } from "../../assets";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 function Header() {
   const loginStatus = useSelector((state) => state.auth.loginStatus);
@@ -25,6 +26,8 @@ function Header() {
       path: "/contact-us",
     },
   ]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // setShowProfileMenu(loginStatus);
@@ -71,8 +74,22 @@ function Header() {
             if (loginStatus) {
               setShowProfileMenu((prev) => !prev);
               return;
+            } else {
+              // display a toast saying "Please login"
+              toast("Please Login to continue", {
+                duration: 1500,
+                position: "top-center",
+                icon: "🔒",
+                style: {
+                  fontFamily: "Outfit",
+                  fontSize: "16px",
+                  boxShadow: "0px 2px 10px #6A7281",
+                },
+              });
+
+              // navigate to login page
+              navigate("/login");
             }
-            // display a toast saying "Please login"
           }}
         >
           <Icon icon={person} size="33px" />
