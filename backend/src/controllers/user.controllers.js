@@ -21,23 +21,15 @@ const createAccount = asyncController(async (req, res, next) => {
   const isPasswordValid = ZodPasswordSchema.safeParse(password);
 
   if (!isNameValid.success) {
-    throw new CustomApiError(
-      400,
-      "Name is not valid",
-      isNameValid.error.issues
-    );
+    throw new CustomApiError(400, "INVALID NAME", isNameValid.error.issues);
   }
   if (!isEmailValid.success) {
-    throw new CustomApiError(
-      400,
-      "Email is not valid",
-      isEmailValid.error.issues
-    );
+    throw new CustomApiError(400, "INVALID EMAIL", isEmailValid.error.issues);
   }
   if (!isPasswordValid.success) {
     throw new CustomApiError(
       400,
-      "Password is not valid",
+      "INVALID PASSWORD",
       isPasswordValid.error.issues
     );
   }
@@ -47,10 +39,7 @@ const createAccount = asyncController(async (req, res, next) => {
     email,
   });
   if (userFromDB) {
-    throw new CustomApiError(
-      409,
-      `ACCOUNT CREATION FAILED || User already exists`
-    );
+    throw new CustomApiError(409, `USER WITH THIS EMAIL ALREADY EXISTS`);
   }
 
   // Create a new User document
@@ -85,14 +74,14 @@ const createLoginSession = asyncController(async (req, res, next) => {
   if (!isEmailValid.success) {
     throw new CustomApiError(
       400,
-      "Email is not valid",
+      "INVALID EMAIL",
       isEmailValid.error.issues
     );
   }
   if (!isPasswordValid.success) {
     throw new CustomApiError(
       400,
-      "Password is not valid",
+      "INVALID PASSWORD",
       isPasswordValid.error.issues
     );
   }
