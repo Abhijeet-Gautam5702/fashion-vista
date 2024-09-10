@@ -31,6 +31,7 @@ export default {
       "black-2": "#414141",
       "text-col-1": "#6A7281",
       "text-col-2": "#374152",
+      danger: "#FF5733",
     },
     extend: {},
   },

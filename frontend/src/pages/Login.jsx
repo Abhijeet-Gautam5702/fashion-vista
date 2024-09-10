@@ -68,11 +68,19 @@ function Login() {
       */
       console.log(`Login Form Submission Failed || Error = ${error.message}`); // show error on browser console
 
-      // show error on the screen (set form errors)
-      setError("root.serverError", {
-        type: "manual",
-        message: error.message.toString(),
-      });
+      if (error.message === "INVALID PASSWORD") {
+        setError("password", {
+          type: "manual",
+          message:
+            "Please ensure that the password has at least one uppercase and one special character",
+        });
+      } else {
+        // show error on the screen (set form errors)
+        setError("root", {
+          type: "manual",
+          message: error.message.toString(),
+        });
+      }
 
       // Show toast
       toast(`${error.message}`, {
@@ -91,11 +99,18 @@ function Login() {
   };
 
   return (
-    <div className="min-w-[400px] flex flex-col justify-start items-center gap-4">
+    <div className="w-[400px] flex flex-col justify-start items-center gap-4">
       {loading ? (
         <Loader />
       ) : (
         <>
+          {errors.password && (
+            <p
+              className={`w-full text-center text-size-14 font-main font-500 text-danger transition-all duration-100`}
+            >
+              {errors.password.message}
+            </p>
+          )}
           <p className="w-full text-center font-logo text-black text-size-30">
             Login
           </p>
@@ -103,11 +118,6 @@ function Login() {
             onSubmit={handleSubmit(loginHandler)}
             className="w-full flex flex-col justify-start items-center gap-3"
           >
-            {errors.root && (
-              <p className="text-size-16 font-main font-600 text-red">
-                {errors.root.message}
-              </p>
-            )}
             <Input
               name="email"
               placeholder="Email"
