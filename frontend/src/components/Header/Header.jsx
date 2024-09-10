@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Icon, Logo } from "../../components";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { search, person, bag } from "../../assets";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { authService } from "../../service";
+import { storeLogout } from "../../store/authSlice/authSlice";
 
 function Header() {
   const loginStatus = useSelector((state) => state.auth.loginStatus);
@@ -28,10 +30,42 @@ function Header() {
   ]);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    // setShowProfileMenu(loginStatus);
-  }, [loginStatus]);
+  const logoutHandler = async () => {
+    try {
+      const response = await authService.logout();
+      console.log(response)
+      if (response) {
+        // logout from store
+        dispatch(storeLogout());
+
+        // navigate to homepage
+        navigate("/login");
+
+        // send toast
+        toast("USER LOGOUT SUCCESSFUL", {
+          duration: 1500,
+          position: "top-center",
+          icon: "✅",
+          style: {
+            fontFamily: "Outfit",
+            fontWeight: "500",
+            fontSize: "14px",
+          },
+        });
+      }
+    } catch (error) {
+      /*
+        AXIOS ERROR HANDLING
+        The error sent by the backend server is stored inside the `AxiosError.response.data` object.
+
+        NOTE: We have sent the exact same error object (sent by the backend service) to the client (handled in the authService.js file). Therefore, we can simply access the error in the same format as it was sent by the backend.
+      */
+      console.log(`User Logout Failed | Error = ${error.message}`);
+      throw error;
+    }
+  };
 
   return (
     <div className="flex-grow-0 w-full flex flex-row justify-between items-center py-4">
@@ -101,15 +135,7 @@ function Header() {
             <Link to="/orders">
               <p>Orders</p>
             </Link>
-            <p
-              onClick={() => {
-                // log the user out from the database
-                // navigate to homepage
-                // modify store accordingly (should happen automatically ideally!)
-              }}
-            >
-              Logout
-            </p>
+            <p onClick={() => logoutHandler()}>Logout</p>
           </div>
         </div>
         <Link to={"/cart"}>

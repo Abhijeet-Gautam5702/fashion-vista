@@ -13,6 +13,11 @@ class AuthService {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
+          withCredentials: true,
+          /*
+            NOTE: For Axios Requests, this setting must be set to true.
+            `withCredentials:true` option enables the browser to send cookies and other credential-related stuff to the server (located in a different domain than the frontend-client)
+          */
         }
       );
       /*
@@ -37,7 +42,12 @@ class AuthService {
     try {
       const response = await axios.post(
         "http://localhost:8000/api/v1/users/remove-login-session",
-        {}
+        {},
+        { withCredentials: true }
+        /*
+          NOTE: For Axios Requests, this setting must be set to true.
+          `withCredentials:true` option enables the browser to send cookies and other credential-related stuff to the server (located in a different domain than the frontend-client)
+        */
       );
       return response.data;
     } catch (error) {
@@ -66,6 +76,11 @@ class AuthService {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
+          withCredentials: true,
+          /*
+            NOTE: For Axios Requests, this setting must be set to true.
+            `withCredentials:true` option enables the browser to send cookies and other credential-related stuff to the server (located in a different domain than the frontend-client)
+          */
         }
       );
       return response.data;
