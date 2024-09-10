@@ -29,31 +29,59 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: (
+          <Protected authentication={false}>
+            <Home />
+          </Protected>
+        ),
       },
       {
         path: "/collections",
-        element: <Collections />,
+        element: (
+          <Protected authentication={false}>
+            <Collections />
+          </Protected>
+        ),
       },
       {
         path: "/about",
-        element: <About />,
+        element: (
+          <Protected authentication={false}>
+            <About />
+          </Protected>
+        ),
       },
       {
         path: "/contact-us",
-        element: <Contact />,
+        element: (
+          <Protected authentication={false}>
+            <Contact />
+          </Protected>
+        ),
       },
       {
         path: "/product/:productId",
-        element: <Product />,
+        element: (
+          <Protected authentication={false}>
+            <Product />
+          </Protected>
+        ),
       },
       {
         path: "/login",
-        element: <Login />,
+        element: (
+          <Protected authentication={false}>
+            <Login />
+          </Protected>
+        ),
       },
       {
         path: "/signup",
-        element: <Signup />,
+        element: (
+          <Protected authentication={false}>
+            <Signup />
+          </Protected>
+        ),
       },
       {
         path: "/cart",

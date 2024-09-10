@@ -18,6 +18,7 @@ import Subscription from "./Subscription";
 import OrderedProductCard from "./OrderedProductCard";
 import HomeCollections from "./HomeCollections";
 import Loader from "./Loader";
+import FilterCheckbox from "./FilterCheckbox";
 
 export {
   Header,
@@ -39,5 +40,6 @@ export {
   Input,
   OrderedProductCard,
   HomeCollections,
-  Loader
+  Loader,
+  FilterCheckbox,
 };

@@ -59,7 +59,7 @@ class AuthService {
     try {
       const response = await axios.get(
         "http://localhost:8000/api/v1/users/get-current-user",
-        {}
+        {withCredentials:true}
       );
       return response.data;
     } catch (error) {

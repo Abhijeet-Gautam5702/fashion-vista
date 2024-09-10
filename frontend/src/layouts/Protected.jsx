@@ -8,9 +8,9 @@ function Protected({ children, authentication }) {
 
   useEffect(() => {
     if (authentication && !loginStatus) {
-      navigate("/login", { replace: true });
+      navigate("/", { replace: true });
     }
-  }, [loginStatus]);
+  }, [loginStatus, authentication]);
   return <>{children}</>;
 }
 

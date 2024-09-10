@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Container, Footer, Header } from "./components";
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { storePopulateInventory } from "./store/inventorySlice/inventorySlice";
 import { authService, databaseService } from "./service/index.js";
@@ -16,15 +15,18 @@ function App() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Remove this later (This is a functionality which would be invoked only when login is being done)
-    // (async () => {
-    //   const userDataFromDB = await authService.login({
-    //     email: "two@two.com",
-    //     password: "Test123456@",
-    //   });
-    //   // console.log(userDataFromDB);
-    //   dispatch(storeLogin({ userData: userDataFromDB.data }));
-    // })();
+    // Get the currently logged-in user
+    (async () => {
+      try {
+        const response = await authService.getCurrentUser();
+        if (response) {
+          dispatch(storeLogin({ userData: response.data }));
+        }
+      } catch (error) {
+        console.log(`Could not fetch current user details | Error = ${error.message}`)
+        throw error;
+      }
+    })();
   }, []);
 
   useEffect(() => {
@@ -35,7 +37,7 @@ function App() {
   // A completely different JSX will be returned if "/admin" is visited
   return (
     <div className="flex flex-col justify-between items-center w-full">
-      <Toaster/>
+      <Toaster />
       <div className="min-h-[80vh] flex-grow w-full px-32 flex flex-col justify-start items-center">
         <Header />
         <Container>
