@@ -2,7 +2,9 @@ import React from 'react'
 
 function Searchbar() {
   return (
-    <div>Searchbar</div>
+    <div className='w-full border-2 flex flex-row justify-center items-center'>
+      
+    </div>
   )
 }
 

@@ -98,10 +98,10 @@ function Header() {
         </Link>
       </div>
       {/* Action icons */}
-      <div className="flex flex-row justify-center items-center gap-4">
-        <div className="cursor-pointer" onClick={() => {}}>
+      <div className="flex flex-row justify-center items-center gap-5">
+        {/* <div className="cursor-pointer" onClick={() => {}}>
           <Icon icon={search} size="27px" />
-        </div>
+        </div> */}
         <div
           className="cursor-pointer relative"
           onClick={() => {
@@ -126,7 +126,7 @@ function Header() {
             }
           }}
         >
-          <Icon icon={person} size="33px" />
+          <Icon icon={person} size="35px" />
           <div
             className={`${
               showProfileMenu ? "opacity-100" : "opacity-0"
