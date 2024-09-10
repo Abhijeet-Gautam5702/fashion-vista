@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Container, Footer, Header } from "./components";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { storePopulateInventory } from "./store/inventorySlice/inventorySlice";
 import { authService, databaseService } from "./service/index.js";
 import { storeLogin } from "./store/authSlice/authSlice";
 import { Toaster } from "react-hot-toast";
 
 function App() {
-  const inventory = useSelector((state) => state.inventory.inventory);
-  const userData = useSelector((state) => state.auth.userData);
   const dispatch = useDispatch();
-  const [user, setUser] = useState({});
-  const [products, setProducts] = useState([]);
 
+  // Get the currently logged-in user
   useEffect(() => {
-    // Get the currently logged-in user
     (async () => {
       try {
         const response = await authService.getCurrentUser();
@@ -29,10 +25,13 @@ function App() {
     })();
   }, []);
 
+  // Fetch data from the database and populate the inventory store
   useEffect(() => {
-    // Remove this later (This is a functionality which would be invoked only when login is being done)
-    // setUser(userData);
-  }, [userData]);
+    (async () => {
+      const productsFromDB = await databaseService.getAllProducts();
+      dispatch(storePopulateInventory({ inventory: productsFromDB.data }));
+    })();
+  }, []);
 
   // A completely different JSX will be returned if "/admin" is visited
   return (

@@ -14,14 +14,6 @@ function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Fetch data from the database and populate the inventory store
-    (async () => {
-      const productsFromDB = await databaseService.getAllProducts();
-      dispatch(storePopulateInventory({ inventory: productsFromDB.data }));
-    })();
-  }, []);
-
-  useEffect(() => {
     setLatestArrivals((prev) => {
       const newList = inventory.filter((item) => item.latestArrival);
       return newList;
