@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { storePopulateInventory } from "./store/inventorySlice/inventorySlice";
 import { authService, databaseService } from "./service/index.js";
 import { storeLogin } from "./store/authSlice/authSlice";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const inventory = useSelector((state) => state.inventory.inventory);
@@ -33,8 +34,9 @@ function App() {
 
   // A completely different JSX will be returned if "/admin" is visited
   return (
-    <div className="min-h-screen flex flex-col justify-between items-center w-full">
-      <div className="flex-grow w-full px-32 flex flex-col justify-start items-center">
+    <div className="flex flex-col justify-between items-center w-full">
+      <Toaster/>
+      <div className="min-h-[80vh] flex-grow w-full px-32 flex flex-col justify-start items-center">
         <Header />
         <Container>
           <Outlet />
