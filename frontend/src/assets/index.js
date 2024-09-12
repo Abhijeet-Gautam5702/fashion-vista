@@ -13,8 +13,10 @@ import trash from "./trash.svg";
 import logo1 from "./logo1.png";
 import logo2 from "./logo2.png";
 import banner from "./banner.jpg";
-import banner_2 from "./banner_2.jpg"
-import banner_3 from "./banner_3.jpg"
+import banner_2 from "./banner_2.jpg";
+import banner_3 from "./banner_3.jpg";
+import star_filled from "./star_filled.png";
+import star_outline from "./star_outline.png";
 
 export {
   add,
@@ -34,4 +36,6 @@ export {
   banner,
   banner_2,
   banner_3,
+  star_filled,
+  star_outline,
 };

@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { forwardRef } from "react";
 
-function ProductSizeBox() {
+function ProductSizeBox(
+  { sizeText, className = "", type = "button", ...props },
+  ref
+) {
   return (
-    <div>ProductSizeBox</div>
-  )
+    <button
+      type={type}
+      className={`${className} font-main font-400 text-size-16 p-2 transition-all duration-150`}
+      {...props}
+    >
+      {sizeText}
+    </button>
+  );
 }
 
-export default ProductSizeBox
+export default forwardRef(ProductSizeBox);
