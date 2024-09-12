@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Loader, ProductCard, ProductSizeBox } from "../components";
 import { databaseService } from "../service";
 import { star_filled, star_outline } from "../assets";
 import toast from "react-hot-toast";
+import { storePopulateCart } from "../store/cartSlice/cartSlice";
 
 function Product() {
   const inventory = useSelector((state) => state.inventory.inventory);
   const { productId } = useParams();
+  const dispatch = useDispatch();
 
   // local state
   const [productDetails, setProductDetails] = useState({});
@@ -72,16 +74,26 @@ function Product() {
         quantity: 1,
       });
       if (response) {
-        toast("Product added to your cart", {
-          duration: 1500,
-          position: "top-center",
-          icon: "✅",
-          style: {
-            fontFamily: "Outfit",
-            fontWeight: "500",
-            fontSize: "14px",
-          },
-        });
+        // add the product to the cart in store
+
+        const cartResponse = await databaseService.getUserCart(); // get the cart from the database
+        if (cartResponse) {
+          dispatch(storePopulateCart({ cart: cartResponse.data.cartItems })); // populate the store with cart
+
+          // Send toast
+          toast("Product added to your cart", {
+            duration: 1500,
+            position: "top-center",
+            icon: "✅",
+            style: {
+              fontFamily: "Outfit",
+              fontWeight: "500",
+              fontSize: "14px",
+            },
+          });
+
+          setSelectedSize(null); //reset the selected size to default
+        }
       }
     } catch (error) {
       console.log(
@@ -181,13 +193,6 @@ function Product() {
                 });
                 return;
               }
-
-              // Save the selected product details to the cart (in store as well as the database)
-              // const data = {
-              //   productId,
-              //   size: selectedSize,
-              //   quantity: 1,
-              // };
               addToCartHandler();
               // Change the badge on the cart displaying the number of items in the cart
             }}
