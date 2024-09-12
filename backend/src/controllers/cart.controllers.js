@@ -91,9 +91,10 @@ const getCart = asyncController(async (req, res, next) => {
       },
     },
   ]);
-  if (!cartFromDB) {
+  if (!cartFromDB.length) {
     throw new CustomApiError(404, `CART NOT FOUND IN DATABASE`);
   }
+  // console.log(cartFromDB)
 
   // Send response to the client
   res
