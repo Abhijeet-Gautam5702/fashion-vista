@@ -17,7 +17,7 @@ import banner_2 from "./banner_2.jpg";
 import banner_3 from "./banner_3.jpg";
 import star_filled from "./star_filled.png";
 import star_outline from "./star_outline.png";
-
+import trash_2 from "./trash_2.png";
 export {
   add,
   bag,
@@ -38,4 +38,5 @@ export {
   banner_3,
   star_filled,
   star_outline,
+  trash_2,
 };

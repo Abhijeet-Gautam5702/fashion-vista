@@ -2,38 +2,30 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   cart: [],
+  cartTotal: 0,
 };
 
 const cartSlice = createSlice({
   name: "cart", // to be used when registering in the store
   initialState,
   reducers: {
-    // storeAddItemToCart: (state, action) => {
-    //   state.cart.push(action.payload.cartItem);
-    // },
-    // storeUpdateItemInCart: (state, action) => {},
-    // storeDeleteItemFromCart: (state, action) => {
-    //   const productId = action.payload.productId;
-    //   state.cart = state.cart.filter((item) => item._id !== productId);
-    // },
-    // See if the above three reducers are ever used
     storeClearCart: (state, action) => {
       state.cart = [];
+      state.cartTotal = 0;
     },
     storePopulateCart: (state, action) => {
       state.cart = action.payload.cart;
+      // update cart total
+      state.cartTotal = 0;
+      state.cart.forEach(
+        (item) => (state.cartTotal += item.quantity * item.product.price)
+      );
     },
   },
 });
 
 // export cartSlice reducers individually
-export const {
-  // storeAddItemToCart,
-  // storeDeleteItemFromCart,
-  // storeUpdateItemInCart,
-  storeClearCart,
-  storePopulateCart,
-} = cartSlice.actions;
+export const { storeClearCart, storePopulateCart } = cartSlice.actions;
 
 // export all reducers as a single cartReducer and register it in the store
 export const cartReducer = cartSlice.reducer;

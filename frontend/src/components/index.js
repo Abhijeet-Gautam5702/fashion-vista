@@ -19,6 +19,7 @@ import OrderedProductCard from "./OrderedProductCard";
 import HomeCollections from "./HomeCollections";
 import Loader from "./Loader";
 import FilterCheckbox from "./FilterCheckbox";
+import CartItem from "./CartItem";
 
 export {
   Header,
@@ -42,4 +43,5 @@ export {
   HomeCollections,
   Loader,
   FilterCheckbox,
+  CartItem,
 };

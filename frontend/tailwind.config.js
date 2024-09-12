@@ -27,6 +27,7 @@ export default {
       "accent-1": "#DDFAFF",
       "accent-2": "#86B6C4",
       black: "#000000",
+      gray: "#f1f3f5",
       "black-1": "#565757",
       "black-2": "#414141",
       "text-col-1": "#6A7281",
