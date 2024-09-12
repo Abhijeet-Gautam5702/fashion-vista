@@ -8,14 +8,14 @@ const cartSlice = createSlice({
   name: "cart", // to be used when registering in the store
   initialState,
   reducers: {
-    storeAddItemToCart: (state, action) => {
-      state.cart.push(action.payload.cartItem);
-    },
-    storeUpdateItemInCart: (state, action) => {},
-    storeDeleteItemFromCart: (state, action) => {
-      const productId = action.payload.productId;
-      state.cart = state.cart.filter((item) => item._id !== productId);
-    },
+    // storeAddItemToCart: (state, action) => {
+    //   state.cart.push(action.payload.cartItem);
+    // },
+    // storeUpdateItemInCart: (state, action) => {},
+    // storeDeleteItemFromCart: (state, action) => {
+    //   const productId = action.payload.productId;
+    //   state.cart = state.cart.filter((item) => item._id !== productId);
+    // },
     // See if the above three reducers are ever used
     storeClearCart: (state, action) => {
       state.cart = [];
@@ -28,9 +28,9 @@ const cartSlice = createSlice({
 
 // export cartSlice reducers individually
 export const {
-  storeAddItemToCart,
-  storeDeleteItemFromCart,
-  storeUpdateItemInCart,
+  // storeAddItemToCart,
+  // storeDeleteItemFromCart,
+  // storeUpdateItemInCart,
   storeClearCart,
   storePopulateCart,
 } = cartSlice.actions;
