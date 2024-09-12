@@ -44,8 +44,8 @@ const ZodProductNameSchema = z
 const ZodProductDescriptionSchema = z
   .string()
   .min(1, "Description cannot be empty")
-  .min(10, "Product description name too short")
-  .max(100, "Product description name too long");
+  .min(10, "Product description too short")
+  .max(200, "Product description too long");
 
 const ZodProductPriceSchema = z.number().min(0);
 
