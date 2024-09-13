@@ -6,15 +6,100 @@ import {
 } from "../utilities/index.js";
 import {
   ZodAddressSchema,
+  ZodEmailSchema,
   ZodPhoneNumberSchema,
 } from "../schema/zod.schema.js";
+import mongoose from "mongoose";
 
 // Authenticated route : Get order history
 const getOrderHistory = asyncController(async (req, res, next) => {
   // Authenticate the user
 
+  // Get the userId from req.userData
+  const userId = req.userData._id;
+
+  // AGGREGATION PIPELINES: Get the orders list, group them by the userID and populate it with the ordered-products' details
+  const orderFromDB = await Order.aggregate([
+    // Filter the order documents whose `placedBy` matches with userId
+    {
+      $match: {
+        placedBy: new mongoose.Types.ObjectId(String(userId)),
+      },
+    },
+    // Unwind the `orderItems` field
+    {
+      $unwind: {
+        path: "$orderedItems",
+      },
+    },
+    // Populate the `orderedItems.product` field with product details looked-up from "products" collection
+    {
+      $lookup: {
+        from: "products",
+        localField: "orderedItems.product",
+        foreignField: "_id",
+        as: "product",
+        pipeline: [
+          // Project only these fields
+          {
+            $project: {
+              name: 1,
+              images: 1,
+              category: 1,
+            },
+          },
+        ],
+      },
+    },
+    // Unwind the `product` field (as the previous stage would have returned an array with single element)
+    {
+      $unwind: {
+        path: "$product",
+      },
+    },
+    // Group the identical documents based on the "_id"
+    {
+      $group: {
+        _id: "$_id",
+        // accumulate other fields of your choice into the final grouped document
+        orderedItems: {
+          $push: {
+            product: "$product",
+            size: "$orderedItems.size",
+            quantity: "$orderedItems.quantity",
+          },
+        },
+        status: {
+          $first: "$status",
+        },
+        orderDate: {
+          $first: "$orderDate",
+        },
+        orderValue: {
+          $first: "$orderValue",
+        },
+        paymentMode: {
+          $first: "$paymentMode",
+        },
+        paymentStatus: {
+          $first: "$paymentStatus",
+        },
+        deliveryAddress: {
+          $first: "$deliveryAddress",
+        },
+      },
+    },
+  ]);
+  if (!orderFromDB.length) {
+    throw new CustomApiError(404, `ORDER NOT FOUND IN THE DATABASE`);
+  }
+
   // Send response to the client
-  res.json({});
+  res
+    .status(200)
+    .json(
+      new CustomApiResponse(200, `ORDERS FETCHED SUCCESSFULLY`, orderFromDB)
+    );
 });
 
 // Authenticated route : Place an order
@@ -22,9 +107,17 @@ const placeOrder = asyncController(async (req, res, next) => {
   // Authenticate the user
 
   // Get the shipping details from req.body and validate them
-  const { address, phone } = req.body;
+  const { address, phone, email, orderValue } = req.body;
   const isAddressValid = ZodAddressSchema.safeParse(address);
   const isPhoneValid = ZodPhoneNumberSchema.safeParse(phone);
+  const isEmailValid = ZodEmailSchema.safeParse(email);
+  if (!isEmailValid.success) {
+    throw new CustomApiError(
+      400,
+      `ORDER COULD NOT BE PLACED || INVALID EMAIL ADDRESS`,
+      isAddressValid.error.issues
+    );
+  }
   if (!isAddressValid.success) {
     throw new CustomApiError(
       400,
@@ -49,7 +142,6 @@ const placeOrder = asyncController(async (req, res, next) => {
       `ORDER COULD NOT BE PLACED || CART DOESN'T EXIST IN THE DATABASE`
     );
   }
-  const orderValue = 10;
 
   const order = await Order.create({
     deliveryAddress: address,
@@ -67,19 +159,98 @@ const placeOrder = asyncController(async (req, res, next) => {
     );
   }
 
+  // AGGREGATION PIPELINES: Get the created order and populate it with the ordered-products' details
+  const createdOrder = await Order.aggregate([
+    // Filter the order documents whose `_id` matches with "order._id"
+    {
+      $match: {
+        // _id: new mongoose.Types.ObjectId(String(order._id)),
+        _id: new mongoose.Types.ObjectId(order._id),
+      },
+    },
+    // Unwind the `orderItems` field
+    {
+      $unwind: {
+        path: "$orderedItems",
+      },
+    },
+    // Populate the `orderedItems.product` field with product details looked-up from "products" collection
+    {
+      $lookup: {
+        from: "products",
+        localField: "orderedItems.product",
+        foreignField: "_id",
+        as: "product",
+        pipeline: [
+          // Project only these fields
+          {
+            $project: {
+              name: 1,
+              images: 1,
+              category: 1,
+            },
+          },
+        ],
+      },
+    },
+    // Unwind the `product` field (as the previous stage would have returned an array with single element)
+    {
+      $unwind: {
+        path: "$product",
+      },
+    },
+    // Group the identical documents based on the "_id"
+    {
+      $group: {
+        _id: "$_id",
+        // accumulate other fields of your choice into the final grouped document
+        orderedItems: {
+          $push: {
+            product: "$product",
+            size: "$orderedItems.size",
+            quantity: "$orderedItems.quantity",
+          },
+        },
+        status: {
+          $first: "$status",
+        },
+        orderDate: {
+          $first: "$orderDate",
+        },
+        orderValue: {
+          $first: "$orderValue",
+        },
+        paymentMode: {
+          $first: "$paymentMode",
+        },
+        paymentStatus: {
+          $first: "$paymentStatus",
+        },
+        deliveryAddress: {
+          $first: "$deliveryAddress",
+        },
+      },
+    },
+  ]);
+  if (!createdOrder.length) {
+    throw new CustomApiError(404, `ORDER NOT FOUND IN THE DATABASE`);
+  }
+
   // Clear the user's cart
   const clearCart = await Cart.findByIdAndDelete(userCartFromDB._id);
   if (!clearCart) {
     throw new CustomApiError(
       500,
-      `COULD NOT DELETE CART FROM DATABASE || SOMETHING WENT WRONG AT OUR END`
+      `COULD NOT CLEAR CART FROM DATABASE || SOMETHING WENT WRONG AT OUR END`
     );
   }
 
   // Send response to the client
   res
     .status(200)
-    .json(new CustomApiResponse(200, `ORDER PLACED SUCCESSFULLY`, order));
+    .json(
+      new CustomApiResponse(200, `ORDER PLACED SUCCESSFULLY`, createdOrder[0])
+    );
 });
 
 // Authenticated route : Cancel an order
