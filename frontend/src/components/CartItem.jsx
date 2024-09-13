@@ -1,10 +1,9 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useId, useState } from "react";
 import { Icon, ProductSizeBox } from "../components";
 import { trash_2 } from "../assets";
 
-function CartItem({ cartItem }, ref) {
-  // local state
-  const [itemQt, setItemQt] = useState(cartItem.quantity);
+function CartItem({ cartItem, deleteItemHandler, ...props }, ref) {
+  const id = useId();
 
   return (
     <div className="w-full border-y-[1px] border-y-gray border- py-5 flex flex-row items-center justify-between gap-5">
@@ -34,16 +33,22 @@ function CartItem({ cartItem }, ref) {
       </div>
       {/* Product Quantity */}
       <input
+        id={id}
         type="number"
-        className="font-main font-400 text-text-col-2 text-size-16 border-[1px] border-black-1 outline-none p-2 w-[100px] mx-auto"
-        value={itemQt}
-        onChange={(e) => setItemQt(e.target.value)}
+        className="font-main font-400 text-text-col-2 text-size-16 border-[1px] border-black-1 outline-none p-2  mx-auto"
         min={1}
         max={15}
+        step={1}
         ref={ref}
+        {...props}
       />
       {/* Delete Item Icon */}
-      <Icon icon={trash_2} size="23px" className={` cursor-pointer `} />
+      <Icon
+        icon={trash_2}
+        size="23px"
+        className={` cursor-pointer `}
+        onClick={deleteItemHandler}
+      />
     </div>
   );
 }

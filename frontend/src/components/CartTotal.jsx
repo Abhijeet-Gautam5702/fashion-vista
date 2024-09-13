@@ -24,7 +24,7 @@ function CartTotal({ amount }) {
           {/* Total */}
           <div className="w-full py-1 flex flex-row justify-between items-center font-600 text-black">
             <p className="w-full text-left">Total</p>
-            <p className="w-full text-right">$ {amount + 10} </p>
+            <p className="w-full text-right">$ {amount+10} </p>
           </div>
         </div>
       </div>
