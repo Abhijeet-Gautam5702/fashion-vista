@@ -9,6 +9,7 @@ import { storePopulateCart } from "../store/cartSlice/cartSlice";
 
 function Product() {
   const inventory = useSelector((state) => state.inventory.inventory);
+  const loginStatus=useSelector(state => state.auth.loginStatus)
   const { productId } = useParams();
   const dispatch = useDispatch();
 
@@ -181,7 +182,7 @@ function Product() {
             onClick={() => {
               // If no size is selected => Send a toast
               if (!selectedSize) {
-                toast("Please select a size of the product", {
+                toast("PLEASE SELECT A SIZE OF THE PRODUCT", {
                   duration: 1500,
                   position: "top-center",
                   icon: "❌",
@@ -193,6 +194,20 @@ function Product() {
                 });
                 return;
               }
+              if(!loginStatus){
+                toast("PLEASE LOGIN TO ADD ITEM TO CART", {
+                  duration: 1500,
+                  position: "top-center",
+                  icon: "🔒",
+                  style: {
+                    fontFamily: "Outfit",
+                    fontWeight: "500",
+                    fontSize: "14px",
+                  },
+                });
+                return;
+              }
+
               addToCartHandler();
               // Change the badge on the cart displaying the number of items in the cart
             }}
