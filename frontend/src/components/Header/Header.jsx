@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { authService } from "../../service";
 import { storeLogout } from "../../store/authSlice/authSlice";
+import { storeClearCart } from "../../store/cartSlice/cartSlice";
 
 function Header() {
   const loginStatus = useSelector((state) => state.auth.loginStatus);
@@ -35,8 +36,11 @@ function Header() {
   const logoutHandler = async () => {
     try {
       const response = await authService.logout();
-      console.log(response)
+      // console.log(response)
       if (response) {
+        // clear cart from store
+        dispatch(storeClearCart());
+
         // logout from store
         dispatch(storeLogout());
 
@@ -138,9 +142,31 @@ function Header() {
             <p onClick={() => logoutHandler()}>Logout</p>
           </div>
         </div>
-        <Link to={"/cart"}>
-          <Icon icon={bag} size="28px" />
-        </Link>
+        {/* <Link to={"/cart"}> */}
+        <Icon
+          icon={bag}
+          size="28px"
+          className={" cursor-pointer "}
+          onClick={() => {
+            if (!loginStatus) {
+              // display a toast saying "Please login"
+              toast(`PLEASE LOGIN TO CONTINUE`, {
+                duration: 1500,
+                position: "top-center",
+                icon: "🔒",
+                style: {
+                  fontFamily: "Outfit",
+                  fontWeight: "500",
+                  fontSize: "14px",
+                },
+              });
+              navigate("/login");
+              return;
+            }
+            navigate("/cart");
+          }}
+        />
+        {/* </Link> */}
       </div>
     </div>
   );
