@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "../components";
 
 function CartTotal({ amount }) {
   return (
@@ -27,15 +26,6 @@ function CartTotal({ amount }) {
             <p className="w-full text-left">Total</p>
             <p className="w-full text-right">$ {amount + 10} </p>
           </div>
-        </div>
-
-        {/* Place Order button */}
-        <div className="w-full  flex flex-row items-center justify-start">
-          <Button
-            type="button"
-            btnText="PROCEED TO CHECKOUT"
-            className="p-3 text-size-14"
-          />
         </div>
       </div>
     </div>
