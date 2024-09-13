@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {} from "../store/orderSlice/orderSlice";
+import { storeAddOrder } from "../store/orderSlice/orderSlice";
 import { CartTotal, Button, Input } from "../components";
 import { useForm } from "react-hook-form";
+import { databaseService } from "../service";
+import toast from "react-hot-toast";
+import { storeClearCart } from "../store/cartSlice/cartSlice";
 
 function ProductCheckout() {
   // local state
@@ -33,15 +36,44 @@ function ProductCheckout() {
     });
   }, []);
 
-  const saveDeliveryAddress = async (data) => {
+  // function to place order
+  const placeOrderHandler = async (data) => {
     clearErrors();
     setLoading(true);
     try {
       // add the order details to the database
-      // add the order to the user's order slice in store
-      // send toast
-      console.log(data);
-      reset();
+      const address = `${data.fullname}, ${data.street}, ${data.city}-${data.pincode}, ${data.state}, ${data.country}`;
+      const response = await databaseService.placeOrder(
+        address,
+        data.phone,
+        data.email,
+        Number(storeCart.cartTotal + 10)
+      );
+
+      if (response) {
+        // update the order slice
+        dispatch(storeAddOrder({ order: response.data }));
+
+        // clear the cart slice
+        dispatch(storeClearCart());
+
+        // Show toast
+        toast(`ORDER PLACED`, {
+          duration: 1500,
+          position: "top-center",
+          icon: "🎉",
+          style: {
+            fontFamily: "Outfit",
+            fontWeight: "500",
+            fontSize: "14px",
+          },
+        });
+
+        reset(); // reset the form
+
+        // navigate to the Orders Page
+        navigate("/orders");
+      }
     } catch (error) {
       console.log(
         `Could not update delivery address | Error = ${error.message}`
@@ -57,12 +89,12 @@ function ProductCheckout() {
         <p className="font-main font-500 text-size-24 text-text-col-2">
           DELIVERY INFORMATION
         </p>
-        <form className="w-full flex flex-col justify-start items-center gap-4">
+        <form className="w-full flex flex-col justify-start items-center gap-4 pr-10">
           <Input
             type={"text"}
             label=""
             placeholder={"Full name"}
-            className=""
+            className="py-2"
             {...register("fullname", { required: true })}
           />
 
@@ -70,7 +102,7 @@ function ProductCheckout() {
             type={"text"}
             label=""
             placeholder={"Street"}
-            className=""
+            className="py-2"
             {...register("street", { required: true })}
           />
 
@@ -79,14 +111,14 @@ function ProductCheckout() {
               type={"text"}
               label=""
               placeholder={"City"}
-              className=""
+              className="py-2"
               {...register("city", { required: true })}
             />
             <Input
               type={"text"}
               label=""
               placeholder={"Pincode"}
-              className=""
+              className="py-2"
               {...register("pincode", { required: true })}
             />
           </div>
@@ -96,14 +128,14 @@ function ProductCheckout() {
               type={"text"}
               label=""
               placeholder={"State"}
-              className=""
+              className="py-2"
               {...register("state", { required: true })}
             />
             <Input
               type={"text"}
               label=""
               placeholder={"Country"}
-              className=""
+              className="py-2"
               {...register("country", { required: true })}
             />
           </div>
@@ -112,7 +144,7 @@ function ProductCheckout() {
             type={"email"}
             label=""
             placeholder={"Email"}
-            className=""
+            className="py-2"
             {...register("email", { required: true })}
           />
 
@@ -120,7 +152,7 @@ function ProductCheckout() {
             type={"tel"}
             label=""
             placeholder={"Phone"}
-            className=""
+            className="py-2"
             {...register("phone", { required: true })}
           />
         </form>
@@ -146,7 +178,7 @@ function ProductCheckout() {
             type="submit"
             btnText="PLACE ORDER"
             className="p-3 text-size-14 min-w-[240px]"
-            onClick={handleSubmit(saveDeliveryAddress)}
+            onClick={handleSubmit(placeOrderHandler)}
           />
         </div>
       </div>
