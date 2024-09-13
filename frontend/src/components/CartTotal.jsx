@@ -2,8 +2,7 @@ import React from "react";
 
 function CartTotal({ amount }) {
   return (
-    <div className="w-full flex flex-row items-center justify-start">
-      <div className="w-2/5 flex flex-col justify-start items-center gap-3">
+      <div className="w-full flex flex-col justify-start items-center gap-3">
         {/* Title */}
         <p className="w-full font-main font-500 text-text-col-2 text-size-24">
           CART TOTALS
@@ -28,7 +27,7 @@ function CartTotal({ amount }) {
           </div>
         </div>
       </div>
-    </div>
+    
   );
 }
 

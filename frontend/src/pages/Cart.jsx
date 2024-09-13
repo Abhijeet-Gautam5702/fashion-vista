@@ -160,7 +160,11 @@ function Cart() {
       </div>
 
       {/* Cart Total */}
-      <CartTotal amount={cartTotal} />
+      <div className=" w-full flex flex-row items-center justify-start">
+        <div className="w-2/5">
+        <CartTotal amount={cartTotal} />
+        </div>
+      </div>
 
       {/* Place Order button */}
       <div className="w-full  flex flex-row items-center justify-start">
