@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { CartItem, CartTotal, Loader } from "../components";
+import { CartItem, CartTotal, Loader, Button } from "../components";
 import { databaseService } from "../service";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { storePopulateCart } from "../store/cartSlice/cartSlice";
+import {
+  storeDeleteItemFromCart,
+  storePopulateCart,
+  storeUpdateItemQtInCart,
+} from "../store/cartSlice/cartSlice";
+import toast from "react-hot-toast";
 
 function Cart() {
   // local state
@@ -21,7 +26,7 @@ function Cart() {
       top: 0,
       behavior: "smooth",
     });
-  }, [localCart]);
+  }, []);
 
   // On Page Load => Fetch cart from the database and populate the store
   useEffect(() => {
@@ -41,11 +46,67 @@ function Cart() {
     })();
   }, []);
 
-  // Whenever the store-cart changes => set the local state accordingly
+  // Whenever the store-cart changes => change the local state accordingly
   useEffect(() => {
+    // set the local cart state
     setLocalCart(cartFromStore);
+
+    // set loading to false
     setLoading(false);
   }, [cartFromStore]);
+
+  // function to update product quantity in the cart (in the DB as well as the store)
+  // NOTE: Since the local state is dependent on the store-cart, it will automatically change
+  const updateUserCartHandler = async (productId, size, quantity) => {
+    try {
+      await databaseService.updateProductQtInCart(productId, size, quantity);
+    } catch (error) {
+      console.log(`Product updation failed | Error = ${error.message}`);
+      throw error;
+    }
+  };
+
+  // function to remove the product from the cart (in the DB as well as the store)
+  // NOTE: Since the local state is dependent on the store-cart, it will automatically change
+  const removeProductFromCartHandler = async (item) => {
+    try {
+      const response = await databaseService.removeProductFromCart(
+        item.product._id,
+        item.size
+      );
+      if (response) {
+        // delete the product from the cart store
+        // dispatch(
+        //   storeUpdateItemQtInCart({
+        //     productId: item.product._id,
+        //     size: item.size,
+        //     qt: 0,
+        //   })
+        // );
+        dispatch(
+          storeDeleteItemFromCart({
+            productId: item.product._id,
+            size: item.size,
+          })
+        );
+
+        // Show toast
+        toast(`CART ITEM DELETED`, {
+          duration: 1500,
+          position: "top-center",
+          icon: "✅",
+          style: {
+            fontFamily: "Outfit",
+            fontWeight: "500",
+            fontSize: "14px",
+          },
+        });
+      }
+    } catch (error) {
+      console.log(`Product deletion failed | Error = ${error.message}`);
+      throw error;
+    }
+  };
 
   if (loading) {
     return (
@@ -57,16 +118,60 @@ function Cart() {
 
   return (
     <div className="border-y-[1.5px] border-y-gray py-12 w-full flex-grow flex flex-col justify-start items-center gap-4">
+      {/* Headline */}
       <p className="w-full text-left font-main font-500 text-size-24 text-black-2">
         YOUR CART
       </p>
+
+      {/* Cart Items List */}
       <div className=" w-full flex flex-col justify-start items-center mb-5">
         {localCart.map((item, index) => (
-          <CartItem key={index} cartItem={item} />
+          <CartItem
+            key={index}
+            cartItem={item}
+            value={item.quantity}
+            disabled={false} // FUNCTIONALITY DISABLED FOR NOW
+            onChange={async (e) => {
+              // change the quantity of the item in the store cart
+              // NOTE: quantity of the item in the local state automatically changes (dependent on store cart)
+              dispatch(
+                storeUpdateItemQtInCart({
+                  productId: item.product._id,
+                  size: item.size,
+                  qt: Number(e.target.value),
+                })
+              );
+
+              // change the quantity of the item in the database
+              await updateUserCartHandler(
+                item.product._id,
+                item.size,
+                Number(e.target.value)
+              );
+            }}
+            deleteItemHandler={async (e) => {
+              // remove the product from the DB
+              await removeProductFromCartHandler(item);
+            }}
+          />
         ))}
       </div>
+
       {/* Cart Total */}
       <CartTotal amount={cartTotal} />
+
+      {/* Place Order button */}
+      <div className="w-full  flex flex-row items-center justify-start">
+        <Button
+          type="button"
+          btnText="PROCEED TO CHECKOUT"
+          className="p-3 text-size-14"
+          onClick={() => {
+            // navigate to the checkout page
+            navigate("/checkout");
+          }}
+        />
+      </div>
     </div>
   );
 }
