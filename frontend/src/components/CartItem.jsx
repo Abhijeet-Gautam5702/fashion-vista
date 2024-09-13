@@ -7,7 +7,7 @@ function CartItem({ cartItem }, ref) {
   const [itemQt, setItemQt] = useState(cartItem.quantity);
 
   return (
-    <div className="w-full border-y-[1px] border-y-gray border- py-5 flex flex-row items-center justify-start gap-5">
+    <div className="w-full border-y-[1px] border-y-gray border- py-5 flex flex-row items-center justify-between gap-5">
       {/* Image */}
       <div className="w-[80px]">
         <img
@@ -17,7 +17,7 @@ function CartItem({ cartItem }, ref) {
         />
       </div>
       {/* Product name, price & size */}
-      <div className="h-full flex flex-col items-start justify-start gap-5">
+      <div className="w-[400px]  h-full flex flex-col items-start justify-start gap-5">
         <p className="font-main font-500 text-text-col-2 text-size-20">
           {cartItem.product.name}
         </p>
@@ -35,7 +35,7 @@ function CartItem({ cartItem }, ref) {
       {/* Product Quantity */}
       <input
         type="number"
-        className="font-main font-400 text-text-col-2 text-size-16 border-[1px] border-black-1 outline-none p-2 w-[100px] mx-52"
+        className="font-main font-400 text-text-col-2 text-size-16 border-[1px] border-black-1 outline-none p-2 w-[100px] mx-auto"
         value={itemQt}
         onChange={(e) => setItemQt(e.target.value)}
         min={1}
