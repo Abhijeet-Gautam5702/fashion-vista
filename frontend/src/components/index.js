@@ -20,6 +20,7 @@ import HomeCollections from "./HomeCollections";
 import Loader from "./Loader";
 import FilterCheckbox from "./FilterCheckbox";
 import CartItem from "./CartItem";
+import OrderCard from "./OrderCard";
 
 export {
   Header,
@@ -44,4 +45,5 @@ export {
   Loader,
   FilterCheckbox,
   CartItem,
+  OrderCard,
 };
