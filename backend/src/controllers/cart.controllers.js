@@ -32,7 +32,7 @@ const getCart = asyncController(async (req, res, next) => {
         path: "$cartItems",
       },
     },
-    // Populate the `cartItems.product` field of each (identical) cart-document with the product details "looked-up" from the "products" database
+    // Populate the `cartItems.product` field of each (identical) cart-document with the product details "looked-up" from the "products" collection
     {
       $lookup: {
         from: "products",
@@ -128,18 +128,5 @@ const clearCart = asyncController(async (req, res, next) => {
     .status(200)
     .json(new CustomApiResponse(200, `CART CLEARED SUCCESSFULLY`, null));
 });
-
-// const updateCart = asyncController(async(req,res,next)=>{
-//   // Authenticate the user
-
-//   // 
-
-//   res.status(200).json(
-//     new CustomApiResponse(
-//       200,
-//       `CART UPDATED SUCCESSFULLY`
-//     )
-//   )
-// })
 
 export { getCart, clearCart };
