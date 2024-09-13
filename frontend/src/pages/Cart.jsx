@@ -21,6 +21,7 @@ function Cart() {
   const cartFromStore = useSelector((state) => state.cart.cart);
   const cartTotal = useSelector((state) => state.cart.cartTotal);
 
+  // On Page load => Scroll smoothly to the top
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -55,8 +56,16 @@ function Cart() {
     setLoading(false);
   }, [cartFromStore]);
 
-  // function to update product quantity in the cart (in the DB as well as the store)
-  // NOTE: Since the local state is dependent on the store-cart, it will automatically change
+  
+  /*
+    WHY NOT SAVE THE UPDATED CART DATA JUST BEFORE THE COMPONENT UNMOUNTS?
+
+    DOUBT: Instead of saving the updated cart information to the DB everytime the user makes changes (in product quantity), why not simply store the data locally and then upload everything at once just before the user refreshes the page or navigates away from the page?
+
+    EXPLANATION: There is an event-listener "beforeunload" to ensure running some (synchronous) code just before the component unmounts. However, browsers tend to cancel any asynchronous operations once the component unmounts. So it's better to keep updating the database with the latest cart-information as soon as the user interacts with it.
+  */
+ 
+  // function to update product quantity in the cart (in the DB) 
   const updateUserCartHandler = async (productId, size, quantity) => {
     try {
       await databaseService.updateProductQtInCart(productId, size, quantity);
@@ -76,13 +85,6 @@ function Cart() {
       );
       if (response) {
         // delete the product from the cart store
-        // dispatch(
-        //   storeUpdateItemQtInCart({
-        //     productId: item.product._id,
-        //     size: item.size,
-        //     qt: 0,
-        //   })
-        // );
         dispatch(
           storeDeleteItemFromCart({
             productId: item.product._id,
@@ -130,7 +132,7 @@ function Cart() {
             key={index}
             cartItem={item}
             value={item.quantity}
-            disabled={false} // FUNCTIONALITY DISABLED FOR NOW
+            disabled={false} 
             onChange={async (e) => {
               // change the quantity of the item in the store cart
               // NOTE: quantity of the item in the local state automatically changes (dependent on store cart)

@@ -49,7 +49,7 @@ const cartSlice = createSlice({
     },
     storePopulateCart: (state, action) => {
       state.cart = action.payload.cart;
-      
+
       // update cart total
       state.cartTotal = 0;
       state.cart.forEach(
