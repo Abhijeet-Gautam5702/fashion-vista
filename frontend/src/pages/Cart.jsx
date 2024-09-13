@@ -16,6 +16,13 @@ function Cart() {
   const cartFromStore = useSelector((state) => state.cart.cart);
   const cartTotal = useSelector((state) => state.cart.cartTotal);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [localCart]);
+
   // On Page Load => Fetch cart from the database and populate the store
   useEffect(() => {
     setLoading(true);
