@@ -89,6 +89,12 @@ const getOrderHistory = asyncController(async (req, res, next) => {
         },
       },
     },
+    // Sort the documents based on the descending order of `orderDate` field (so that latest order is at the top)
+    {
+      $sort: {
+        orderDate: -1,
+      },
+    },
   ]);
   if (!orderFromDB.length) {
     throw new CustomApiError(404, `ORDER NOT FOUND IN THE DATABASE`);
@@ -229,6 +235,12 @@ const placeOrder = asyncController(async (req, res, next) => {
         deliveryAddress: {
           $first: "$deliveryAddress",
         },
+      },
+    },
+    // Sort the documents based on the descending order of `orderDate` field (so that latest order is at the top)
+    {
+      $sort: {
+        orderDate: -1,
       },
     },
   ]);
