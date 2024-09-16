@@ -18,7 +18,9 @@ import banner_3 from "./banner_3.jpg";
 import star_filled from "./star_filled.png";
 import star_outline from "./star_outline.png";
 import trash_2 from "./trash_2.png";
+import contact from "./contact.png";
 export {
+  contact,
   add,
   bag,
   box,

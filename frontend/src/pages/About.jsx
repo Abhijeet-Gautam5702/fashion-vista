@@ -12,7 +12,10 @@ function About() {
   }, []);
 
   return (
-    <div className="py-10 w-full flex flex-col justify-start items-center gap-20">
+    <div className="border-y-[1.5px] border-y-gray py-10 w-full flex flex-col justify-start items-center gap-20">
+      <p className="w-full text-center font-main text-text-col-2 text-size-24 font-500">
+      ABOUT US
+      </p>
       {/* Hero */}
       <div className="w-full flex flex-row justify-between items-center gap-16">
         {/* Image */}
