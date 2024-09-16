@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
+import AdminApp from "./AdminApp.jsx";
 import "./index.css";
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -16,8 +17,12 @@ import {
   Orders,
   Login,
   Signup,
+  AddItems,
+  Inventory,
+  AdminOrders,
+  AdminLogin,
 } from "./pages";
-import { Protected } from "./layouts";
+import { AdminProtected, Protected } from "./layouts";
 
 import { Provider } from "react-redux";
 import store from "./store/store.js";
@@ -110,12 +115,50 @@ const router = createBrowserRouter([
     ],
     errorElement: <Error />,
   },
+  {
+    path: "/admin",
+    element: <AdminApp />,
+    children: [
+      {
+        path: "/admin/",
+        element: (
+          <AdminProtected>
+            <AdminLogin />
+          </AdminProtected>
+        ),
+      },
+      {
+        path: "/admin/add-items",
+        element: (
+          <AdminProtected>
+            <AddItems />
+          </AdminProtected>
+        ),
+      },
+      {
+        path: "/admin/inventory",
+        element: (
+          <AdminProtected>
+            <Inventory />
+          </AdminProtected>
+        ),
+      },
+      {
+        path: "/admin/orders",
+        element: (
+          <AdminProtected>
+            <AdminOrders />
+          </AdminProtected>
+        ),
+      },
+    ],
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
   // <StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
   // </StrictMode>
 );

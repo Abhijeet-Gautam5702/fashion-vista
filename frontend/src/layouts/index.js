@@ -1,3 +1,4 @@
 import Protected from "./Protected";
+import AdminProtected from "./AdminProtected";
 
-export { Protected };
+export { Protected, AdminProtected };

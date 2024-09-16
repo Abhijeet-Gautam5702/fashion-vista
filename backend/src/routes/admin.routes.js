@@ -19,14 +19,14 @@ adminRouter.route("/create-admin-login-session").post(createAdminLoginSession);
 // Secured routes
 adminRouter
   .route("/remove-admin-login-session")
-  .delete(authenticateAdmin, removeAdminLoginSession);
+  .post(authenticateAdmin, removeAdminLoginSession);
 adminRouter.route("/get-current-admin").get(authenticateAdmin, getCurrentAdmin);
 adminRouter
   .route("/add-new-product-to-inventory")
   .post(authenticateAdmin, addNewProductToInventory);
 adminRouter.route("/add-images-of-product-in-inventory").put(
   authenticateAdmin,
-  multerUpload, // Multer Uploader middleware (Refactor the middleware function)
+  multerUpload, 
   addImagesOfProductInInventory
 );
 adminRouter

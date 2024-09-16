@@ -8,7 +8,8 @@ import config from "../config/config.js";
 
 const authenticateAdmin = asyncController(async (req, res, next) => {
   // Get the access token from the cookies
-  const cookies = req.cookies;
+  // const adminAccessToken = req.cookies.adminAccessToken;
+  const cookies=req.cookies;
   const { adminAccessToken } = cookies;
   
   /*

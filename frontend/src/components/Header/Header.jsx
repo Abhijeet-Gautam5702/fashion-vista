@@ -40,10 +40,6 @@ function Header() {
   // Whenever store-cart changes, update the badge with number of items in the cart
   useEffect(() => {
     setCartItemsBadge((prev) => storeCart.cart.length);
-    console.log(
-      "store-cart changed | storeCartValue = ",
-      storeCart.cart.length
-    );
   }, [storeCart]);
 
   const logoutHandler = async () => {

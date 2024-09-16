@@ -1,7 +1,4 @@
 import Header from "./Header/Header";
-import Searchbar from "./Header/Searchbar";
-import ProductImageGrid from "./ProductImage/ProductImageGrid";
-import PrimaryProductImage from "./ProductImage/PrimaryProductImage";
 import Banner from "./Banner";
 import Button from "./Button";
 import Container from "./Container";
@@ -21,13 +18,12 @@ import Loader from "./Loader";
 import FilterCheckbox from "./FilterCheckbox";
 import CartItem from "./CartItem";
 import OrderCard from "./OrderCard";
+import AdminHeader from "./Header/AdminHeader";
 
 export {
   Header,
-  Searchbar,
+  AdminHeader,
   Subscription,
-  ProductImageGrid,
-  PrimaryProductImage,
   Banner,
   Button,
   Container,

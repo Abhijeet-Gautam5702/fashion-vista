@@ -79,7 +79,7 @@ const createAdminLoginSession = asyncController(async (req, res, next) => {
     - If the user document would have been successfully created => "newUser" will have all the data. So simply create a new object and include only those fields that are required to be sent to the client.
     - If the user document was not created successfully => it will throw an error and will automatically be handled by asyncController catch-block
   */
-  const selectedFields = ["name", "email", "adminPermission", "refreshToken"];
+  const selectedFields = ["_id","name", "email", "adminPermission", "refreshToken"];
   let adminData = {};
   selectedFields.forEach((field) => {
     adminData[field] = updatedAdminFromDB[field];

@@ -9,6 +9,12 @@ import ProductCheckout from "./ProductCheckout";
 import Error from "./Error";
 import Login from "./Login";
 import Signup from "./Signup";
+import {
+  AddItems,
+  Inventory,
+  Login as AdminLogin,
+  Orders as AdminOrders,
+} from "./Admin";
 
 export {
   About,
@@ -22,4 +28,8 @@ export {
   Error,
   Login,
   Signup,
+  AddItems,
+  Inventory,
+  AdminLogin,
+  AdminOrders,
 };
