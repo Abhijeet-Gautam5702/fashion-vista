@@ -56,7 +56,6 @@ function Cart() {
     setLoading(false);
   }, [cartFromStore]);
 
-  
   /*
     WHY NOT SAVE THE UPDATED CART DATA JUST BEFORE THE COMPONENT UNMOUNTS?
 
@@ -64,8 +63,8 @@ function Cart() {
 
     EXPLANATION: There is an event-listener "beforeunload" to ensure running some (synchronous) code just before the component unmounts. However, browsers tend to cancel any asynchronous operations once the component unmounts. So it's better to keep updating the database with the latest cart-information as soon as the user interacts with it.
   */
- 
-  // function to update product quantity in the cart (in the DB) 
+
+  // function to update product quantity in the cart (in the DB)
   const updateUserCartHandler = async (productId, size, quantity) => {
     try {
       await databaseService.updateProductQtInCart(productId, size, quantity);
@@ -118,13 +117,25 @@ function Cart() {
     );
   }
 
+  if (localCart.length === 0) {
+    return (
+      <div className="flex-grow flex flex-col justify-center items-center">
+        <p className="font-main font-400 text-black text-size-20">
+          You have no items in your cart.
+        </p>
+        <p className="font-main font-400 text-black text-size-14">
+          Add some items and come back later.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="border-y-[1.5px] border-y-gray py-12 w-full flex-grow flex flex-col justify-start items-center gap-4">
       {/* Headline */}
       <p className="w-full text-left font-main font-500 text-size-24 text-black-2">
         YOUR CART
       </p>
-
       {/* Cart Items List */}
       <div className=" w-full flex flex-col justify-start items-center mb-5">
         {localCart.map((item, index) => (
@@ -132,7 +143,7 @@ function Cart() {
             key={index}
             cartItem={item}
             value={item.quantity}
-            disabled={false} 
+            disabled={false}
             onChange={async (e) => {
               // change the quantity of the item in the store cart
               // NOTE: quantity of the item in the local state automatically changes (dependent on store cart)
@@ -162,7 +173,7 @@ function Cart() {
       {/* Cart Total */}
       <div className=" w-full flex flex-row items-center justify-start">
         <div className="w-2/5">
-        <CartTotal amount={cartTotal} />
+          <CartTotal amount={cartTotal} />
         </div>
       </div>
 
