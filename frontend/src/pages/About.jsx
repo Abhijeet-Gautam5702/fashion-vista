@@ -12,7 +12,7 @@ function About() {
   }, []);
 
   return (
-    <div className="w-full flex flex-col justify-start items-center gap-20">
+    <div className="py-10 w-full flex flex-col justify-start items-center gap-20">
       {/* Hero */}
       <div className="w-full flex flex-row justify-between items-center gap-16">
         {/* Image */}
@@ -39,7 +39,7 @@ function About() {
             essentials, we offer an extensive collection sourced from trusted
             brands and suppliers.
           </p>
-          <div className="mt-3">
+          <div className="mt-3 flex flex-col justify-start items-start gap-3">
             <p className="font-600 text-black text-size-17"> Our Mission</p>
             <p>
               Our mission at Forever is to empower customers with choice,
@@ -51,7 +51,7 @@ function About() {
         </div>
       </div>
       {/* Why Choose Us */}
-      <div className="w-full flex flex-col items-center justify-start gap-8 font-main">
+      <div className="w-full flex flex-col items-center justify-start gap-7 font-main">
         <p className="w-full text-left font-500 text-size-20 text-text-col-2">
           WHY DO WE STAND OUT?
         </p>
