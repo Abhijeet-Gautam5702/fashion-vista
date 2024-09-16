@@ -1,16 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Loader } from "../components";
 
 function Protected({ children, authentication }) {
-  const loginStatus = useSelector((state) => state.auth.loginStatus);
+  // local state
+  const [loading, setLoading] = useState(true);
+
+  const storeAuth = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authentication && !loginStatus) {
+    if (authentication && storeAuth.loginStatus !== authentication) {
       navigate("/", { replace: true });
     }
-  }, [loginStatus, authentication]);
+    setLoading(false);
+  }, [storeAuth]);
+
+  if (loading) {
+    return (
+      <div className="flex-grow w-full flex flex-row justify-center items-center">
+        <Loader />
+      </div>
+    );
+  }
   return <>{children}</>;
 }
 
