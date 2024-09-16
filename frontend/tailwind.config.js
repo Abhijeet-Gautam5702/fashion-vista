@@ -17,6 +17,7 @@ export default {
       "size-14": "14px",
       "size-15": "15px",
       "size-16": "16px",
+      "size-17": "17px",
       "size-20": "20px",
       "size-24": "24px",
       "size-30": "30px",
