@@ -3,7 +3,7 @@ import { Banner, HomeCollections, Policy, Subscription } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { storePopulateInventory } from "../store/inventorySlice/inventorySlice.js";
 import { databaseService } from "../service";
-import { banner,banner_2,banner_3 } from "../assets/index.js";
+import { banner, banner_2, banner_3 } from "../assets/index.js";
 
 function Home() {
   const [latestArrivals, setLatestArrivals] = useState([]);
@@ -12,6 +12,14 @@ function Home() {
   const inventory = useSelector((state) => state.inventory.inventory);
 
   const dispatch = useDispatch();
+
+  // On Page load => Scroll smoothly to the top
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
 
   useEffect(() => {
     setLatestArrivals((prev) => {

@@ -25,6 +25,7 @@ const cartSlice = createSlice({
       state.cart.forEach(
         (item) => (state.cartTotal += item.quantity * item.product.price)
       );
+      state.cartTotal = Math.round(state.cartTotal * 100) / 100;
     },
     storeDeleteItemFromCart: (state, action) => {
       state.cart = state.cart.filter((item) => {
@@ -42,6 +43,7 @@ const cartSlice = createSlice({
       state.cart.forEach(
         (item) => (state.cartTotal += item.quantity * item.product.price)
       );
+      state.cartTotal = Math.round(state.cartTotal * 100) / 100;
     },
     storeClearCart: (state, action) => {
       state.cart = [];
@@ -55,6 +57,7 @@ const cartSlice = createSlice({
       state.cart.forEach(
         (item) => (state.cartTotal += item.quantity * item.product.price)
       );
+      state.cartTotal = Math.round(state.cartTotal * 100) / 100;
     },
   },
 });

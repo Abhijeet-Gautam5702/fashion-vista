@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Icon, Logo } from "../../components";
+import { Icon, Loader, Logo } from "../../components";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { search, person, bag } from "../../assets";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +9,7 @@ import { storeLogout } from "../../store/authSlice/authSlice";
 import { storeClearCart } from "../../store/cartSlice/cartSlice";
 
 function Header() {
-  const loginStatus = useSelector((state) => state.auth.loginStatus);
+  // local state
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [navItems, setNavItems] = useState([
     {
@@ -29,9 +29,22 @@ function Header() {
       path: "/contact-us",
     },
   ]);
+  const [cartItemsBadge, setCartItemsBadge] = useState(0);
+
+  const loginStatus = useSelector((state) => state.auth.loginStatus);
+  const storeCart = useSelector((state) => state.cart);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // Whenever store-cart changes, update the badge with number of items in the cart
+  useEffect(() => {
+    setCartItemsBadge((prev) => storeCart.cart.length);
+    console.log(
+      "store-cart changed | storeCartValue = ",
+      storeCart.cart.length
+    );
+  }, [storeCart]);
 
   const logoutHandler = async () => {
     try {
@@ -103,9 +116,6 @@ function Header() {
       </div>
       {/* Action icons */}
       <div className="flex flex-row justify-center items-center gap-5">
-        {/* <div className="cursor-pointer" onClick={() => {}}>
-          <Icon icon={search} size="27px" />
-        </div> */}
         <div
           className="cursor-pointer relative"
           onClick={() => {
@@ -142,11 +152,8 @@ function Header() {
             <p onClick={() => logoutHandler()}>Logout</p>
           </div>
         </div>
-        {/* <Link to={"/cart"}> */}
-        <Icon
-          icon={bag}
-          size="28px"
-          className={" cursor-pointer "}
+        <div
+          className="relative cursor-pointer"
           onClick={() => {
             if (!loginStatus) {
               // display a toast saying "Please login"
@@ -165,8 +172,16 @@ function Header() {
             }
             navigate("/cart");
           }}
-        />
-        {/* </Link> */}
+        >
+          <Icon icon={bag} size="28px" className={" cursor-pointer "} />
+          {/* Badge */}
+          {cartItemsBadge > 0 ? (
+            <div className="absolute -bottom-1 -right-1 w-[20px] h-[20px] rounded-full bg-black text-white font-main font-500 text-[10px] text-center flex flex-row items-center justify-center">
+              {" "}
+              {cartItemsBadge}{" "}
+            </div>
+          ) : null}
+        </div>
       </div>
     </div>
   );

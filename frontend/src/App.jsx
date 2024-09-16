@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Container, Footer, Header, Loader } from "./components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { storePopulateInventory } from "./store/inventorySlice/inventorySlice";
 import { authService, databaseService } from "./service/index.js";
 import { storeLogin } from "./store/authSlice/authSlice";
 import { Toaster } from "react-hot-toast";
+import { storePopulateCart } from "./store/cartSlice/cartSlice.js";
 
 function App() {
   // local state
   const [loading, setLoading] = useState(true);
+
+  const storeAuth = useSelector((state) => state.auth);
+  const storeCart = useSelector((state) => state.cart);
+  const storeInventory = useSelector((state) => state.inventory);
 
   const dispatch = useDispatch();
 
@@ -30,6 +35,25 @@ function App() {
       }
     })();
   }, []);
+
+  // If the user is logged-in => Populate the store with the cart of the user
+  useEffect(() => {
+    if (storeAuth.loginStatus) {
+      (async () => {
+        try {
+          const response = await databaseService.getUserCart();
+          if (response && response.data) {
+            dispatch(storePopulateCart({ cart: response.data.cartItems }));
+          }
+        } catch (error) {
+          console.log(
+            `Cart items could not be fetched | Error = ${error.message}`
+          );
+          throw error;
+        }
+      })();
+    }
+  }, [storeAuth]);
 
   // Fetch data from the database and populate the inventory store
   useEffect(() => {

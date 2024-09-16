@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { FilterCheckbox, Input, ProductCard, Icon } from "../components";
+import { FilterCheckbox, Input, ProductCard, Icon, Loader } from "../components";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { search as searchIcon } from "../assets";
 
 function Collections() {
+
   // Get the inventory from the store
   const inventory = useSelector((state) => state.inventory.inventory);
 
   // local state
+  const [loading,setLoading]=useState(true)
   const [products, setProducts] = useState([]);
   const [filters, setFilters] = useState({
     men: true,
@@ -42,6 +44,7 @@ function Collections() {
   // On first page load => set the products from the inventory
   useEffect(() => {
     setProducts(inventory);
+    setLoading(false);
   }, [inventory]);
 
   // filter the products local state according to the selected-filters
@@ -69,6 +72,14 @@ function Collections() {
       return newList;
     });
   }, [search]);
+
+  if(loading){
+    return (
+      <div>
+        <Loader/>
+      </div>
+    )
+  }
 
   return (
       <div className=" flex-grow w-full h-full flex flex-row justify-between items-stretch gap-7 py-7">
