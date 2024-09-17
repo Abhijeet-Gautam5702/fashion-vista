@@ -6,13 +6,19 @@ import {
   CustomApiResponse,
 } from "../utilities/index.js";
 
-// Unauthenticated route : Get all products (which are in stock) of the inventory
+// Unauthenticated route : Get all products of the inventory
 // FEATURE ADD: Take a filter from the client and filter accordingly
 const getAllProducts = asyncController(async (req, res, next) => {
-  // Get all products from the database
-  const productsFromDB = await Product.find({ stock: true });
+  // Get all products from the database (sorted such that the latest added product is at the top)
+  const productsFromDB = await Product.aggregate([
+    {
+      $sort: {
+        updatedAt: -1,
+      },
+    },
+  ]);
   if (!productsFromDB.length) {
-    throw new CustomApiError(404, `NO PRODUCTS IN THE STOCK`);
+    throw new CustomApiError(404, `NO PRODUCTS IN THE INVENTORY`);
   }
 
   // Send response to the client
@@ -108,7 +114,6 @@ const addProductToCart = asyncController(async (req, res, next) => {
 
   // Update the cart if it already exists
   if (userCartFromDB) {
-
     let isProductAlreadyPresentInCart = false;
     updatedCartFromDB.cartItems = userCartFromDB.cartItems.map((item) => {
       if (

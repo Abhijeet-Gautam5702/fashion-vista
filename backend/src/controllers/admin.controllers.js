@@ -79,7 +79,13 @@ const createAdminLoginSession = asyncController(async (req, res, next) => {
     - If the user document would have been successfully created => "newUser" will have all the data. So simply create a new object and include only those fields that are required to be sent to the client.
     - If the user document was not created successfully => it will throw an error and will automatically be handled by asyncController catch-block
   */
-  const selectedFields = ["_id","name", "email", "adminPermission", "refreshToken"];
+  const selectedFields = [
+    "_id",
+    "name",
+    "email",
+    "adminPermission",
+    "refreshToken",
+  ];
   let adminData = {};
   selectedFields.forEach((field) => {
     adminData[field] = updatedAdminFromDB[field];
@@ -189,6 +195,7 @@ const addNewProductToInventory = asyncController(async (req, res, next) => {
     fashionType,
     bestSeller,
     latestArrival,
+    stock,
   } = req.body;
   const price = JSON.parse(req.body.price);
   const sizes = JSON.parse(req.body.sizes); // Parse to convert into JS-array
@@ -262,7 +269,7 @@ const addNewProductToInventory = asyncController(async (req, res, next) => {
     description,
     price: price,
     images: [], // Populate this with Cloudinary links later
-    stock: true,
+    stock: stock,
     latestArrival: latestArrival || false,
     bestSeller: bestSeller || false,
     sizes,
@@ -405,6 +412,64 @@ const deleteProductFromInventory = asyncController(async (req, res, next) => {
     );
 });
 
+// Authenticated route : Update the stock status of a product in the inventory
+const updateStockStatusOfProductInInventory = asyncController(
+  async (req, res, next) => {
+    // Authenticate the admin
+
+    // Get the productId from the req.query
+    let productId = req.query.productId;
+    if (!productId) {
+      throw new CustomApiError(
+        404,
+        `PRODUCT UPDATION FAILED || PRODUCT-ID NOT PROVIDED`
+      );
+    }
+    productId = new mongoose.Types.ObjectId(String(productId)); // Convert to Mongoose ObjectId
+    if (!mongoose.isValidObjectId(productId)) {
+      throw new CustomApiError(
+        400,
+        `PRODUCT UPDATION FAILED || INVALID PRODUCT-ID PROVIDED`
+      );
+    }
+
+    // Check if the product exists in the database
+    const productFromDB = await Product.findById(productId);
+    if (!productFromDB) {
+      throw new CustomApiError(
+        404,
+        `PRODUCT UPDATION FAILED || PRODUCT NOT FOUND IN THE DATABASE`
+      );
+    }
+
+    // Update the product stock status in the database
+    const updatedProductFromDB = await Product.findByIdAndUpdate(
+      productId,
+      {
+        stock: !productFromDB.stock,
+      },
+      { new: true }
+    );
+    if (!updatedProductFromDB) {
+      throw new CustomApiError(
+        400,
+        `PRODUCT UPDATION FAILED || PRODUCT DOCUMENT WAS NOT ABLE TO UPDATE`
+      );
+    }
+
+    // Send response to the client
+    res
+      .status(200)
+      .json(
+        new CustomApiResponse(
+          200,
+          `PRODUCT STOCK STATUS SUCCESSFULLY UPDATED`,
+          updatedProductFromDB
+        )
+      );
+  }
+);
+
 // Authenticated route : Change delivery status of a placed order
 const updateDeliveryStatusOfOrder = asyncController(async (req, res, next) => {
   // Authenticate the admin
@@ -469,6 +534,7 @@ export {
   getCurrentAdmin,
   addNewProductToInventory,
   deleteProductFromInventory,
+  updateStockStatusOfProductInInventory,
   updateDeliveryStatusOfOrder,
   addImagesOfProductInInventory,
 };

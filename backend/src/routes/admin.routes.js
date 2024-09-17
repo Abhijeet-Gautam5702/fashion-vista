@@ -8,8 +8,8 @@ import {
   deleteProductFromInventory,
   updateDeliveryStatusOfOrder,
   addImagesOfProductInInventory,
+  updateStockStatusOfProductInInventory,
 } from "../controllers/index.js";
-// import { multerUploader } from "../utilities/index.js";
 
 const adminRouter = Router();
 
@@ -24,17 +24,18 @@ adminRouter.route("/get-current-admin").get(authenticateAdmin, getCurrentAdmin);
 adminRouter
   .route("/add-new-product-to-inventory")
   .post(authenticateAdmin, addNewProductToInventory);
-adminRouter.route("/add-images-of-product-in-inventory").put(
-  authenticateAdmin,
-  multerUpload, 
-  addImagesOfProductInInventory
-);
+adminRouter
+  .route("/add-images-of-product-in-inventory")
+  .put(authenticateAdmin, multerUpload, addImagesOfProductInInventory);
 adminRouter
   .route("/delete-product-from-inventory")
   .delete(authenticateAdmin, deleteProductFromInventory);
+
+adminRouter
+  .route("/update-product-stock-status")
+  .put(authenticateAdmin, updateStockStatusOfProductInInventory);
 adminRouter
   .route("/update-order-status")
   .put(authenticateAdmin, updateDeliveryStatusOfOrder);
-
 
 export default adminRouter;

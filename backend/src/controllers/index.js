@@ -29,6 +29,7 @@ import {
   deleteProductFromInventory,
   updateDeliveryStatusOfOrder,
   addImagesOfProductInInventory,
+  updateStockStatusOfProductInInventory,
 } from "./admin.controllers.js";
 
 export {
@@ -51,6 +52,7 @@ export {
   getCurrentAdmin,
   addNewProductToInventory,
   deleteProductFromInventory,
+  updateStockStatusOfProductInInventory,
   updateDeliveryStatusOfOrder,
   addImagesOfProductInInventory,
 };
