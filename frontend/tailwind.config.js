@@ -25,7 +25,7 @@ export default {
     colors: {
       white: "#FFFFFF",
       base: "#E2F1FF",
-      accent:"#2d7bf9",
+      accent: "#2d7bf9",
       "accent-1": "#DDFAFF",
       "accent-2": "#86B6C4",
       black: "#000000",
@@ -35,6 +35,9 @@ export default {
       "text-col-1": "#6A7281",
       "text-col-2": "#374152",
       danger: "#FF5733",
+      postive: "#90EE90",
+      "positive-accent": "#4CBB17",
+      "positive-dark":"#355E3B"
     },
     extend: {},
   },
