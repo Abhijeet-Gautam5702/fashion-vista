@@ -216,6 +216,33 @@ class DatabaseService {
       return error.response.data;
     }
   }
+
+  async getAllOrders() {
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/api/v1/admin/get-all-orders",
+        { withCredentials: true }
+      );
+      return response.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
+
+  async updateOrderStatus(orderId, newOrderStatus) {
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/api/v1/admin/update-order-status?orderId=${orderId}&newOrderStatus=${newOrderStatus}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
 }
 
 const databaseService = new DatabaseService();
