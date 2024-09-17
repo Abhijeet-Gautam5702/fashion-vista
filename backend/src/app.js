@@ -34,6 +34,7 @@ app.use(
   cors({
     credentials: true,
     origin: config.app.corsOrigin,
+    // methods: ["GET", "POST", "PUT", "DELETE"], // Allow specific methods
   })
 ); // gives access to (only) specified domains to hit the server endpoints
 

@@ -197,9 +197,14 @@ const addNewProductToInventory = asyncController(async (req, res, next) => {
     latestArrival,
     stock,
   } = req.body;
-  const price = JSON.parse(req.body.price);
-  const sizes = JSON.parse(req.body.sizes); // Parse to convert into JS-array
-  const collectionType = JSON.parse(req.body.collectionType); // Parse to convert into JS-array
+  const price = Number(req.body.price)
+  const sizes = req.body.sizes;
+  const collectionType = req.body.collectionType;
+  /*
+    REMEMBER WHILE TESTING IN POSTMAN
+    While Testing in Postman, every data is being sent in form of a JSON, hence it must be parsed back to JS native data types here.
+    However, while using axios in the frontend, no need to parse the data as it is handled and converted automatically by axios
+  */
 
   // Validate the product details
   const isProductNameValid = ZodProductNameSchema.safeParse(name);
@@ -328,14 +333,15 @@ const addImagesOfProductInInventory = asyncController(
       );
     }
 
+    console.log(req.files)
     // Get the files from req.files
-    if (!req.files["product_images"]) {
+    if (!req.files.images) {
       throw new CustomApiError(
         404,
         `PRODUCT IMAGES UPLOAD FAILED || NO FILES STORED IN THE SERVER || SOMETHING WRONG WITH THE FORM-DATA`
       );
     }
-    const localFiles = req.files["product_images"];
+    const localFiles = req.files.images;
 
     // Upload the files to Cloudinary
     /*

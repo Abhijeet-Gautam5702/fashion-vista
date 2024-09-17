@@ -29,11 +29,12 @@ const upload = multer({ storage });
 const multerUpload = (req, res, next) => {
   upload.fields([
     {
-      name: "product_images",
+      name: "images",
       maxCount: 3,
     },
   ])(req, res, (error) => {
     if (error instanceof multer.MulterError) {
+      console.log("number of files = ", req.files.images)
       return res.status(400).json({
         statusCode: 400,
         message: "MULTER UPLOAD ERROR || ONLY 3 FILES CAN BE UPLOADED",
