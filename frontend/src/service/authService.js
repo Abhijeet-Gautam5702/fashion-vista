@@ -137,6 +137,18 @@ class AuthService {
       throw error.response.data;
     }
   }
+
+  async getCurrentAdmin() {
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/api/v1/admin/get-current-admin",
+        { withCredentials: true }
+      );
+      return response.data;
+    } catch (error) {
+      throw error.response.data;
+    }
+  }
 }
 
 const authService = new AuthService();
