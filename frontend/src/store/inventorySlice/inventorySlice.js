@@ -17,11 +17,26 @@ const inventorySlice = createSlice({
         (item) => item._id !== productId
       );
     },
+    storeUpdateProductStockStatus: (state, action) => {
+      const productId = action.payload.productId;
+      state.inventory = state.inventory.map((item) => {
+        if (item._id === productId) {
+          return {
+            ...item,
+            stock: !item.stock,
+          };
+        }
+        return item;
+      });
+    },
   },
 });
 // export inventorySlice reducers individually
-export const { storePopulateInventory, storeDeleteItemFromInventory } =
-  inventorySlice.actions;
+export const {
+  storeUpdateProductStockStatus,
+  storePopulateInventory,
+  storeDeleteItemFromInventory,
+} = inventorySlice.actions;
 
 // export all reducers as a single inventoryReducer and register it in the store
 export const inventoryReducer = inventorySlice.reducer;

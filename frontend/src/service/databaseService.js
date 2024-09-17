@@ -190,6 +190,32 @@ class DatabaseService {
       throw error.response.data;
     }
   }
+
+  // ADMIN-PRODUCT RELATED DATABASE SERVICES
+  async removeProductFromInventory(productId) {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8000/api/v1/admin/delete-product-from-inventory?productId=${productId}`,
+        { withCredentials: true }
+      );
+      return response.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
+
+  async updateProductStockStatusInInventory(productId) {
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/api/v1/admin/update-product-stock-status?productId=${productId}`,
+        {},
+        { withCredentials: true }
+      );
+      return response.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
 }
 
 const databaseService = new DatabaseService();
