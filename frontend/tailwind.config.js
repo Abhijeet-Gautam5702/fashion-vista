@@ -25,6 +25,7 @@ export default {
     colors: {
       white: "#FFFFFF",
       base: "#E2F1FF",
+      accent:"#2d7bf9",
       "accent-1": "#DDFAFF",
       "accent-2": "#86B6C4",
       black: "#000000",

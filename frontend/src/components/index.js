@@ -19,6 +19,7 @@ import FilterCheckbox from "./FilterCheckbox";
 import CartItem from "./CartItem";
 import OrderCard from "./OrderCard";
 import AdminHeader from "./Header/AdminHeader";
+import SidePanel from "./SidePanel";
 
 export {
   Header,
@@ -42,4 +43,5 @@ export {
   FilterCheckbox,
   CartItem,
   OrderCard,
+  SidePanel,
 };

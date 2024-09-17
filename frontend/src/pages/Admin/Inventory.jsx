@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
 function Inventory() {
   return (
-    <div>Inventory</div>
-  )
+    <div className="w-full flex-grow flex flex-col justify-center items-center">
+      <p>Inventory</p>
+    </div>
+  );
 }
 
-export default Inventory
+export default Inventory;

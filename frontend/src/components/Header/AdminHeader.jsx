@@ -38,10 +38,16 @@ function AdminHeader() {
 
   return (
     <div className="px-3 border-y-[1.5px] border-y-gray flex-grow-0 w-full flex flex-row justify-between items-center py-4">
-      {/* Logo */}
-      <Link to="/admin/inventory">
-        <Logo className={"text-size-24 text-black-2"} />
-      </Link>
+      <div className="w-fit flex flex-col justify-start leading-none">
+        {/* Logo */}
+        <Link to="/admin/inventory">
+          <Logo className={"text-size-24 text-black-2"} />
+        </Link>
+        {/* Admin Panel Head Text */}
+        <p className="w-full text-right font-main font-500  text-accent text-size-14">
+          ADMIN PANEL
+        </p>
+      </div>
       {/* Logout Button */}
       <button
         type="button"
