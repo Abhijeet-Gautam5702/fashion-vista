@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { AdminHeader, Container, Loader, SidePanel } from "./components";
 import { Toaster } from "react-hot-toast";
 import { authService } from "./service";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { storeAdminLogin } from "./store/authSlice/authSlice";
 
 function AdminApp() {
@@ -12,6 +12,8 @@ function AdminApp() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const storeAuth = useSelector((state) => state.auth);
 
   // On Page Load => Fetch the currently logged-in Admin (if at all)
   useEffect(() => {
@@ -47,13 +49,13 @@ function AdminApp() {
       <Toaster />
       <div className="min-h-[100vh] flex-grow w-full flex flex-col justify-start items-center">
         <AdminHeader />
-
         <div className="w-full flex-grow flex flex-row justify-between">
           {/* Side Panel */}
-          <div className="w-1/5 border-r-[1.5px] border-r-gray">
-            <SidePanel />
-          </div>
-
+          {storeAuth.adminLoginStatus && (
+            <div className="w-1/5 border-r-[1.5px] border-r-gray">
+              <SidePanel />
+            </div>
+          )}
           <Container>
             <Outlet />
           </Container>

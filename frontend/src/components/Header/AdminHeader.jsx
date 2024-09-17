@@ -2,13 +2,15 @@ import React from "react";
 import { Logo } from "../../components";
 import { Link, useNavigate } from "react-router-dom";
 import { authService } from "../../service";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { storeAdminLogout, storeLogout } from "../../store/authSlice/authSlice";
 import toast from "react-hot-toast";
 
 function AdminHeader() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const storeAuth = useSelector((state) => state.auth);
 
   const adminLogoutHandler = async () => {
     try {
@@ -49,13 +51,15 @@ function AdminHeader() {
         </p>
       </div>
       {/* Logout Button */}
-      <button
-        type="button"
-        className="py-2 px-5 bg-white border-[1.5px] border-black text-black hover:bg-black hover:text-white transition-colors duration-150 cursor-pointer font-main text-size-12 font-500 rounded-full"
-        onClick={adminLogoutHandler}
-      >
-        Logout
-      </button>
+      {storeAuth.adminLoginStatus && (
+        <button
+          type="button"
+          className="py-2 px-5 bg-white border-[1.5px] border-black text-black hover:bg-black hover:text-white transition-colors duration-150 cursor-pointer font-main text-size-12 font-500 rounded-full"
+          onClick={adminLogoutHandler}
+        >
+          Logout
+        </button>
+      )}
     </div>
   );
 }

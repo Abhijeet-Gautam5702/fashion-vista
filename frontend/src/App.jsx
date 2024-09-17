@@ -58,8 +58,11 @@ function App() {
   // Fetch data from the database and populate the inventory store
   useEffect(() => {
     (async () => {
-      const productsFromDB = await databaseService.getAllProducts();
-      dispatch(storePopulateInventory({ inventory: productsFromDB.data }));
+      const response = await databaseService.getAllProducts();
+      const productsInStock = response.data.filter(
+        (item) => item.stock === true
+      );
+      dispatch(storePopulateInventory({ inventory: productsInStock }));
       setLoading(false);
     })();
   }, []);
