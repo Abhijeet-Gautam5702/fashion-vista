@@ -49,7 +49,7 @@ function OrderCard({ order }) {
         <p className="text-size-14">
           {order.paymentMode ? "Cash On Delivery" : `${order.paymentMode}`}
         </p>
-        <p className="py-2 px-6 text-size-15 bg-base w-fit border-[1.5px] border-accent-2">
+        <p className={`py-2 px-6 text-size-14  w-fit border-[1.5px] ${order.status === "delivered" ? " border-positive-accent bg-postive/60 text-positive-dark font-500 " : " border-text-col-1 bg-white text-text-col-2 "}`}>
           {order.status.toString().toUpperCase()}
         </p>
       </div>
