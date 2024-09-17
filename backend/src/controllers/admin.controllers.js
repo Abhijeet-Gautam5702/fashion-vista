@@ -470,6 +470,109 @@ const updateStockStatusOfProductInInventory = asyncController(
   }
 );
 
+const getAllOrders = asyncController(async (req, res, next) => {
+  // Authenticate the admin
+
+  // Get the order documents from the database sorted such that the latest order (according to creation date) is at the top
+  const allOrdersFromDB = await Order.aggregate([
+    // Unwind the `orderItems` field
+    {
+      $unwind: {
+        path: "$orderedItems",
+      },
+    },
+    // Populate the `orderedItems.product` field with product details looked-up from "products" collection
+    {
+      $lookup: {
+        from: "products",
+        localField: "orderedItems.product",
+        foreignField: "_id",
+        as: "product",
+        pipeline: [
+          {
+            $project: {
+              _id: 1,
+              name: 1,
+              images: 1,
+              category: 1,
+            },
+          },
+        ],
+      },
+    },
+    // Unwind the `product` field (as the previous stage would have returned an array with single element)
+    {
+      $unwind: {
+        path: "$product",
+      },
+    },
+    // Group the identical documents based on the "_id"
+    {
+      $group: {
+        _id: "$_id",
+        // accumulate other fields of your choice into the final grouped document
+        orderedItems: {
+          $push: {
+            product: "$product",
+            size: "$orderedItems.size",
+            quantity: "$orderedItems.quantity",
+          },
+        },
+        status: {
+          $first: "$status",
+        },
+        orderDate: {
+          $first: "$orderDate",
+        },
+        orderValue: {
+          $first: "$orderValue",
+        },
+        paymentMode: {
+          $first: "$paymentMode",
+        },
+        paymentStatus: {
+          $first: "$paymentStatus",
+        },
+        deliveryAddress: {
+          $first: "$deliveryAddress",
+        },
+        placedBy: {
+          $first: "$placedBy",
+        },
+        createdAt: {
+          $first: "$createdAt",
+        },
+        updatedAt: {
+          $first: "$updatedAt",
+        },
+      },
+    },
+    // Sort the documents based on the descending order of `orderDate` field (so that latest order is at the top)
+    {
+      $sort: {
+        orderDate: -1,
+      },
+    },
+  ]);
+  if (!allOrdersFromDB) {
+    throw new CustomApiError(
+      400,
+      `ORDERS COULD NOT BE FETCHED FROM THE DATABASE`
+    );
+  }
+
+  // Send response to the client
+  res
+    .status(200)
+    .json(
+      new CustomApiResponse(
+        200,
+        "ALL ORDERS FETCHED SUCCESSFULLY",
+        allOrdersFromDB
+      )
+    );
+});
+
 // Authenticated route : Change delivery status of a placed order
 const updateDeliveryStatusOfOrder = asyncController(async (req, res, next) => {
   // Authenticate the admin
@@ -537,4 +640,5 @@ export {
   updateStockStatusOfProductInInventory,
   updateDeliveryStatusOfOrder,
   addImagesOfProductInInventory,
+  getAllOrders,
 };

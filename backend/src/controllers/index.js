@@ -30,6 +30,7 @@ import {
   updateDeliveryStatusOfOrder,
   addImagesOfProductInInventory,
   updateStockStatusOfProductInInventory,
+  getAllOrders,
 } from "./admin.controllers.js";
 
 export {
@@ -55,4 +56,5 @@ export {
   updateStockStatusOfProductInInventory,
   updateDeliveryStatusOfOrder,
   addImagesOfProductInInventory,
+  getAllOrders,
 };

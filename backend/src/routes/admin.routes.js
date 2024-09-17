@@ -9,6 +9,7 @@ import {
   updateDeliveryStatusOfOrder,
   addImagesOfProductInInventory,
   updateStockStatusOfProductInInventory,
+  getAllOrders,
 } from "../controllers/index.js";
 
 const adminRouter = Router();
@@ -34,6 +35,8 @@ adminRouter
 adminRouter
   .route("/update-product-stock-status")
   .put(authenticateAdmin, updateStockStatusOfProductInInventory);
+
+adminRouter.route("/get-all-orders").get(authenticateAdmin, getAllOrders);
 adminRouter
   .route("/update-order-status")
   .put(authenticateAdmin, updateDeliveryStatusOfOrder);
