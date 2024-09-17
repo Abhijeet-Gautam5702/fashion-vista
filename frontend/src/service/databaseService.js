@@ -243,6 +243,49 @@ class DatabaseService {
       return error.response.data;
     }
   }
+
+  async addNewProductToInventory(product) {
+    try {
+      const addProductResponse = await axios.post(
+        "http://localhost:8000/api/v1/admin/add-new-product-to-inventory",
+        {
+          ...product,
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          withCredentials: true,
+        }
+      );
+
+      if (addProductResponse) {
+        const productId = addProductResponse.data.data._id;
+        // console.log(addProductResponse.data);
+
+        try {
+          const addImageResponse = axios.put(
+            `http://localhost:8000/api/v1/admin/add-images-of-product-in-inventory?productId=${productId}`,
+            {
+              images: product.images,
+            },
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+              withCredentials: true,
+            }
+          );
+
+          return addImageResponse.data;
+        } catch (error) {
+          throw error;
+        }
+      }
+    } catch (error) {
+      return error.response.data;
+    }
+  }
 }
 
 const databaseService = new DatabaseService();
