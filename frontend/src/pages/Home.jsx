@@ -39,14 +39,14 @@ function Home() {
       <HomeCollections
         headline={"LATEST COLLECTIONS"}
         subheadline={
-          "lorem ipsum dolos sit amor lorem ipsum dolos sit amor lorem ipsum dolos sit amor lorem ipsum dolos sit amor"
+          "Don't miss out on the hottest fashion picks brought to you by the season’s most stylish and innovative designs."
         }
         data={latestArrivals}
       />
       <HomeCollections
         headline={"BEST SELLERS"}
         subheadline={
-          "lorem ipsum dolos sit amor lorem ipsum dolos sit amor lorem ipsum dolos sit amor lorem ipsum dolos sit amor"
+          "Our bestsellers include timeless pieces and modern must-haves that have been tried, tested, and adored."
         }
         data={bestsellers}
       />

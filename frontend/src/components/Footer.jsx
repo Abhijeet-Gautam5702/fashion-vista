@@ -9,15 +9,16 @@ function Footer() {
         <div className=" w-1/2">
           <Logo className={"text-black text-size-30"} />
           <p className="font-main font-400 text-size-14 text-text-col-1">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book.
+            Fashion Vista is your one-stop destination for trendy and stylish
+            apparel for men, women, and kids. We offer a curated selection of
+            the latest fashion trends, combining comfort, quality, and
+            affordability. Our goal is to make fashion accessible to everyone,
+            while keeping sustainability in mind.
           </p>
         </div>
         <div className="">
           <p className="font-main font-500 text-size-20">COMPANY</p>
-          <ul className="font-main font-400 text-size-14 text-text-col-1">
+          <ul className="font-main font-400 text-size-14 text-text-col-1 space-y-1.5">
             <li>Home</li>
             <li>About</li>
             <li>Delivery</li>
@@ -26,7 +27,7 @@ function Footer() {
         </div>
         <div className="">
           <p className="font-main font-500 text-size-20">GET IN TOUCH</p>
-          <ul className="font-main font-400 text-size-14 text-text-col-1">
+          <ul className="font-main font-400 text-size-14 text-text-col-1 space-y-0.5">
             <li>Abhijeet Gautam</li>
             <li>abhidevelops572@gmail.com</li>
             <li>Noida, India</li>

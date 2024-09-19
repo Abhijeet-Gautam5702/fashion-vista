@@ -14,7 +14,7 @@ function About() {
   return (
     <div className="border-y-[1.5px] border-y-gray py-10 w-full flex flex-col justify-start items-center gap-20">
       <p className="w-full text-center font-main text-text-col-2 text-size-24 font-500">
-      ABOUT US
+        ABOUT US
       </p>
       {/* Hero */}
       <div className="w-full flex flex-row justify-between items-center gap-16">
@@ -29,26 +29,27 @@ function About() {
         {/* About Text */}
         <div className="w-1/2 flex flex-col justify-start items-start gap-6 font-main font-400 text-text-col-2 text-size-17">
           <p>
-            Forever was born out of a passion for innovation and a desire to
-            revolutionize the way people shop online. Our journey began with a
-            simple idea: to provide a platform where customers can easily
-            discover, explore, and purchase a wide range of products from the
-            comfort of their homes.
+            Fashion Vista was born from a passion for innovation and a
+            commitment to transforming the online shopping experience. Our
+            journey began with a simple vision: to create a platform where
+            customers can effortlessly discover, explore, and purchase a vast
+            array of products from the comfort of their own homes.
           </p>
           <p>
-            Since our inception, we've worked tirelessly to curate a diverse
-            selection of high-quality products that cater to every taste and
-            preference. From fashion and beauty to electronics and home
-            essentials, we offer an extensive collection sourced from trusted
-            brands and suppliers.
+            Since our launch, we have worked diligently to curate a wide-ranging
+            collection of high-quality products that cater to diverse tastes and
+            preferences. Whether it's fashion and beauty, electronics, or home
+            essentials, we offer an extensive selection sourced from reputable
+            brands and trusted suppliers.
           </p>
           <div className="mt-3 flex flex-col justify-start items-start gap-3">
             <p className="font-600 text-black text-size-17"> Our Mission</p>
             <p>
-              Our mission at Forever is to empower customers with choice,
-              convenience, and confidence. We're dedicated to providing a
-              seamless shopping experience that exceeds expectations, from
-              browsing and ordering to delivery and beyond.
+              At Fashion Vista, our mission is to empower customers by offering
+              choice, convenience, and confidence. We are committed to
+              delivering a seamless shopping experience that surpasses
+              expectations, from browsing and ordering to delivery and customer
+              care.
             </p>
           </div>
         </div>
