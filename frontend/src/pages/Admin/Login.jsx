@@ -37,7 +37,7 @@ function Login() {
         email: data.email,
         password: data.password,
       });
-      // console.log(response.data);
+      
       if (response) {
         reset(); // reset the form
 

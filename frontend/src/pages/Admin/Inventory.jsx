@@ -60,7 +60,7 @@ function Inventory() {
       const response = await databaseService.removeProductFromInventory(
         productId
       );
-      if (response) {
+      if (response.success) {
         // modify the store inventory
         dispatch(storeDeleteItemFromInventory({ productId }));
 
@@ -75,6 +75,9 @@ function Inventory() {
             fontSize: "14px",
           },
         });
+      }
+      else {
+        throw new Error(response.message)
       }
     } catch (error) {
       console.log(`Product deletion failed | Error = ${error.message}`);
