@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Input, Button, FilterCheckbox } from "../../components";
+import { Input, Button, FilterCheckbox, Loader } from "../../components";
 import { databaseService } from "../../service";
 import toast from "react-hot-toast";
 
@@ -39,7 +39,7 @@ function AddItems() {
       summer: false,
       sports: false,
       stock: true,
-      latestArrival: false,
+      latestArrival: true,
       bestSeller: false,
       image: [],
     },
@@ -49,7 +49,7 @@ function AddItems() {
     setLoading(true);
     clearErrors(); //clear all form errors
     try {
-      // Convert the data to appropriate format
+      // Create a `product` object (to be sent to the database service method)
       const product = {
         name: data.name,
         description: data.description,
@@ -65,16 +65,27 @@ function AddItems() {
           data.winter ? "winter" : null,
           data.summer ? "summer" : null,
         ].filter((item) => item),
-        images: [...data.images],
+        image: Array.from(data.image),
       };
 
-      console.log(product)
-
       const response = await databaseService.addNewProductToInventory(product);
-      if (response) {
-        console.log(response.data);
+      if (response.success) {
+        // Show Toast
+        toast(`PRODUCT ADDED TO INVENTORY`, {
+          duration: 1500,
+          position: "top-center",
+          icon: "✅",
+          style: {
+            fontFamily: "Outfit",
+            fontWeight: "500",
+            fontSize: "14px",
+          },
+        });
 
-        // toast("")
+        reset(); // reset the form
+      }
+      else{
+        throw new Error(response.message);
       }
     } catch (error) {
       console.log(`New Product Upload failed | Error = ${error.message}`);
@@ -91,6 +102,14 @@ function AddItems() {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="w-full flex-grow flex flex-col justify-center items-center">
+        <Loader />
+      </div>
+    );
+  }
+
   return (
     <div className="w-full flex-grow flex flex-col justify-start items-start py-5 px-8 gap-5">
       <p className="w-full text-left font-main text-size-24 text-text-col-2">
@@ -100,6 +119,7 @@ function AddItems() {
       <form
         onSubmit={handleSubmit(addNewItemHandler)}
         className="w-3/5 font-main font-400 text-text-col-2 space-y-8"
+        encType="multipart/form-data"
       >
         {/* Product name */}
         <div className="w-full flex flex-col justify-start items-start gap-2">
@@ -266,11 +286,13 @@ function AddItems() {
             Product Image
           </label>
           <input
-            id="images"
-            name="images"
+            id="image"
+            name="image"
+            required
             type="file"
+            multiple
             className="p-3 outline-none border-[1px] border-black-2 w-full font-main font-400 text-size-16 text-text-col-2"
-            {...register("images", { required: true })}
+            {...register("image", { required: true })}
           />
         </div>
 
