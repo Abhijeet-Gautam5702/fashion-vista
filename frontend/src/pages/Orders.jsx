@@ -31,8 +31,10 @@ function Orders() {
     (async () => {
       try {
         const response = await databaseService.getOrderHistory();
-        if (response) {
+        if (response.success) {
           dispatch(storePopulateOrders({ orders: response.data }));
+        } else{
+          throw new Error(response.message)
         }
       } catch (error) {
         console.log(
@@ -56,6 +58,20 @@ function Orders() {
         <Loader/>
       </div>
     )
+  }
+
+  
+  if (localOrders.length === 0) {
+    return (
+      <div className="flex-grow flex flex-col justify-center items-center">
+        <p className="font-main font-400 text-black text-size-20">
+          You have not placed any orders with us till now.
+        </p>
+        <p className="font-main font-400 text-black text-size-14">
+          Place at least one order and come again.
+        </p>
+      </div>
+    );
   }
 
   return (

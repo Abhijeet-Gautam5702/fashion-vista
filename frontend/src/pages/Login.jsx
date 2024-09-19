@@ -37,7 +37,8 @@ function Login() {
         email: data.email,
         password: data.password,
       });
-      // console.log(response.data);
+      console.log(response)
+      
       if (response) {
         reset(); // reset the form
 
@@ -58,6 +59,8 @@ function Login() {
             fontSize: "14px",
           },
         });
+      } else{
+        throw new Error(response.message)
       }
     } catch (error) {
       /*

@@ -35,8 +35,10 @@ function Cart() {
     (async () => {
       try {
         const response = await databaseService.getUserCart();
-        if (response && response.data) {
+        if (response.success) {
           dispatch(storePopulateCart({ cart: response.data.cartItems }));
+        } else {
+          throw new Error(response.message);
         }
       } catch (error) {
         console.log(
@@ -67,7 +69,14 @@ function Cart() {
   // function to update product quantity in the cart (in the DB)
   const updateUserCartHandler = async (productId, size, quantity) => {
     try {
-      await databaseService.updateProductQtInCart(productId, size, quantity);
+      const response = await databaseService.updateProductQtInCart(
+        productId,
+        size,
+        quantity
+      );
+      if (!response.success) {
+        throw new Error(response.message);
+      }
     } catch (error) {
       console.log(`Product updation failed | Error = ${error.message}`);
       throw error;
@@ -82,7 +91,7 @@ function Cart() {
         item.product._id,
         item.size
       );
-      if (response) {
+      if (response.success) {
         // delete the product from the cart store
         dispatch(
           storeDeleteItemFromCart({
@@ -102,6 +111,8 @@ function Cart() {
             fontSize: "14px",
           },
         });
+      } else {
+        throw new Error(response.message);
       }
     } catch (error) {
       console.log(`Product deletion failed | Error = ${error.message}`);

@@ -40,7 +40,7 @@ function Signup() {
         password: data.password,
       });
 
-      if (response) {
+      if (response.success) {
         reset(); // reset the form
 
         // set auth state to store
@@ -60,6 +60,8 @@ function Signup() {
             fontSize: "14px",
           },
         });
+      } else {
+        throw new Error(response.message);
       }
     } catch (error) {
       /*

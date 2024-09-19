@@ -58,12 +58,23 @@ function App() {
   // Fetch data from the database and populate the inventory store
   useEffect(() => {
     (async () => {
-      const response = await databaseService.getAllProducts();
-      const productsInStock = response.data.filter(
-        (item) => item.stock === true
-      );
-      dispatch(storePopulateInventory({ inventory: productsInStock }));
-      setLoading(false);
+      try {
+        const response = await databaseService.getAllProducts();
+        if (response.success) {
+          const productsInStock = response.data.filter(
+            (item) => item.stock === true
+          );
+          dispatch(storePopulateInventory({ inventory: productsInStock }));
+          setLoading(false);
+        } else {
+          throw new Error(response.message);
+        }
+      } catch (error) {
+        console.log(
+          `Failed to fetched inventory data from the database | Error = ${error.message}`
+        );
+        throw error;
+      }
     })();
   }, []);
 

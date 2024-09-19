@@ -75,9 +75,8 @@ function Inventory() {
             fontSize: "14px",
           },
         });
-      }
-      else {
-        throw new Error(response.message)
+      } else {
+        throw new Error(response.message);
       }
     } catch (error) {
       console.log(`Product deletion failed | Error = ${error.message}`);
@@ -89,10 +88,11 @@ function Inventory() {
     try {
       const response =
         await databaseService.updateProductStockStatusInInventory(productId);
-      if (response) {
-        console.log(response.data);
+      if (response.success) {
         // modify the store
         dispatch(storeUpdateProductStockStatus({ productId }));
+      } else {
+        throw new Error(response.message);
       }
     } catch (error) {
       console.log(

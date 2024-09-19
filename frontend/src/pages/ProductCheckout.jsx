@@ -42,7 +42,9 @@ function ProductCheckout() {
     setLoading(true);
     try {
       // add the order details to the database
+
       const address = `${data.fullname}, ${data.street}, ${data.city}-${data.pincode}, ${data.state}, ${data.country}`;
+
       const response = await databaseService.placeOrder(
         address,
         data.phone,
@@ -50,7 +52,7 @@ function ProductCheckout() {
         Number(storeCart.cartTotal + 10)
       );
 
-      if (response) {
+      if (response.success) {
         // update the order slice
         dispatch(storeAddOrder({ order: response.data }));
 
@@ -73,6 +75,8 @@ function ProductCheckout() {
 
         // navigate to the Orders Page
         navigate("/orders");
+      } else {
+        throw new Error(response.message);
       }
     } catch (error) {
       console.log(

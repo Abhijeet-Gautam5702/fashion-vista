@@ -9,7 +9,7 @@ import { storePopulateCart } from "../store/cartSlice/cartSlice";
 
 function Product() {
   const inventory = useSelector((state) => state.inventory.inventory);
-  const loginStatus=useSelector(state => state.auth.loginStatus)
+  const loginStatus = useSelector((state) => state.auth.loginStatus);
   const { productId } = useParams();
   const dispatch = useDispatch();
 
@@ -44,9 +44,19 @@ function Product() {
   // Fetch the product details from the database whenever the productId changes (basically whenever a product card is clicked)
   useEffect(() => {
     (async () => {
-      const response = await databaseService.getCurrentProduct(productId);
-      setProductDetails(response.data);
-      setSizes(response.data.sizes);
+      try {
+        const response = await databaseService.getCurrentProduct(productId);
+        if (response.success) {
+          setProductDetails(response.data);
+          setSizes(response.data.sizes);
+        } else {
+          throw new Error(response.message);
+        }
+      } catch (error) {
+        console.log(
+          `Product details could not be fetched | Error = ${error.message}`
+        );
+      }
     })();
   }, [productId, inventory]);
 
@@ -74,7 +84,8 @@ function Product() {
         size: selectedSize,
         quantity: 1,
       });
-      if (response) {
+
+      if (response.success) {
         // add the product to the cart in store
 
         const cartResponse = await databaseService.getUserCart(); // get the cart from the database
@@ -95,6 +106,8 @@ function Product() {
 
           setSelectedSize(null); //reset the selected size to default
         }
+      } else {
+        throw new Error(response.message);
       }
     } catch (error) {
       console.log(
@@ -194,7 +207,7 @@ function Product() {
                 });
                 return;
               }
-              if(!loginStatus){
+              if (!loginStatus) {
                 toast("PLEASE LOGIN TO ADD ITEM TO CART", {
                   duration: 1500,
                   position: "top-center",

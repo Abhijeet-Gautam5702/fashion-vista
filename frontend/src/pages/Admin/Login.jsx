@@ -57,7 +57,6 @@ function Login() {
 
         // set auth state to store
         dispatch(storeAdminLogin({ adminData: response.data }));
-        console.log("store dispatched")
 
         // navigate to homepage
         navigate("/admin/inventory", { replace: true });

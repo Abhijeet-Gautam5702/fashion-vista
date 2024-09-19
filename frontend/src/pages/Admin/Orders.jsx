@@ -34,9 +34,10 @@ function Orders() {
     setLoading(true);
     try {
       const response = await databaseService.getAllOrders();
-      if (response) {
-        // console.log(response.data);
+      if (response.success) {
         setLocalOrders(response.data);
+      } else {
+        throw new Error(response.message);
       }
     } catch (error) {
       console.log(`Could not fetch order details | Error = ${error.message}`);
@@ -50,8 +51,6 @@ function Orders() {
     try {
       const response = await databaseService.updateOrderStatus(orderId, status);
       if (response) {
-        console.log(response.data);
-
         await fetchAllOrdersFromDB();
 
         // Show toast
