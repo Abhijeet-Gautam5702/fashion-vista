@@ -23,22 +23,25 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });
+const upload = multer({ storage: storage });
 
 // Middleware of uploading using Multer along with handling errors
 const multerUpload = (req, res, next) => {
   upload.fields([
     {
-      name: "images",
-      maxCount: 3,
+      name: "image[]",
+      /*
+        NOTE: 
+        Even though the input field is named as "image" (at the client side input form) but we name it "image[]" here to tell Multer explicitly that it should expect an array of files. This is a convention used in HTML forms to indicate that multiple values can be submitted for a single input.
+      */
+      maxCount: 2,
     },
   ])(req, res, (error) => {
     if (error instanceof multer.MulterError) {
-      console.log("number of files = ", req.files.images)
       return res.status(400).json({
         statusCode: 400,
-        message: "MULTER UPLOAD ERROR || ONLY 3 FILES CAN BE UPLOADED",
-        errors: error.errors,
+        message: error.message,
+        errors: error,
         success: false,
       });
     } else if (error) {
@@ -49,7 +52,7 @@ const multerUpload = (req, res, next) => {
         success: false,
       });
     }
-    next();// Pass control to the next middleware
+    next(); // Pass control to the next middleware
   });
 };
 
