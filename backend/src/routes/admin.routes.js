@@ -1,15 +1,19 @@
 import { Router } from "express";
-import { authenticateAdmin, multerUpload } from "../middlewares/index.js";
+import {
+  authenticateAdmin,
+  multerUpload,
+  //testing
+  // upload,
+} from "../middlewares/index.js";
 import {
   createAdminLoginSession,
   removeAdminLoginSession,
   getCurrentAdmin,
-  addNewProductToInventory,
   deleteProductFromInventory,
   updateDeliveryStatusOfOrder,
-  addImagesOfProductInInventory,
   updateStockStatusOfProductInInventory,
   getAllOrders,
+  addProductToInventory,
 } from "../controllers/index.js";
 
 const adminRouter = Router();
@@ -22,12 +26,11 @@ adminRouter
   .route("/remove-admin-login-session")
   .post(authenticateAdmin, removeAdminLoginSession);
 adminRouter.route("/get-current-admin").get(authenticateAdmin, getCurrentAdmin);
+
 adminRouter
-  .route("/add-new-product-to-inventory")
-  .post(authenticateAdmin, addNewProductToInventory);
-adminRouter
-  .route("/add-images-of-product-in-inventory")
-  .put(authenticateAdmin, multerUpload, addImagesOfProductInInventory);
+  .route("/add-product-to-inventory")
+  .post(authenticateAdmin, multerUpload, addProductToInventory);
+
 adminRouter
   .route("/delete-product-from-inventory")
   .delete(authenticateAdmin, deleteProductFromInventory);
@@ -37,6 +40,7 @@ adminRouter
   .put(authenticateAdmin, updateStockStatusOfProductInInventory);
 
 adminRouter.route("/get-all-orders").get(authenticateAdmin, getAllOrders);
+
 adminRouter
   .route("/update-order-status")
   .put(authenticateAdmin, updateDeliveryStatusOfOrder);

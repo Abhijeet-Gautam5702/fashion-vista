@@ -3,6 +3,7 @@ import config from "./config/config.js";
 import connectToDatabase from "./database/database.js";
 import app from "./app.js";
 import { v2 as cloudinary } from "cloudinary";
+import { cleanDirectory } from "./utilities/index.js";
 
 // Configuring Cloudinary
 cloudinary.config({
@@ -12,6 +13,9 @@ cloudinary.config({
 });
 
 const port = config.app.port;
+
+// Clean the temp directory whenenver the server starts
+cleanDirectory("./public/temp/");
 
 await connectToDatabase();
 try {

@@ -25,12 +25,11 @@ import {
   createAdminLoginSession,
   removeAdminLoginSession,
   getCurrentAdmin,
-  addNewProductToInventory,
   deleteProductFromInventory,
   updateDeliveryStatusOfOrder,
-  addImagesOfProductInInventory,
   updateStockStatusOfProductInInventory,
   getAllOrders,
+  addProductToInventory
 } from "./admin.controllers.js";
 
 export {
@@ -51,10 +50,9 @@ export {
   createAdminLoginSession,
   removeAdminLoginSession,
   getCurrentAdmin,
-  addNewProductToInventory,
   deleteProductFromInventory,
   updateStockStatusOfProductInInventory,
   updateDeliveryStatusOfOrder,
-  addImagesOfProductInInventory,
   getAllOrders,
+  addProductToInventory
 };
