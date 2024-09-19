@@ -1,5 +1,7 @@
 // Asynchornous code wrapper that takes an async callback function (the controller) and returns an async function with a try-catch block structure
 
+import { cleanDirectory } from "../utilities/index.js";
+
 /*
     NOTE: The parameters "req", "res", "next" will be present in the async controller function by default; asyncController(controller) will simply return an asynchronous function that will invoke the controller function (or return a failure message if things don't go well).
 */
@@ -18,6 +20,8 @@ const asyncController = (controller) => {
         NOTE: NEVER THROW AN ERROR!! Instead, return a response. 
         If you throw an error, the backend server will stop and won't work at all. But we want to send a bad-response to the client, so we simply send a response instead of throwing an error.
       */
+    } finally {
+      cleanDirectory("./public/temp");
     }
   };
 };
