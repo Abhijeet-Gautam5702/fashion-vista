@@ -9,9 +9,9 @@ function OrderCard({ order }) {
   const orderTime = isoDate.toLocaleTimeString("en-US", { hour12: false });
 
   return (
-    <div className="w-full py-5 border-y-[1px] border-y-black-1 flex flex-row justify-between gap-7">
+    <div className="w-full py-5 border-y-[1px] border-y-black-1 flex flex-col sm:flex-row justify-between gap-7">
       {/* Primary Details */}
-      <div className="w-1/3 flex flex-col justify-start items-start gap-4">
+      <div className="w-full md:w-1/3 flex flex-col justify-start items-start gap-4">
         {/* Order-ID and Icon */}
         <div className="w-full flex flex-row justify-start items-center gap-3">
           <Icon className={""} size="70px" icon={box} />
@@ -35,7 +35,7 @@ function OrderCard({ order }) {
         </div>
       </div>
       {/* Product List */}
-      <div className="w-1/3 flex flex-col justify-start items-center">
+      <div className="w-full md:w-1/3 flex flex-col justify-start items-center">
         {order.orderedItems.map((item) => (
           <OrderedProductCard key={Math.random()} orderItem={item} />
         ))}

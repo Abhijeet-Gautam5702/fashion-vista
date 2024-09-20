@@ -74,7 +74,7 @@ function Orders() {
   }
 
   return (
-    <div className="w-full py-16 flex-grow border-y-[1.5px] border-y-gray flex flex-col items-center justify-start gap-7">
+    <div className="w-full py-8 sm:py-16 flex-grow border-y-[1.5px] border-y-gray flex flex-col items-center justify-start gap-7">
       <p className="w-full text-left font-main font-500 text-text-col-2 text-size-24">
         MY ORDERS
       </p>
