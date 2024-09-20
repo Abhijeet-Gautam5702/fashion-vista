@@ -130,7 +130,8 @@ function Cart() {
 
   if (localCart.length === 0) {
     return (
-      <div className="flex-grow flex flex-col justify-center items-center">
+      // <div className="w-full border-2 flex-grow flex flex-col justify-center items-center">
+      <div className="border-y-[1.5px] border-y-gray py-12 w-full flex-grow flex flex-col justify-center items-center">
         <p className="font-main font-400 text-black text-size-20">
           You have no items in your cart.
         </p>
@@ -183,7 +184,7 @@ function Cart() {
 
       {/* Cart Total */}
       <div className=" w-full flex flex-row items-center justify-start">
-        <div className="w-2/5">
+        <div className="w-full sm:w-1/2 lg:w-2/5">
           <CartTotal amount={cartTotal} />
         </div>
       </div>
@@ -193,7 +194,7 @@ function Cart() {
         <Button
           type="button"
           btnText="PROCEED TO CHECKOUT"
-          className="p-3 text-size-14"
+          className=" w-full sm:w-fit p-3 text-size-14"
           onClick={() => {
             // navigate to the checkout page
             navigate("/checkout");

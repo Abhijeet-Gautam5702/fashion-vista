@@ -90,7 +90,7 @@ function App() {
   return (
     <div className="flex flex-col justify-between items-center w-full">
       <Toaster />
-      <div className=" lg:min-h-[80vh] flex-grow w-full px-4 sm:px-8 md:px-16 lg:px-32 flex flex-col justify-start items-center">
+      <div className="min-h-[80vh] flex-grow w-full px-4 sm:px-8 md:px-16 lg:px-32 flex flex-col justify-start items-center">
         <Header />
         <Container>
           <Outlet />

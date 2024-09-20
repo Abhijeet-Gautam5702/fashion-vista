@@ -182,7 +182,7 @@ function Header() {
           />
           {/* Badge */}
           {cartItemsBadge > 0 ? (
-            <div className="absolute -bottom-1 -right-1 w-[20px] h-[20px] rounded-full bg-black text-white font-main font-500 text-[10px] text-center flex flex-row items-center justify-center">
+            <div className="absolute -bottom-1.5 -right-1.5 sm:-bottom-1 sm:-right-1 w-[15px] h-[15px] sm:w-[20px] sm:h-[20px] rounded-full bg-black text-white font-main font-500 text-[10px] text-center flex flex-row items-center justify-center">
               {" "}
               {cartItemsBadge}{" "}
             </div>

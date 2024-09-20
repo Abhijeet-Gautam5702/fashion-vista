@@ -4,7 +4,7 @@ function CartTotal({ amount }) {
   return (
       <div className="w-full flex flex-col justify-start items-center gap-3">
         {/* Title */}
-        <p className="w-full font-main font-500 text-text-col-2 text-size-24">
+        <p className="w-full font-main font-500 text-text-col-2 text-size-20 sm:text-size-24">
           CART TOTALS
         </p>
 

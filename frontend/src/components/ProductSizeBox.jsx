@@ -7,7 +7,7 @@ function ProductSizeBox(
   return (
     <button
       type={type}
-      className={`font-main font-400 p-2 transition-all duration-150 ${className}`}
+      className={`text-size-12 sm:text-size-14 font-main font-400 p-2 transition-all duration-150 ${className}`}
       {...props}
     >
       {sizeText}
