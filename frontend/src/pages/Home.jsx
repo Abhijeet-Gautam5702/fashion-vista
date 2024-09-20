@@ -34,7 +34,7 @@ function Home() {
   }, [inventory]);
 
   return (
-    <div className="w-full flex flex-col justify-start items-center gap-24">
+    <div className="w-full flex flex-col justify-start items-center gap-14 md:gap-24">
       <Banner image={banner} />
       <HomeCollections
         headline={"LATEST COLLECTIONS"}

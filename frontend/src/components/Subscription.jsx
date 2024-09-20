@@ -20,7 +20,7 @@ function Subscription({ ...props }, ref) {
       <div className="mt-5 flex flex-row justify-center items-stretch">
         <label htmlFor="subscription"></label>
         <input
-          className="p-3 outline-none border-[1px] border-black-2 w-[400px] font-main font-400 text-size-16 text-text-col-2  placeholder:text-text-col-1/70 "
+          className="p-3 outline-none border-[1px] border-black-2 w-full md:w-[400px] font-main font-400 text-size-16 text-text-col-2  placeholder:text-text-col-1/70 "
           type="text"
           placeholder="Enter your email"
           ref={ref}

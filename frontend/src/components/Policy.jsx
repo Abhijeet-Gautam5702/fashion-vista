@@ -4,7 +4,7 @@ import { customer_service, check_badge, exchange } from "../assets";
 
 function Policy() {
   return (
-    <div className="w-full flex flex-row justify-evenly items-center">
+    <div className="w-full flex flex-col gap-6 md:gap-0 md:flex-row justify-evenly items-center">
       <FeatureCard
         icon={check_badge}
         title={"7 Day Return Policy"}

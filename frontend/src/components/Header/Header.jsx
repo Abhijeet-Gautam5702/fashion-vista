@@ -81,13 +81,17 @@ function Header() {
   };
 
   return (
-    <div className="flex-grow-0 w-full flex flex-row justify-between items-center py-4">
+    <div className="relative flex-grow-0 w-full flex flex-col md:flex-row justify-between items-center py-4">
       {/* Logo */}
       <Link to="/">
-        <Logo className={"text-size-30 text-black-2"} />
+        <Logo
+          className={
+            "border-b-[1.5px] border-gray sm:border-none text-size-20 lg:text-size-30 text-black-2 "
+          }
+        />
       </Link>
       {/* Nav items */}
-      <div className="flex flex-row justify-center items-center gap-5 text-text-col-2 font-500 font-main text-size-14">
+      <div className=" mt-5 sm:mt-0 w-full sm:w-fit flex flex-row justify-evenly md:justify-center items-center gap-5 text-text-col-2 font-500 font-main text-size-12 lg:text-size-14">
         {navItems.map((item) => {
           return (
             <NavLink
@@ -105,13 +109,13 @@ function Header() {
         })}
         {/* Admin Panel Button */}
         <Link to="/admin">
-          <div className="text-size-12 px-4 py-2 rounded-full border-[1.5px] border-text-col-1">
-            Admin Panel
+          <div className="absolute top-4 left-0 sm:relative sm:top-0 text-size-12 px-3 py-1 sm:px-4 sm:py-2 rounded-full border-[1.5px] border-text-col-1">
+            Admin
           </div>
         </Link>
       </div>
       {/* Action icons */}
-      <div className="flex flex-row justify-center items-center gap-5">
+      <div className="absolute top-4 right-0 md:relative md:top-0 md:right-0  flex flex-row justify-center items-center  gap-3 sm:gap-5">
         <div
           className="cursor-pointer relative"
           onClick={() => {
@@ -136,7 +140,10 @@ function Header() {
             }
           }}
         >
-          <Icon icon={person} size="35px" />
+          <Icon
+            icon={person}
+            size={`${window.innerWidth < 600 ? "25px" : "35px"}`}
+          />
           <div
             className={`${
               showProfileMenu ? "opacity-100" : "opacity-0"
@@ -169,7 +176,10 @@ function Header() {
             navigate("/cart");
           }}
         >
-          <Icon icon={bag} size="28px" className={" cursor-pointer "} />
+          <Icon
+            icon={bag}
+            size={`${window.innerWidth < 600 ? "21px" : "28px"}`}
+          />
           {/* Badge */}
           {cartItemsBadge > 0 ? (
             <div className="absolute -bottom-1 -right-1 w-[20px] h-[20px] rounded-full bg-black text-white font-main font-500 text-[10px] text-center flex flex-row items-center justify-center">

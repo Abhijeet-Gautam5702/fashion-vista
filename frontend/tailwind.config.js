@@ -37,7 +37,14 @@ export default {
       danger: "#FF5733",
       postive: "#90EE90",
       "positive-accent": "#4CBB17",
-      "positive-dark":"#355E3B"
+      "positive-dark": "#355E3B",
+    },
+    screens: {
+      xs:"360px",
+      sm: "450px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
     },
     extend: {},
   },
