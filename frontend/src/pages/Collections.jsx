@@ -115,21 +115,20 @@ function Collections() {
   }
 
   return (
-    <div className="border-y-[1.5px] border-y-gray pb-20 flex-grow w-full h-full flex flex-row justify-between items-stretch gap-7 py-7">
+    <div className="relative border-y-[1.5px] border-y-gray pb-20 flex-grow w-full h-full flex flex-row justify-between items-stretch gap-4 sm:gap-7 pt-20 sm:py-7">
       {/* Side Panel */}
-      <div className=" font-main text-black w-1/3 flex flex-col justify-start items-start gap-4 py-2">
+      <div className=" font-main text-black sm:w-1/3 flex flex-col justify-start items-start gap-4 sm:py-2">
         {/* Searchbar */}
-        <div className="w-full relative">
+        <div className="absolute top-4 w-full sm:relative sm:top-0">
           <Icon
             className="absolute left-2 top-3"
-            size={"25px"}
+            size={`${window.innerWidth > 450 ? "25px" : "20px"}`}
             icon={searchIcon}
           />
           <input
             name="search"
             type="text"
-            label={<Icon size="30px" icon={searchIcon} />}
-            className="p-3 pl-10 outline-none border-[1px] border-black-2 w-full font-main font-400 text-size-16 text-text-col-2  placeholder:text-text-col-1/70"
+            className=" px-2 py-2.5 sm:p-3 sm:pl-10 pl-10 outline-none border-[1px] border-black-2 w-full font-main font-400 text-size-14 sm:text-size-16 text-text-col-2  placeholder:text-text-col-1/70"
             placeholder="Search a product name"
             value={search}
             onChange={(e) => {
@@ -140,11 +139,13 @@ function Collections() {
 
         {/* Other filters */}
         <>
-          <p className="w-full text-size-20 font-400 mt-2">FILTERS</p>
+          <p className="w-full text-size-20 font-400 mt-0 sm:mt-2">FILTERS</p>
 
           {/* Category Filters */}
-          <div className="w-full space-y-1 border-[1px] border-text-col-1 px-4 py-3">
-            <p className="w-full text-size-14 font-500">CATEGORIES</p>
+          <div className="w-full space-y-1 border-[1px] border-text-col-1 px-3 sm:px-4 py-3">
+            <p className="w-full text-size-12 sm:text-size-14 font-500">
+              CATEGORIES
+            </p>
             <FilterCheckbox
               label={"Men"}
               checked={filters.men}
@@ -178,8 +179,10 @@ function Collections() {
           </div>
 
           {/* Fashion Type Filter */}
-          <div className="w-full space-y-1 border-[1px] border-text-col-1 px-4 py-3">
-            <p className="w-full text-size-14 font-500">FASHION TYPES</p>
+          <div className="w-full space-y-1 border-[1px] border-text-col-1 px-3 sm:px-4 py-3">
+            <p className="w-full text-size-12 sm:text-size-14 font-500">
+              FASHION{" "}
+            </p>
             <FilterCheckbox
               label={"Topwear"}
               checked={filters.topwear}
@@ -223,8 +226,10 @@ function Collections() {
           </div>
 
           {/* Collection Type Filter */}
-          <div className="w-full space-y-1 border-[1px] border-text-col-1 px-4 py-3">
-            <p className="w-full text-size-14 font-500">SPECIAL COLLECTIONS</p>
+          <div className="w-full space-y-1 border-[1px] border-text-col-1 px-3 sm:px-4 py-3">
+            <p className="w-full text-size-12 sm:text-size-14 font-500">
+              COLLECTIONS
+            </p>
             <FilterCheckbox
               label={"Winter"}
               checked={filters.winter}
@@ -260,8 +265,8 @@ function Collections() {
       </div>
 
       {/* Collections Panel */}
-      <div className=" w-4/5 flex flex-col justify-start items-start px-3 gap-4">
-        <p className="w-full font-main font-500 text-size-30 text-text-col-2">
+      <div className=" w-4/5 flex flex-col justify-start items-start sm:px-3 gap-4">
+        <p className="w-full font-main font-500 text-size-20 md:text-size-30 text-text-col-2">
           ALL PRODUCTS
         </p>
         <div className="flex flex-row flex-wrap gap-6">

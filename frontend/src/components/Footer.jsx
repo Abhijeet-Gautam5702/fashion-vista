@@ -3,7 +3,7 @@ import { Logo } from "../components";
 
 function Footer() {
   return (
-    <div className=" md:mt-10 w-full flex flex-col justify-start items-center">
+    <div className=" pt-8 md:pt-0 md:mt-10 w-full flex flex-col justify-start items-center">
       {/* Content */}
       <div className="w-full flex flex-row justify-between items-start gap-3 px-4 sm:px-8 md:px-16 lg:px-32 pb-14">
         {window.innerWidth >= 768 && (
