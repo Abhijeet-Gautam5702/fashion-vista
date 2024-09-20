@@ -8,7 +8,7 @@ function Banner({ image, className = "" }) {
           <p className=" w-full text-right text-size-16 font-main font-500">
             OUR BEST SELLERS
           </p>
-          <p className=" w-full text-center md:text-[36px] lg:text-[45px] font-logo leading-none">
+          <p className=" w-full text-center text-[40px] md:text-[36px] lg:text-[45px] font-logo leading-none">
             Latest Arrivals
           </p>
           <p className=" w-full text-left text-size-16 font-main font-600">

@@ -130,7 +130,7 @@ const router = createBrowserRouter([
       {
         path: "/admin/add-items",
         element: (
-          <AdminProtected>
+          <AdminProtected authentication>
             <AddItems />
           </AdminProtected>
         ),
@@ -138,7 +138,7 @@ const router = createBrowserRouter([
       {
         path: "/admin/inventory",
         element: (
-          <AdminProtected>
+          <AdminProtected authentication>
             <Inventory />
           </AdminProtected>
         ),
@@ -146,7 +146,7 @@ const router = createBrowserRouter([
       {
         path: "/admin/orders",
         element: (
-          <AdminProtected>
+          <AdminProtected authentication>
             <AdminOrders />
           </AdminProtected>
         ),
