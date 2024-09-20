@@ -33,8 +33,8 @@ function Orders() {
         const response = await databaseService.getOrderHistory();
         if (response.success) {
           dispatch(storePopulateOrders({ orders: response.data }));
-        } else{
-          throw new Error(response.message)
+        } else {
+          throw new Error(response.message);
         }
       } catch (error) {
         console.log(
@@ -55,19 +55,18 @@ function Orders() {
   if (loading) {
     return (
       <div className="w-full flex-grow border-y-[1.5px] border-y-gray flex flex-col items-center justify-center">
-        <Loader/>
+        <Loader />
       </div>
-    )
+    );
   }
 
-  
   if (localOrders.length === 0) {
     return (
-      <div className="flex-grow flex flex-col justify-center items-center">
-        <p className="font-main font-400 text-black text-size-20">
-          You have not placed any orders with us till now.
+      <div className="border-y-[1.5px] border-y-gray py-12 w-full flex-grow flex flex-col justify-center items-center">
+        <p className="font-main font-400 text-center text-black text-size-20">
+          You have not placed any orders with us.
         </p>
-        <p className="font-main font-400 text-black text-size-14">
+        <p className="font-main font-400 text-center text-black text-size-14">
           Place at least one order and come again.
         </p>
       </div>

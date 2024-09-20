@@ -130,7 +130,6 @@ function Cart() {
 
   if (localCart.length === 0) {
     return (
-      // <div className="w-full border-2 flex-grow flex flex-col justify-center items-center">
       <div className="border-y-[1.5px] border-y-gray py-12 w-full flex-grow flex flex-col justify-center items-center">
         <p className="font-main font-400 text-black text-size-20">
           You have no items in your cart.

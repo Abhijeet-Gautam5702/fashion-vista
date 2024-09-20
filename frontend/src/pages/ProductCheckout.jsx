@@ -87,13 +87,13 @@ function ProductCheckout() {
   };
 
   return (
-    <div className="w-full flex-grow flex flex-row justify-between items-end gap-10 border-y-[1.5px] border-y-gray py-16">
+    <div className="w-full flex-grow flex flex-col sm:flex-row justify-start sm:justify-between items-center sm:items-end gap-10 border-y-[1.5px] border-y-gray py-8 sm:py-16">
       {/* Delivery address form */}
-      <div className="w-1/2 flex flex-col justify-start items-stretch gap-6">
-        <p className="font-main font-500 text-size-24 text-text-col-2">
+      <div className="w-full sm:w-1/2 flex flex-col justify-start items-stretch gap-6">
+        <p className="font-main text-center sm:text-left font-500 text-size-24 text-text-col-2">
           DELIVERY INFORMATION
         </p>
-        <form className="w-full flex flex-col justify-start items-center gap-4 pr-10">
+        <form className="w-full flex flex-col justify-start items-center gap-4 lg:pr-10">
           <Input
             type={"text"}
             label=""
@@ -163,7 +163,7 @@ function ProductCheckout() {
       </div>
 
       {/* Cart Totals & Payments */}
-      <div className="w-1/2 flex flex-col items-start justify-start gap-5">
+      <div className="w-full sm:w-1/2 flex flex-col items-start justify-start gap-5">
         <CartTotal amount={storeCart.cartTotal} />
         {/* Payment Information */}
         <div className="w-full flex flex-col justify-start items-start gap-2">
@@ -181,7 +181,7 @@ function ProductCheckout() {
           <Button
             type="submit"
             btnText="PLACE ORDER"
-            className="p-3 text-size-14 min-w-[240px]"
+            className="p-3 text-size-14 w-full sm:min-w-[240px]"
             onClick={handleSubmit(placeOrderHandler)}
           />
         </div>

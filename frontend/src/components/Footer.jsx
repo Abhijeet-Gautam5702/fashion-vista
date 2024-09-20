@@ -19,8 +19,8 @@ function Footer() {
           </div>
         )}
         <div className="w-full md:w-fit">
-          <p className="font-main font-500 text-size-20">COMPANY</p>
-          <ul className="font-main font-400 text-size-14 text-text-col-1 space-y-1.5">
+          <p className="font-main font-500 text-size-17 sm:text-size-20">COMPANY</p>
+          <ul className="font-main font-400 text-size-12 sm:text-size-14 text-text-col-1 space-y-1.5">
             <li>Home</li>
             <li>About</li>
             <li>Delivery</li>
@@ -28,8 +28,8 @@ function Footer() {
           </ul>
         </div>
         <div className="w-full md:w-fit">
-          <p className="font-main font-500 text-size-20">GET IN TOUCH</p>
-          <ul className="font-main font-400 text-size-14 text-text-col-1 space-y-0.5">
+          <p className="font-main font-500 text-size-17 sm:text-size-20">GET IN TOUCH</p>
+          <ul className="font-main font-400 text-size-12 sm:text-size-14 text-text-col-1 space-y-0.5">
             <li>Abhijeet Gautam</li>
             <li>abhidevelops572@gmail.com</li>
             <li>Noida, India</li>

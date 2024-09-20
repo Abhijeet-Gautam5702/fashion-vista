@@ -7,7 +7,6 @@ function Input(
   const inputId = useId();
   return (
     <div className="w-full flex flex-row justify-start items-center gap-3">
-      {/* <label htmlFor={inputId}>{label}</label> */}
       <input
         id={inputId}
         type={type}
