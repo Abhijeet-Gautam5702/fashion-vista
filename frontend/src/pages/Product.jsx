@@ -125,11 +125,11 @@ function Product() {
   }
 
   return (
-    <div className="w-full flex-grow flex flex-col justify-start items-center gap-16 py-10">
+    <div className="w-full flex-grow flex flex-col justify-start items-center gap-16  pt-4 pb-10 sm:py-10">
       {/* Product Section */}
-      <section className="w-full h-fit flex flex-row gap-10">
+      <section className="w-full h-fit flex flex-col sm:flex-row gap-10">
         {/* Left Images Panel */}
-        <div className="w-5/12 flex flex-row items-center justify-center">
+        <div className="sm:w-5/12 flex flex-row items-center justify-center">
           {productDetails?.images?.length ? (
             <img
               className="w-full h-full object-cover"
@@ -144,7 +144,7 @@ function Product() {
         </div>
 
         {/* Product details Panel */}
-        <div className="w-2/5 flex flex-col justify-start items-start gap-3 font-main leading-none">
+        <div className="sm:w-2/5 flex flex-col justify-start items-start gap-3 font-main leading-none">
           {/* Product name */}
           <p className="text-black text-size-24 font-500">
             {productDetails.name}
@@ -236,11 +236,11 @@ function Product() {
       </section>
 
       {/* Related products Section */}
-      <section className="w-full h-fit flex flex-col gap-4">
-        <p className="w-full text-center font-400 text-size-30 text-text-col-2">
+      <section className="w-full h-fit flex flex-col gap-10 sm:gap-4">
+        <p className="w-full text-center font-400 text-size-24 sm:text-size-30 text-text-col-2">
           RELATED PRODUCTS
         </p>
-        <div className="w-full flex flex-row flex-wrap justify-start items-center gap-5">
+        <div className="w-full flex flex-row flex-wrap justify-center sm:justify-start items-center gap-5">
           {relatedProducts.map((item) => (
             <ProductCard
               key={item._id}
