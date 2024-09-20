@@ -95,12 +95,12 @@ function Signup() {
   };
 
   return (
-    <div className="min-w-[400px] flex flex-col justify-start items-center gap-4">
+    <div className="w-full sm:w-[400px] flex flex-col justify-start items-center gap-4">
       {loading ? (
         <Loader />
       ) : (
         <>
-          <p className="w-full text-center font-logo text-black text-size-30">
+          <p className="w-full text-center font-logo text-black text-size-24 sm:text-size-30">
             Sign up
           </p>
           <form
@@ -130,7 +130,7 @@ function Signup() {
               type="password"
               {...register("password", { required: true })}
             />
-            <div className="w-full flex flex-row justify-between items-center font-main font-400 text-size-14">
+            <div className="w-full flex flex-row justify-between items-center font-main font-400 text-size-12 sm:text-size-14">
               {" "}
               <p className="w-full text-left text-text-col-2">
                 Already have an account?{" "}
@@ -145,7 +145,7 @@ function Signup() {
             <Button
               btnText="Create account"
               type="submit"
-              className="min-w-[120px] text-size-16 border-[2px] border-black py-2 px-4"
+              className="w-full sm:w-[120px] text-size-14 sm:text-size-16 border-[2px] border-black p-2"
             />
           </form>
         </>

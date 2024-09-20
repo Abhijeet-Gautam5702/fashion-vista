@@ -102,7 +102,7 @@ function Login() {
   };
 
   return (
-    <div className="w-[400px] flex flex-col justify-start items-center gap-4">
+    <div className="w-full sm:w-[400px] flex flex-col justify-start items-center gap-4">
       {loading ? (
         <Loader />
       ) : (
@@ -114,7 +114,7 @@ function Login() {
               {errors.password.message}
             </p>
           )}
-          <p className="w-full text-center font-logo text-black text-size-30">
+          <p className="w-full text-center font-logo text-black text-size-24 sm:text-size-30">
             Login
           </p>
           <form
@@ -133,7 +133,7 @@ function Login() {
               type="password"
               {...register("password", { required: true })}
             />
-            <div className="w-full flex flex-row justify-between items-center font-main font-400 text-size-14">
+            <div className="w-full flex flex-row justify-between items-center font-main font-400  text-size-12 sm:text-size-14">
               {" "}
               <p className="w-full text-left text-text-col-2">
                 Do not have an account?{" "}
@@ -148,7 +148,7 @@ function Login() {
             <Button
               btnText="Login"
               type="submit"
-              className="w-[120px] text-size-16 border-[2px] border-black p-2"
+              className="w-full sm:w-[120px] text-size-14 sm:text-size-16 border-[2px] border-black p-2"
             />
           </form>
         </>

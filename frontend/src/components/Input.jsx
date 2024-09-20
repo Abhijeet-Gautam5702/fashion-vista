@@ -11,7 +11,7 @@ function Input(
       <input
         id={inputId}
         type={type}
-        className={`${className} p-3 outline-none border-[1px] border-black-2 w-full font-main font-400 text-size-16 text-text-col-2  placeholder:text-text-col-1/70 `}
+        className={`${className} p-2 sm:p-3 outline-none border-[1px] border-black-2 w-full font-main font-400 text-size-14 sm:text-size-16 text-text-col-2 placeholder:text-text-col-1/70 `}
         ref={ref}
         placeholder={placeholder}
         {...props}
