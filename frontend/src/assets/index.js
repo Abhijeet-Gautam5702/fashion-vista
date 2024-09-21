@@ -6,7 +6,6 @@ import check from "./check.svg";
 import cross from "./cross.svg";
 import customer_service from "./customer_service.svg";
 import exchange from "./exchange.svg";
-import list from "./list.svg";
 import search from "./search.svg";
 import person from "./person.svg";
 import trash from "./trash.svg";
@@ -29,7 +28,6 @@ export {
   cross,
   customer_service,
   exchange,
-  list,
   search,
   person,
   trash,
