@@ -42,7 +42,7 @@ function AdminHeader() {
     <div className="px-3 border-y-[1.5px] border-y-gray flex-grow-0 w-full flex flex-row justify-between items-center py-4">
       <div className="w-fit flex flex-col justify-start leading-none">
         {/* Logo */}
-        <Link to="/admin/">
+        <Link to="/">
           <Logo className={"text-size-24 text-black-2"} />
         </Link>
         {/* Admin Panel Head Text */}
