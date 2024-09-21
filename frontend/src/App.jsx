@@ -31,7 +31,7 @@ function App() {
         console.log(
           `Could not fetch current user details | Error = ${error.message}`
         );
-        throw error;
+        // throw error;
       }
     })();
   }, []);
@@ -66,7 +66,8 @@ function App() {
           );
           dispatch(storePopulateInventory({ inventory: productsInStock }));
           setLoading(false);
-        } else {
+        } 
+        else {
           throw new Error(response.message);
         }
       } catch (error) {
@@ -74,6 +75,9 @@ function App() {
           `Failed to fetched inventory data from the database | Error = ${error.message}`
         );
         throw error;
+      } finally{
+        // testing
+        setLoading(false)
       }
     })();
   }, []);

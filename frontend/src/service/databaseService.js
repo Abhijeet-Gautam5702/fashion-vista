@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const backendURL = import.meta.env.VITE_BACKEND_URL;
+
 class DatabaseService {
   // PRODUCT RELATED DATABASE SERVICES
   async getAllProducts() {
@@ -54,10 +56,9 @@ class DatabaseService {
 
   async getUserCart() {
     try {
-      const response = await axios.get(
-        `${backendURL}/api/v1/cart/get-cart`,
-        { withCredentials: true }
-      );
+      const response = await axios.get(`${backendURL}/api/v1/cart/get-cart`, {
+        withCredentials: true,
+      });
       return response.data;
     } catch (error) {
       throw error.response.data;
