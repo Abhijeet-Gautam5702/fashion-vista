@@ -96,7 +96,7 @@ function AddItems() {
         message: error.message.toString(),
       });
 
-      throw error;
+      // throw error;
     } finally {
       setLoading(false);
     }

@@ -42,7 +42,7 @@ function Inventory() {
         }
       } catch (error) {
         console.log(`Could not fetch inventory | Error = ${error.message}`);
-        throw error;
+        // throw error;
       } finally {
         setLoading(false);
       }
@@ -80,7 +80,7 @@ function Inventory() {
       }
     } catch (error) {
       console.log(`Product deletion failed | Error = ${error.message}`);
-      throw error;
+      // throw error;
     }
   };
 
@@ -98,7 +98,7 @@ function Inventory() {
       console.log(
         `Product Stock status could not be updated | Error = ${error.message}`
       );
-      throw error;
+      // throw error;
     }
   };
 

@@ -34,7 +34,7 @@ function AdminHeader() {
       }
     } catch (error) {
       console.log(`Admin Logout Failed | Error = ${error.message}`);
-      throw error;
+      // throw error;
     }
   };
 

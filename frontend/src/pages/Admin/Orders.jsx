@@ -41,7 +41,7 @@ function Orders() {
       }
     } catch (error) {
       console.log(`Could not fetch order details | Error = ${error.message}`);
-      throw error;
+      // throw error;
     } finally {
       setLoading(false);
     }
@@ -69,7 +69,7 @@ function Orders() {
       console.log(
         `Status of Order could not be changed | Error = ${error.message}`
       );
-      throw error;
+      // throw error;
     }
   };
 

@@ -29,7 +29,7 @@ function AdminApp() {
         }
       } catch (error) {
         console.log(`Admin Login failed | Error = ${error.message}`);
-        throw error;
+        // throw error;
       } finally {
         setLoading(false);
       }
