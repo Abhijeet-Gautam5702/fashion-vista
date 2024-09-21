@@ -21,7 +21,7 @@ const asyncController = (controller) => {
         If you throw an error, the backend server will stop and won't work at all. But we want to send a bad-response to the client, so we simply send a response instead of throwing an error.
       */
     } finally {
-      cleanDirectory("./public/temp");
+      cleanDirectory("public/temp");
     }
   };
 };

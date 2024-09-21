@@ -1,8 +1,8 @@
 
 // import "dotenv/config"; // Importing and configuring dotenv package directly
 // Configuring dotenv
-import dotenv from 'dotenv';
-dotenv.config({path:"./.env"});
+// import dotenv from 'dotenv';
+// dotenv.config({path:"./.env"});
 
 import config from "./config/config.js";
 import connectToDatabase from "./database/database.js";
@@ -21,7 +21,7 @@ cloudinary.config({
 const port = config.app.port;
 
 // Clean the temp directory whenenver the server starts
-cleanDirectory("./public/temp/");
+cleanDirectory("public/temp/");
 
 await connectToDatabase();
 try {
