@@ -1,15 +1,12 @@
 import config from "../config/config.js";
 import { User } from "../models/index.js";
 import { asyncController, CustomApiError } from "../utilities/index.js";
-
-import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
 
 const authenticateUser = asyncController(async (req, res, next) => {
   // Get the access token from the cookies
   const cookies = req.cookies;
   const { accessToken } = cookies;
-  // console.log(cookies)
   /*
     NOTE: Tokens are sent to cookies only in the cases of websites. In case of working with a mobile application, tokens are sent to the backend via the `Authorization` Header of the HTTP request.
 

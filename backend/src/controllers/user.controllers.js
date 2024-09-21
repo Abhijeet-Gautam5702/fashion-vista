@@ -9,6 +9,16 @@ import {
   ZodNameSchema,
   ZodPasswordSchema,
 } from "../schema/zod.schema.js";
+import config from "../config/config.js";
+
+// Cookie Options
+const cookieOptions = {
+  httpOnly: true, // prevents client-side JS to access/read the cookies
+  secure: true, // ensures that cookies are sent via HTTPS only
+  sameSite: "none", // allows the cookies to be sent to different domains (resolves CORS issues)
+  path: "/", // determines which paths (in the browser URL) can access the cookies
+  domain: "https://fashion-vista.onrender.com", // the domain where backend is hosted
+};
 
 // Unauthenticated Route
 const createAccount = asyncController(async (req, res, next) => {
@@ -72,11 +82,7 @@ const createLoginSession = asyncController(async (req, res, next) => {
   const isPasswordValid = ZodPasswordSchema.safeParse(password);
 
   if (!isEmailValid.success) {
-    throw new CustomApiError(
-      400,
-      "INVALID EMAIL",
-      isEmailValid.error.issues
-    );
+    throw new CustomApiError(400, "INVALID EMAIL", isEmailValid.error.issues);
   }
   if (!isPasswordValid.success) {
     throw new CustomApiError(
@@ -121,16 +127,21 @@ const createLoginSession = asyncController(async (req, res, next) => {
     userData[field] = updatedUserFromDB[field];
   });
 
+  // expiration dates of the cookies
+  const currentDate = new Date();
+  const accessTokenCookieExpiryDate = currentDate.getDate() + 1; // 1 day from now
+  const refreshTokenCookieExpiryDate = currentDate.getDate() + 10; // 10 days from now
+
   // Send response to the client and set cookies
   res
     .status(200)
     .cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: true,
+      ...cookieOptions,
+      expires: refreshTokenCookieExpiryDate,
     })
     .cookie("accessToken", accessToken, {
-      httpOnly: true,
-      secure: true,
+      ...cookieOptions,
+      expires: accessTokenCookieExpiryDate,
     })
     .json({
       data: new CustomApiResponse(
