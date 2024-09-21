@@ -9,7 +9,6 @@ import {
   ZodNameSchema,
   ZodPasswordSchema,
 } from "../schema/zod.schema.js";
-import config from "../config/config.js";
 
 // Cookie Options
 const cookieOptions = {
@@ -127,11 +126,6 @@ const createLoginSession = asyncController(async (req, res, next) => {
     userData[field] = updatedUserFromDB[field];
   });
 
-  // expiration dates of the cookies
-  const currentDate = new Date();
-  const accessTokenCookieExpiryDate = currentDate.getDate() + 1; // 1 day from now
-  const refreshTokenCookieExpiryDate = currentDate.getDate() + 10; // 10 days from now
-
   // Send response to the client and set cookies
   res
     .status(200)
@@ -180,14 +174,8 @@ const removeLoginSession = asyncController(async (req, res, next) => {
   // Clear all the tokens from the cookie and send response to the user
   res
     .status(200)
-    .clearCookie("accessToken", {
-      httpOnly: true,
-      secure: true,
-    })
-    .clearCookie("refreshToken", {
-      httpOnly: true,
-      secure: true,
-    })
+    .clearCookie("accessToken", cookieOptions)
+    .clearCookie("refreshToken", cookieOptions)
     .json(
       new CustomApiResponse(200, `LOGIN SESSION REMOVED SUCCESSFULLY`, userData)
     );
