@@ -1,9 +1,15 @@
-import "dotenv/config"; // Importing and configuring dotenv package directly
+
+// import "dotenv/config"; // Importing and configuring dotenv package directly
+// Configuring dotenv
+import dotenv from 'dotenv';
+dotenv.config({path:"./.env"});
+
 import config from "./config/config.js";
 import connectToDatabase from "./database/database.js";
 import app from "./app.js";
 import { v2 as cloudinary } from "cloudinary";
 import { cleanDirectory } from "./utilities/index.js";
+
 
 // Configuring Cloudinary
 cloudinary.config({

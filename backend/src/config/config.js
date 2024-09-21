@@ -1,4 +1,7 @@
+// Configuring dotenv
 import dotenv from "dotenv";
+dotenv.config({ path: "./.env" });
+
 import { DB_NAME } from "../constants.js";
 
 // Config File stores all the configuration related variables of the backend
@@ -19,7 +22,8 @@ const config = {
   },
   app: {
     port: process.env.PORT || 8000,
-    corsOrigin: process.env.CORS_ORIGIN || "*",
+    // corsOrigin: process.env.CORS_ORIGIN || "*",
+    corsOrigin: process.env.CORS_ORIGIN, // testing
   },
   cloudinary: {
     apiKey: process.env.CLOUDINARY_API_KEY,
