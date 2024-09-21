@@ -40,7 +40,7 @@ function Orders() {
         console.log(
           `Could not fetch user's order history | Error = ${error.message}`
         );
-        throw error;
+        // throw error;
       } finally {
         setLoading(false);
       }

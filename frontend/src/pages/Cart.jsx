@@ -44,7 +44,7 @@ function Cart() {
         console.log(
           `Cart items could not be fetched | Error = ${error.message}`
         );
-        throw error;
+        // throw error;
       }
     })();
   }, []);
@@ -79,7 +79,7 @@ function Cart() {
       }
     } catch (error) {
       console.log(`Product updation failed | Error = ${error.message}`);
-      throw error;
+      // throw error;
     }
   };
 
@@ -116,7 +116,7 @@ function Cart() {
       }
     } catch (error) {
       console.log(`Product deletion failed | Error = ${error.message}`);
-      throw error;
+      // throw error;
     }
   };
 

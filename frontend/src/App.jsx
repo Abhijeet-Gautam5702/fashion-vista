@@ -49,7 +49,7 @@ function App() {
           console.log(
             `Cart items could not be fetched | Error = ${error.message}`
           );
-          throw error;
+          // throw error;
         }
       })();
     }
@@ -74,7 +74,7 @@ function App() {
         console.log(
           `Failed to fetched inventory data from the database | Error = ${error.message}`
         );
-        throw error;
+        // throw error;
       } finally{
         // testing
         setLoading(false)

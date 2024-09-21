@@ -76,7 +76,7 @@ function Header() {
         NOTE: We have sent the exact same error object (sent by the backend service) to the client (handled in the authService.js file). Therefore, we can simply access the error in the same format as it was sent by the backend.
       */
       console.log(`User Logout Failed | Error = ${error.message}`);
-      throw error;
+      // throw error;
     }
   };
 

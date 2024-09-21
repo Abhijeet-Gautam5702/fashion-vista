@@ -82,7 +82,7 @@ function ProductCheckout() {
       console.log(
         `Could not update delivery address | Error = ${error.message}`
       );
-      throw error;
+      // throw error;
     }
   };
 
