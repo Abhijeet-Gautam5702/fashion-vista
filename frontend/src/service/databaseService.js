@@ -22,7 +22,7 @@ class DatabaseService {
 
         NOTE: We will send the exact same error object (sent by the backend service) to the client. Therefore, we throw `error.response.data` instead of `error` simply.
       */
-      return error.response.data;
+      throw error.response.data;
     }
   }
 
@@ -34,7 +34,7 @@ class DatabaseService {
       );
       return response.data;
     } catch (error) {
-      return error.response.data;
+      throw error.response.data;
     }
   }
 
@@ -50,7 +50,7 @@ class DatabaseService {
       );
       return response.data;
     } catch (error) {
-      return error.response.data;
+      throw error.response.data;
     }
   }
 
@@ -61,7 +61,7 @@ class DatabaseService {
       });
       return response.data;
     } catch (error) {
-      return error.response.data;
+      throw error.response.data;
     }
   }
 
@@ -74,7 +74,7 @@ class DatabaseService {
       );
       return response.data;
     } catch (error) {
-      return error.response.data;
+      throw error.response.data;
     }
   }
 
@@ -87,7 +87,7 @@ class DatabaseService {
       );
       return response.data;
     } catch (error) {
-      return error.response.data;
+      throw error.response.data;
     }
   }
 
@@ -106,7 +106,7 @@ class DatabaseService {
       );
       return response.data;
     } catch (error) {
-      return error.response.data;
+      throw error.response.data;
     }
   }
 
@@ -117,7 +117,7 @@ class DatabaseService {
       });
       return response.data;
     } catch (error) {
-      return error.response.data;
+      throw error.response.data;
     }
   }
 
@@ -130,7 +130,7 @@ class DatabaseService {
       );
       return response.data;
     } catch (error) {
-      return error.response.data;
+      throw error.response.data;
     }
   }
 
@@ -143,7 +143,7 @@ class DatabaseService {
       );
       return response.data;
     } catch (error) {
-      return error.response.data;
+      throw error.response.data;
     }
   }
 
@@ -155,7 +155,7 @@ class DatabaseService {
       );
       return response.data;
     } catch (error) {
-      return error.response.data;
+      throw error.response.data;
     }
   }
 
@@ -170,7 +170,7 @@ class DatabaseService {
       );
       return response.data;
     } catch (error) {
-      return error.response.data;
+      throw error.response.data;
     }
   }
 
@@ -188,7 +188,7 @@ class DatabaseService {
       );
       return response.data;
     } catch (error) {
-      return error.response.data;
+      throw error.response.data;
     }
   }
 }
