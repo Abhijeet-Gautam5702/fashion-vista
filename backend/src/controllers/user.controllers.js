@@ -16,7 +16,6 @@ const cookieOptions = {
   secure: true, // ensures that cookies are sent via HTTPS only
   sameSite: "none", // allows the cookies to be sent to different domains (resolves CORS issues)
   path: "/", // determines which paths (in the browser URL) can access the cookies
-  domain: "https://fashion-vista.onrender.com", // the domain where backend is hosted
 };
 
 // Unauthenticated Route
