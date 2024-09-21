@@ -137,11 +137,11 @@ const createLoginSession = asyncController(async (req, res, next) => {
     .status(200)
     .cookie("refreshToken", refreshToken, {
       ...cookieOptions,
-      expires: refreshTokenCookieExpiryDate,
+      maxAge: 10 * 24 * 60 * 60 * 1000,
     })
     .cookie("accessToken", accessToken, {
       ...cookieOptions,
-      expires: accessTokenCookieExpiryDate,
+      maxAge: 24 * 60 * 60 * 1000,
     })
     .json({
       data: new CustomApiResponse(
