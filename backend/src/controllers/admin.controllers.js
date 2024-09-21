@@ -19,6 +19,14 @@ import {
 } from "../schema/zod.schema.js";
 import mongoose from "mongoose";
 
+// Admin-Cookie Options
+const cookieOptions = {
+  httpOnly: true, // prevents client-side JS to access/read the cookies
+  secure: true, // ensures that cookies are sent via HTTPS only
+  sameSite: "none", // allows the cookies to be sent to different domains (resolves CORS issues)
+  path: "/admin/", // determines which paths (in the browser URL) can access the cookies
+};
+
 // Unauthenticated route : Create a new login session for the admin
 const createAdminLoginSession = asyncController(async (req, res, next) => {
   // Get user credentials from req.body
@@ -95,12 +103,12 @@ const createAdminLoginSession = asyncController(async (req, res, next) => {
   res
     .status(200)
     .cookie("adminRefreshToken", adminRefreshToken, {
-      httpOnly: true,
-      secure: true,
+      ...cookieOptions,
+      maxAge: 30 * 24 * 60 * 60 * 1000,
     })
     .cookie("adminAccessToken", adminAccessToken, {
-      httpOnly: true,
-      secure: true,
+      ...cookieOptions,
+      maxAge: 24 * 60 * 60 * 1000,
     })
     .json({
       data: new CustomApiResponse(
@@ -139,14 +147,8 @@ const removeAdminLoginSession = asyncController(async (req, res, next) => {
   // Clear all the tokens from the cookie and send response to the client
   res
     .status(200)
-    .clearCookie("adminAccessToken", {
-      httpOnly: true,
-      secure: true,
-    })
-    .clearCookie("adminRefreshToken", {
-      httpOnly: true,
-      secure: true,
-    })
+    .clearCookie("adminAccessToken", cookieOptions)
+    .clearCookie("adminRefreshToken", cookieOptions)
     .json(
       new CustomApiResponse(
         200,
@@ -276,7 +278,7 @@ const addProductToInventory = asyncController(async (req, res, next) => {
       `PRODUCT IMAGES UPLOAD FAILED || NO FILES STORED IN THE SERVER || SOMETHING WRONG WITH THE FORM-DATA`
     );
   }
-  const localFiles = req.files["image[]"]; 
+  const localFiles = req.files["image[]"];
   /*
       NOTE: 
       We cannot directly map the array and push the urls (returned from cloudinary-uploader function) to an array. This is because array.map/filter/forEach are synchronous methods and do not wait for the async operations to complete.
