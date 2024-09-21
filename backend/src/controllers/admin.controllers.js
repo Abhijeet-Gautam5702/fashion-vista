@@ -24,7 +24,7 @@ const cookieOptions = {
   httpOnly: true, // prevents client-side JS to access/read the cookies
   secure: true, // ensures that cookies are sent via HTTPS only
   sameSite: "none", // allows the cookies to be sent to different domains (resolves CORS issues)
-  path: "/admin/", // determines which paths (in the browser URL) can access the cookies
+  path: "/", // determines which paths (in the browser URL) can access the cookies
 };
 
 // Unauthenticated route : Create a new login session for the admin
