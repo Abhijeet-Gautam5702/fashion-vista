@@ -5,7 +5,7 @@ class DatabaseService {
   async getAllProducts() {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/v1/products",
+        `${backendURL}/api/v1/products`,
         { withCredentials: true }
         /*
           NOTE: For Axios Requests, this setting must be set to true.
@@ -27,7 +27,7 @@ class DatabaseService {
   async getCurrentProduct(productId) {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/v1/products/${productId}`,
+        `${backendURL}/api/v1/products/${productId}`,
         { withCredentials: true }
       );
       return response.data;
@@ -40,7 +40,7 @@ class DatabaseService {
   async addProductToCart(data) {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/products/add-to-cart?productId=${
+        `${backendURL}/api/v1/products/add-to-cart?productId=${
           data.productId
         }&size=${data.size}&quantity=${data.quantity || 1}`,
         {},
@@ -55,7 +55,7 @@ class DatabaseService {
   async getUserCart() {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/v1/cart/get-cart`,
+        `${backendURL}/api/v1/cart/get-cart`,
         { withCredentials: true }
       );
       return response.data;
@@ -67,7 +67,7 @@ class DatabaseService {
   async removeProductFromCart(productId, size) {
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/v1/products/remove-from-cart?productId=${productId}&size=${size}`,
+        `${backendURL}/api/v1/products/remove-from-cart?productId=${productId}&size=${size}`,
         {},
         { withCredentials: true }
       );
@@ -80,7 +80,7 @@ class DatabaseService {
   async updateProductQtInCart(productId, size, quantity) {
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/v1/products/update-product-qt-in-cart?productId=${productId}&size=${size}&quantity=${quantity}`,
+        `${backendURL}/api/v1/products/update-product-qt-in-cart?productId=${productId}&size=${size}&quantity=${quantity}`,
         {},
         { withCredentials: true }
       );
@@ -94,7 +94,7 @@ class DatabaseService {
   async placeOrder(address, phone, email, orderValue) {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/orders/place-order`,
+        `${backendURL}/api/v1/orders/place-order`,
         {
           address,
           phone,
@@ -111,7 +111,7 @@ class DatabaseService {
 
   async getOrderHistory() {
     try {
-      const response = await axios.get("http://localhost:8000/api/v1/orders", {
+      const response = await axios.get(`${backendURL}/api/v1/orders`, {
         withCredentials: true,
       });
       return response.data;
@@ -124,7 +124,7 @@ class DatabaseService {
   async removeProductFromInventory(productId) {
     try {
       const response = await axios.delete(
-        `http://localhost:8000/api/v1/admin/delete-product-from-inventory?productId=${productId}`,
+        `${backendURL}/api/v1/admin/delete-product-from-inventory?productId=${productId}`,
         { withCredentials: true }
       );
       return response.data;
@@ -136,7 +136,7 @@ class DatabaseService {
   async updateProductStockStatusInInventory(productId) {
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/v1/admin/update-product-stock-status?productId=${productId}`,
+        `${backendURL}/api/v1/admin/update-product-stock-status?productId=${productId}`,
         {},
         { withCredentials: true }
       );
@@ -149,7 +149,7 @@ class DatabaseService {
   async getAllOrders() {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/v1/admin/get-all-orders",
+        `${backendURL}/api/v1/admin/get-all-orders`,
         { withCredentials: true }
       );
       return response.data;
@@ -161,7 +161,7 @@ class DatabaseService {
   async updateOrderStatus(orderId, newOrderStatus) {
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/v1/admin/update-order-status?orderId=${orderId}&newOrderStatus=${newOrderStatus}`,
+        `${backendURL}/api/v1/admin/update-order-status?orderId=${orderId}&newOrderStatus=${newOrderStatus}`,
         {},
         {
           withCredentials: true,
@@ -176,7 +176,7 @@ class DatabaseService {
   async addNewProductToInventory(product) {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/admin/add-product-to-inventory",
+        `${backendURL}/api/v1/admin/add-product-to-inventory`,
         { ...product },
         {
           withCredentials: true,

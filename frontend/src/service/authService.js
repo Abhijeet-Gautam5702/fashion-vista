@@ -1,11 +1,13 @@
 import axios from "axios";
 
+const backendURL = import.meta.env.VITE_BACKEND_URL;
+
 class AuthService {
   // USER RELATED AUTH SERVICES
   async login({ email, password }) {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/users/create-login-session",
+        `${backendURL}/api/v1/users/create-login-session`,
         {
           email,
           password,
@@ -42,7 +44,7 @@ class AuthService {
   async logout() {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/users/remove-login-session",
+        `${backendURL}/api/v1/users/remove-login-session`,
         {},
         { withCredentials: true }
         /*
@@ -59,7 +61,7 @@ class AuthService {
   async getCurrentUser() {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/v1/users/get-current-user",
+        `${backendURL}/api/v1/users/get-current-user`,
         { withCredentials: true }
       );
       return response.data;
@@ -71,7 +73,7 @@ class AuthService {
   async signup({ fullname, email, password }) {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/users/create-account",
+        `${backendURL}/api/v1/users/create-account`,
         { name: fullname, email, password },
         {
           headers: {
@@ -91,7 +93,7 @@ class AuthService {
   async adminLogin({ email, password }) {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/admin/create-admin-login-session",
+        `${backendURL}/api/v1/admin/create-admin-login-session`,
         {
           email,
           password,
@@ -128,7 +130,7 @@ class AuthService {
   async adminLogout() {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/admin/remove-admin-login-session",
+        `${backendURL}/api/v1/admin/remove-admin-login-session`,
         {},
         { withCredentials: true }
       );
@@ -141,7 +143,7 @@ class AuthService {
   async getCurrentAdmin() {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/v1/admin/get-current-admin",
+        `${backendURL}/api/v1/admin/get-current-admin`,
         { withCredentials: true }
       );
       return response.data;
