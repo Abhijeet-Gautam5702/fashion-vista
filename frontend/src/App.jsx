@@ -3,10 +3,7 @@ import { Outlet } from "react-router-dom";
 import { Container, Footer, Header, Loader } from "./components";
 import { useDispatch, useSelector } from "react-redux";
 import { storePopulateInventory } from "./store/inventorySlice/inventorySlice";
-import {
-  authService,
-  databaseService
-} from "./service/index.js";
+import { authService, databaseService } from "./service/index.js";
 import { storeLogin } from "./store/authSlice/authSlice";
 import { Toaster } from "react-hot-toast";
 import { storePopulateCart } from "./store/cartSlice/cartSlice.js";
@@ -24,8 +21,8 @@ function App() {
 
   useEffect(() => {
     setInterval(async () => {
-      await checkServerHealth()
-    }, 10 * 1000);
+      await checkServerHealth();
+    }, 5 * 60 * 1000);
   }, []);
 
   // Get the currently logged-in user

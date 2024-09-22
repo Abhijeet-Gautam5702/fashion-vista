@@ -4,7 +4,7 @@ const checkServerHealth = async () => {
     try {
       const response = await healthCheckService.healthCheck();
       if (response.success) {
-        console.log(response.data.message);
+        console.log(response.message);
       } else {
         throw new Error(response.message);
       }

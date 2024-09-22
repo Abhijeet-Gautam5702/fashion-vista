@@ -16,11 +16,11 @@ function AdminApp() {
 
   const storeAuth = useSelector((state) => state.auth);
 
-  useEffect(()=>{
+  useEffect(() => {
     setInterval(async () => {
       await checkServerHealth();
-    }, 10*1000);
-  },[])
+    }, 5 * 60 * 1000);
+  }, []);
 
   // On Page Load => Fetch the currently logged-in Admin (if at all)
   useEffect(() => {
