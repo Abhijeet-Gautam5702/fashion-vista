@@ -48,6 +48,7 @@ import {
   userRouter,
   cartRouter,
   orderRouter,
+  healthCheckRouter,
 } from "./routes/index.js";
 
 app.use(`/api/${API_VERSION}/users`, userRouter);
@@ -55,5 +56,6 @@ app.use(`/api/${API_VERSION}/products`, productRouter);
 app.use(`/api/${API_VERSION}/cart`, cartRouter);
 app.use(`/api/${API_VERSION}/orders`, orderRouter);
 app.use(`/api/${API_VERSION}/admin`, adminRouter);
+app.use(`/api/${API_VERSION}/health`, healthCheckRouter); // health-check router will prevent the backend from being inactive (if at all) in case of no API-calls from the client.
 
 export default app;

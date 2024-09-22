@@ -4,7 +4,8 @@ import { AdminHeader, Container, Loader, SidePanel } from "./components";
 import { Toaster } from "react-hot-toast";
 import { authService } from "./service";
 import { useDispatch, useSelector } from "react-redux";
-import { storeAdminLogin } from "./store/authSlice/authSlice";
+import { storeAdminLogin } from "./store/authSlice/authSlice.js";
+import { checkServerHealth } from "./utilities/index.js";
 
 function AdminApp() {
   // local state
@@ -14,6 +15,12 @@ function AdminApp() {
   const dispatch = useDispatch();
 
   const storeAuth = useSelector((state) => state.auth);
+
+  useEffect(()=>{
+    setInterval(async () => {
+      await checkServerHealth();
+    }, 10*1000);
+  },[])
 
   // On Page Load => Fetch the currently logged-in Admin (if at all)
   useEffect(() => {

@@ -3,5 +3,6 @@ import productRouter from "./product.routes.js";
 import adminRouter from "./admin.routes.js";
 import cartRouter from "./cart.routes.js";
 import orderRouter from "./order.routes.js";
+import healthCheckRouter from "./healthcheck.routes.js";
 
-export { userRouter, productRouter, adminRouter, cartRouter, orderRouter };
+export { userRouter, productRouter, adminRouter, cartRouter, orderRouter,healthCheckRouter };

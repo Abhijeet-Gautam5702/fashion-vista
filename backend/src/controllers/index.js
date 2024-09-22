@@ -29,8 +29,10 @@ import {
   updateDeliveryStatusOfOrder,
   updateStockStatusOfProductInInventory,
   getAllOrders,
-  addProductToInventory
+  addProductToInventory,
 } from "./admin.controllers.js";
+
+import { healthCheck } from "./healthCheck.controllers.js";
 
 export {
   createAccount,
@@ -54,5 +56,6 @@ export {
   updateStockStatusOfProductInInventory,
   updateDeliveryStatusOfOrder,
   getAllOrders,
-  addProductToInventory
+  addProductToInventory,
+  healthCheck,
 };

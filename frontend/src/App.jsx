@@ -3,10 +3,14 @@ import { Outlet } from "react-router-dom";
 import { Container, Footer, Header, Loader } from "./components";
 import { useDispatch, useSelector } from "react-redux";
 import { storePopulateInventory } from "./store/inventorySlice/inventorySlice";
-import { authService, databaseService } from "./service/index.js";
+import {
+  authService,
+  databaseService
+} from "./service/index.js";
 import { storeLogin } from "./store/authSlice/authSlice";
 import { Toaster } from "react-hot-toast";
 import { storePopulateCart } from "./store/cartSlice/cartSlice.js";
+import checkServerHealth from "./utilities/checkServerHealth.js";
 
 function App() {
   // local state
@@ -17,6 +21,12 @@ function App() {
   const storeInventory = useSelector((state) => state.inventory);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setInterval(async () => {
+      await checkServerHealth()
+    }, 10 * 1000);
+  }, []);
 
   // Get the currently logged-in user
   useEffect(() => {
@@ -66,8 +76,7 @@ function App() {
           );
           dispatch(storePopulateInventory({ inventory: productsInStock }));
           setLoading(false);
-        } 
-        else {
+        } else {
           throw new Error(response.message);
         }
       } catch (error) {
@@ -75,9 +84,9 @@ function App() {
           `Failed to fetched inventory data from the database | Error = ${error.message}`
         );
         // throw error;
-      } finally{
+      } finally {
         // testing
-        setLoading(false)
+        setLoading(false);
       }
     })();
   }, []);
