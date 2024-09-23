@@ -28,6 +28,8 @@ This is a full stack e-commerce platform built using the MERN stack.
 
 ## Deployed Link
 
+Find the deployed link of the project [here](https://fashion-vista-2.vercel.app)
+
 ## Screenshots
 
 ## Installation
