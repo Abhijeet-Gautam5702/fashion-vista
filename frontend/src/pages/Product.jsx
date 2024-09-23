@@ -63,9 +63,9 @@ function Product() {
   // Change the related-products according to the current product
   useEffect(() => {
     setRelatedProducts(findRelatedProductsAccToProductCategory());
-    if (relatedProducts.length) {
-      setLoading(false);
-    }
+    // if (relatedProducts.length) {
+    setLoading(false);
+    // }
   }, [productDetails]);
 
   // function to filter the inventory items and get the related-products according to the current product
