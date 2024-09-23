@@ -12,7 +12,7 @@ import checkServerHealth from "./utilities/checkServerHealth.js";
 function App() {
   // local state
   const [loading, setLoading] = useState(true);
-  const [loadingTimer, setLoadingTimer] = useState(65);
+  const [loadingTimer, setLoadingTimer] = useState(120);
 
   const storeAuth = useSelector((state) => state.auth);
   const storeCart = useSelector((state) => state.cart);
@@ -100,11 +100,11 @@ function App() {
 
   if (loading) {
     return (
-      <div className="flex flex-col justify-center items-center w-full h-screen">
-        <p className="font-main font-500 text-size-20 text-black">
+      <div className="flex flex-col justify-center items-center w-full h-screen border-2 border-black">
+        <p className="text-center font-main font-500 text-size-17 sm:text-size-20 text-black">
           {`Please wait patiently for ${loadingTimer} seconds`}
         </p>
-        <p className="font-main font-500 text-size-17 text-black">
+        <p className="text-center font-main font-500 text-size-14 sm:text-size-17 text-black">
           The backend server has been inactive for quite some time
         </p>
         <Loader />
