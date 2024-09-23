@@ -16,10 +16,11 @@ function AdminApp() {
 
   const storeAuth = useSelector((state) => state.auth);
 
+  // Ping the backend every 10 minutes after the page is rendered
   useEffect(() => {
     setInterval(async () => {
       await checkServerHealth();
-    }, 5 * 60 * 1000);
+    }, 10 * 60 * 1000);
   }, []);
 
   // On Page Load => Fetch the currently logged-in Admin (if at all)

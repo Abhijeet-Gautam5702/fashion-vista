@@ -12,6 +12,7 @@ import checkServerHealth from "./utilities/checkServerHealth.js";
 function App() {
   // local state
   const [loading, setLoading] = useState(true);
+  const [loadingTimer, setLoadingTimer] = useState(65);
 
   const storeAuth = useSelector((state) => state.auth);
   const storeCart = useSelector((state) => state.cart);
@@ -19,10 +20,19 @@ function App() {
 
   const dispatch = useDispatch();
 
+  // Put a countdown till the time backend gets active
+  useEffect(() => {
+    setInterval(() => {
+      setLoadingTimer((prev) => prev - 1);
+    }, 1000);
+    setLoading(false);
+  }, []);
+
+  // Once the webpage is rendered, ping the backend every 10 minutes
   useEffect(() => {
     setInterval(async () => {
       await checkServerHealth();
-    }, 5 * 60 * 1000);
+    }, 10 * 60 * 1000);
   }, []);
 
   // Get the currently logged-in user
@@ -91,6 +101,12 @@ function App() {
   if (loading) {
     return (
       <div className="flex flex-col justify-center items-center w-full h-screen">
+        <p className="font-main font-500 text-size-20 text-black">
+          {`Please wait patiently for ${loadingTimer} seconds`}
+        </p>
+        <p className="font-main font-500 text-size-17 text-black">
+          The backend server has been inactive for quite some time
+        </p>
         <Loader />
       </div>
     );
