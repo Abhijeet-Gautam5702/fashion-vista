@@ -63,7 +63,7 @@ function Product() {
   // Change the related-products according to the current product
   useEffect(() => {
     setRelatedProducts(findRelatedProductsAccToProductCategory());
-    if (relatedProducts) {
+    if (relatedProducts.length) {
       setLoading(false);
     }
   }, [productDetails]);
